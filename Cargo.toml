@@ -3,15 +3,12 @@ name = "domatt"
 version = "0.1.0"
 edition = "2021"
 authors = ["toadslop <bnheise@gmail.com>"]
-readme = "./README.md"
-repository = "tbd"
+repository = "https://github.com/toadslop/domatt"
 homepage = "tbd"
 keywords = ["clayui", "yew", "wasm"]
 categories = ["web-programming", "wasm"]
 license = "Apache-2.0"
-description = "Yew wrapper for Clay Web Components"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "Rust type definitions for HTML attributes and their values for use in WASM applications."
 
 [dependencies]
 strum = {version = "0.24.1", features = ["derive"]}
