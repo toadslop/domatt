@@ -23,11 +23,20 @@ use std::fmt::{self, Display};
 
 use web_sys::Element;
 
-pub mod aria_attributes;
-pub mod button_html_attributes;
-pub mod html_attributes;
-pub mod misc_html_attributes;
-pub mod svg_attributes;
+mod aria_attributes;
+pub use aria_attributes::*;
+
+mod button_html_attributes;
+pub use button_html_attributes::*;
+
+mod html_attributes;
+pub use html_attributes::*;
+
+mod misc_html_attributes;
+pub use misc_html_attributes::*;
+
+mod svg_attributes;
+pub use svg_attributes::*;
 
 /// Marks a type as a DOM attribute.
 pub trait Attribute: Display {

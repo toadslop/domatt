@@ -4,7 +4,7 @@ use strum::Display;
 use crate::{Attribute, NumberOrString};
 
 /// An enum of many different html attribute keys, regardless of element type. This can be
-/// used in conjunction with [html_attributes] to give you access to practically all HTML
+/// used in conjunction with [crate::HtmlAttributes] to give you access to practically all HTML
 /// attributes. Each variant takes either tuple that represents the valid values for the
 /// attributes or nothing to represent a boolean attribute.
 #[derive(Debug, Clone, Display, Eq)]
