@@ -1,5 +1,5 @@
 use super::html_attributes::AriaRole;
-use crate::Attribute;
+use crate::{Attribute, NumberOrString};
 use std::fmt::Display;
 use strum::Display;
 
@@ -632,14 +632,6 @@ impl std::hash::Hash for SVGAttributes {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
         core::mem::discriminant(self).hash(state);
     }
-}
-
-/// An enum representing a value that could be either a number or string. It's typically
-/// used to represent a number value that could have an optional unit attached to it.
-#[derive(Debug, Clone, Eq, PartialEq)]
-pub enum NumberOrString {
-    Number(i64),
-    String(String),
 }
 
 impl Display for NumberOrString {

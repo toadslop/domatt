@@ -3,6 +3,10 @@ use strum::Display;
 
 use crate::Attribute;
 
+// TODO: many of these attributes belong to somewhat obscure HTML elements.
+// Should separate them out into their own enums rather than lumping them in
+// here.
+
 /// An enum defining the different generic html attribute keys. Each variant takes either tuple
 /// that represents the valid values for the attributes or nothing to represent a boolean
 /// attribute. Note that 'class' and 'style' are not available because these are expected to
@@ -12,8 +16,6 @@ use crate::Attribute;
 pub enum HtmlAttributes {
     // Standard HTML Attributes
     AccessKey(String),
-    // Note: class is already handled well by Yew, so we are disabling it here.
-    // Class(String),
     ContentEditable(ContentEditable),
     ContextMenu(String),
     Dir(String),
