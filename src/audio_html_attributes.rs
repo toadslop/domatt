@@ -1,3 +1,3 @@
 use crate::AnchorHtmlAttributes;
 
-type AudioHtmlAttributes = AnchorHtmlAttributes;
+pub type AudioHtmlAttributes = AnchorHtmlAttributes;
