@@ -48,6 +48,9 @@ pub use audio_html_attributes::*;
 mod area_html_attributes;
 pub use area_html_attributes::*;
 
+mod base_html_attributes;
+pub use base_html_attributes::*;
+
 /// Marks a type as a DOM attribute.
 pub trait Attribute: Display {
     /// Returns a string representing the key of a DOM attribute.
@@ -95,9 +98,9 @@ impl fmt::Display for AttributeError {
 
 /// An enum representing a value that could be either a number or string. It's typically
 /// used to represent a number value that could have an optional unit attached to it.
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub enum NumberOrString<'a> {
-    Number(i64),
+    Number(f64),
     String(&'a str),
 }
 
@@ -110,7 +113,7 @@ impl<'a> Display for NumberOrString<'a> {
     }
 }
 
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum HtmlAttributeReferrerPolicy {
     NoReferrer,
