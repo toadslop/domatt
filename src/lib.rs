@@ -19,8 +19,9 @@
 //! Please file an [issue](https://github.com/toadslop/domatt/issues), or if you'd like
 //! to solve it yourself feel free to put in a PR.
 
-use std::fmt::{self, Display};
+use std::fmt::{self, Debug, Display};
 
+use strum::Display;
 use web_sys::Element;
 
 mod aria_attributes;
@@ -37,6 +38,12 @@ pub use misc_html_attributes::*;
 
 mod svg_attributes;
 pub use svg_attributes::*;
+
+mod anchor_html_attributes;
+pub use anchor_html_attributes::*;
+
+mod audio_html_attributes;
+pub use audio_html_attributes::*;
 
 /// Marks a type as a DOM attribute.
 pub trait Attribute: Display {
@@ -89,4 +96,32 @@ impl fmt::Display for AttributeError {
 pub enum NumberOrString {
     Number(i64),
     String(String),
+}
+
+#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[strum(serialize_all = "kebab-case")]
+pub enum HtmlAttributeReferrerPolicy {
+    NoReferrer,
+    NoReferrerWhenDowngrade,
+    Origin,
+    OriginWhenCrossOrigin,
+    SameOrigin,
+    StrictOrigin,
+    StrictOriginWhenCrossOrigin,
+    UnsafeUrl,
+    #[strum(serialize = "")]
+    Blank,
+}
+
+#[derive(Debug, Clone, Display, Eq, PartialEq)]
+pub enum HtmlAttributeAnchorTarget {
+    #[strum(serialize = "_self")]
+    Self_,
+    #[strum(serialize = "_blank")]
+    Blank,
+    #[strum(serialize = "_parent")]
+    Parent,
+    #[strum(serialize = "_top")]
+    Top,
+    Custom(String),
 }

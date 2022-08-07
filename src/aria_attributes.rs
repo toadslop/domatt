@@ -1,13 +1,13 @@
-use strum::Display;
-
 use crate::Attribute;
+use strum::Display;
 
 /// Models the possible values of the `aria-autocomplete` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete>
-#[derive(Debug, PartialEq, Clone, Display, Hash, Eq)]
+#[derive(Debug, PartialEq, Clone, Display, Hash, Eq, Default)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaAutocomplete {
+    #[default]
     None,
     Inline,
     List,
