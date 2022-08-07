@@ -45,6 +45,9 @@ pub use anchor_html_attributes::*;
 mod audio_html_attributes;
 pub use audio_html_attributes::*;
 
+mod area_html_attributes;
+pub use area_html_attributes::*;
+
 /// Marks a type as a DOM attribute.
 pub trait Attribute: Display {
     /// Returns a string representing the key of a DOM attribute.

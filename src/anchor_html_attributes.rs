@@ -50,7 +50,7 @@ impl Attribute for AnchorHtmlAttributes {
     }
 }
 
-/// An enum defining the options for the type attribute of a link tag.
+/// An enum defining the options for the rel attribute of a link tag.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types>
 #[derive(Debug, Clone, Display, Eq, PartialEq)]
