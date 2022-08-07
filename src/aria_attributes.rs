@@ -147,11 +147,11 @@ pub enum AriaSort {
 /// that represents the valid values for the attributes.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA>
-#[derive(Debug, Clone, Display, Eq)]
+#[derive(Debug, Clone, Display)]
 #[strum(serialize_all = "kebab-case")]
-pub enum AriaAttributes {
+pub enum AriaAttributes<'a> {
     /// Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application.
-    AriaActivedescendant(String),
+    AriaActivedescendant(&'a str),
 
     /// Indicates whether assistive technologies will present all, or only parts of, the changed region based on the
     /// change notifications defined by the aria-relevant attribute.
@@ -159,7 +159,7 @@ pub enum AriaAttributes {
 
     /// Indicates whether inputting text could trigger display of one or more predictions of the user's intended value
     /// for an input and specifies how predictions would be presented if they are made.
-    AriaAutocomplete(AriaAutocomplete),
+    AriaAutocomplete(&'a AriaAutocomplete),
 
     /// Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications
     /// are complete before exposing them to the user.
@@ -168,7 +168,7 @@ pub enum AriaAttributes {
     /// Indicates the current "checked" state of checkboxes, radio buttons, and other widgets.
     ///
     /// see [AriaPressed](`AriaAttributes::AriaPressed`) see [AriaSelected](`AriaAttributes::AriaSelected`).
-    AriaChecked(AriaChecked),
+    AriaChecked(&'a AriaChecked),
 
     /// Defines the total number of columns in a table, grid, or treegrid.
     ///
@@ -192,20 +192,20 @@ pub enum AriaAttributes {
     /// Identifies the element (or elements) whose contents or presence are controlled by the current element.
     ///
     /// See [AriaOwns](`AriaAttributes::AriaOwns`).
-    AriaControls(String),
+    AriaControls(&'a str),
 
     /// Indicates the element that represents the current item within a container or set of related elements.
-    AriaCurrent(AriaCurrent),
+    AriaCurrent(&'a AriaCurrent),
 
     /// Identifies the element (or elements) that describes the object.
     ///
     /// See [AriaLabelledby](`AriaAttributes::AriaLabelledby`)
-    AriaDescribedby(String),
+    AriaDescribedby(&'a str),
 
     /// Identifies the element that provides a detailed, extended description for the object.
     ///
     /// See [AriaDescribedby](`AriaAttributes::AriaDescribedby`).
-    AriaDetails(String),
+    AriaDetails(&'a str),
 
     /// Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
     ///
@@ -215,28 +215,28 @@ pub enum AriaAttributes {
     AriaDisabled(bool),
 
     /// Indicates what functions can be performed when a dragged object is released on the drop target.
-    AriaDropeffect(AriaDropeffect),
+    AriaDropeffect(&'a AriaDropeffect),
 
     /// Identifies the element that provides an error message for the object.
     ///
     /// See [AriaInvalid](`AriaAttributes::AriaInvalid`).
     ///
     /// See [AriaDescribedby](`AriaAttributes::AriaDescribedby`)).
-    AriaErrormessage(String),
+    AriaErrormessage(&'a str),
 
     /// Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed.
     AriaExpanded(bool),
 
     /// Identifies the next element (or elements) in an alternate reading order of content which, at the user's discretion,
     /// allows assistive technology to override the general default of reading in document source order.
-    AriaFlowto(String),
+    AriaFlowto(&'a str),
 
     /// Indicates an element's "grabbed" state in a drag-and-drop operation.
     AriaGrabbed(bool),
 
     /// Indicates the availability and type of interactive popup element, such as menu or dialog, that can
     /// be triggered by an element.
-    AriaHaspopup(AriaHasPopup),
+    AriaHaspopup(&'a AriaHasPopup),
 
     /// Indicates whether the element is exposed to an accessibility API.
     ///
@@ -246,27 +246,27 @@ pub enum AriaAttributes {
     /// Indicates the entered value does not conform to the format expected by the application.
     ///
     /// see [AriaErrormessage](`AriaAttributes::AriaErrormessage`).
-    AriaInvalid(AriaInvalid),
+    AriaInvalid(&'a AriaInvalid),
 
     /// Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element.
-    AriaKeyshortcuts(String),
+    AriaKeyshortcuts(&'a str),
 
     /// Defines a string value that labels the current element.
     ///
     /// see [AriaLabelledby](`AriaAttributes::AriaLabelledby`)
-    AriaLabel(String),
+    AriaLabel(&'a str),
 
     /// Identifies the element (or elements) that labels the current element.
     ///
     /// see [AriaDescribedby](`AriaAttributes::AriaDescribedby`).
-    AriaLabelledby(String),
+    AriaLabelledby(&'a str),
 
     /// Defines the hierarchical level of an element within a structure.
     AriaLevel(i64),
 
     /// Indicates that an element will be updated, and describes the types of updates the user agents, assistive
     /// technologies, and user can expect from the live region.
-    AriaLive(AriaLive),
+    AriaLive(&'a AriaLive),
 
     /// Indicates whether an element is modal when displayed.
     AriaModal(bool),
@@ -278,17 +278,17 @@ pub enum AriaAttributes {
     AriaMultiselectable(bool),
 
     /// Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous.
-    AriaOrientation(AriaOrientation),
+    AriaOrientation(&'a AriaOrientation),
 
     /// Identifies an element (or elements) in order to define a visual, functional, or contextual parent/child relationship
     /// between DOM elements where the DOM hierarchy cannot be used to represent the relationship.
     ///
     /// see [AriaControls](`AriaAttributes::AriaControls`).
-    AriaOwns(String),
+    AriaOwns(&'a str),
 
     /// Defines a short hint (a word or short phrase) intended to aid the user with data entry when the control has no value.
     /// A hint could be a sample value or a brief description of the expected format.
-    AriaPlaceholder(String),
+    AriaPlaceholder(&'a str),
 
     /// Defines an element's number or position in the current set of listitems or treeitems. Not required if all elements
     /// in the set are present in the DOM.
@@ -301,7 +301,7 @@ pub enum AriaAttributes {
     /// See [AriaChecked](`AriaAttributes::AriaChecked`).
     ///
     /// See [AriaSelected](`AriaAttributes::AriaSelected`).
-    AriaPressed(AriaPressed),
+    AriaPressed(&'a AriaPressed),
 
     /// Indicates that the element is not editable, but is otherwise operable.
     /// see [AriaDisabled](`AriaAttributes::AriaDisabled`).
@@ -310,13 +310,13 @@ pub enum AriaAttributes {
     /// Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.
     ///
     /// see [AriaAtomic](`AriaAttributes::AriaAtomic`).
-    AriaRelevant(AriaRelevant),
+    AriaRelevant(&'a AriaRelevant),
 
     /// Indicates that user input is required on the element before a form may be submitted.
     AriaRequired(bool),
 
     /// Defines a human-readable, author-localized description for the role of an element.
-    AriaRoledescription(String),
+    AriaRoledescription(&'a str),
 
     /// Defines the total number of rows in a table, grid, or treegrid.
     ///
@@ -345,7 +345,7 @@ pub enum AriaAttributes {
     AriaSetsize(i64),
 
     /// Indicates if items in a table or grid are sorted in ascending or descending order.
-    AriaSort(AriaSort),
+    AriaSort(&'a AriaSort),
 
     /// Defines the maximum allowed value for a range widget.
     AriaValuemax(i64),
@@ -359,22 +359,10 @@ pub enum AriaAttributes {
     AriaValuenow(i64),
 
     /// Defines the human readable text alternative of aria-valuenow for a range widget.
-    AriaValuetext(String),
+    AriaValuetext(&'a str),
 }
 
-impl PartialEq for AriaAttributes {
-    fn eq(&self, other: &Self) -> bool {
-        core::mem::discriminant(self) == core::mem::discriminant(other)
-    }
-}
-
-impl std::hash::Hash for AriaAttributes {
-    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
-        core::mem::discriminant(self).hash(state);
-    }
-}
-
-impl Attribute for AriaAttributes {
+impl<'a> Attribute for AriaAttributes<'a> {
     fn get_key(&self) -> String {
         self.to_string()
     }

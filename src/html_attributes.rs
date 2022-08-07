@@ -1,4 +1,3 @@
-use std::hash::Hash;
 use strum::Display;
 
 use crate::Attribute;
@@ -11,63 +10,63 @@ use crate::Attribute;
 /// that represents the valid values for the attributes or nothing to represent a boolean
 /// attribute. Note that 'class' and 'style' are not available because these are expected to
 /// be handled by whatever UI framework you're using.
-#[derive(Debug, Clone, Display, Eq)]
+#[derive(Debug, Clone, Display)]
 #[strum(serialize_all = "lowercase")]
-pub enum HtmlAttributes {
+pub enum HtmlAttributes<'a> {
     // Standard HTML Attributes
-    AccessKey(String),
-    ContentEditable(ContentEditable),
-    ContextMenu(String),
-    Dir(String),
+    AccessKey(&'a str),
+    ContentEditable(&'a ContentEditable),
+    ContextMenu(&'a str),
+    Dir(&'a str),
     Draggable(bool),
     Hidden(bool),
-    Id(String),
-    Lang(String),
-    Placeholder(String),
-    Slot(String),
+    Id(&'a str),
+    Lang(&'a str),
+    Placeholder(&'a str),
+    Slot(&'a str),
     SpellCheck(bool),
     // Style(CSSProperties), TODO: make a css properties handler
     TabIndex(u64),
-    Title(String),
-    Translate(Translate),
+    Title(&'a str),
+    Translate(&'a Translate),
 
     // WAI-ARIA
-    Role(AriaRole),
+    Role(&'a AriaRole),
 
     // RDFa Attributes
-    About(String),
-    Datatype(String),
-    Inlist(String),
-    Prefix(String),
-    Property(String),
-    Resource(String),
-    Typeof(String),
-    Vocab(String),
+    About(&'a str),
+    Datatype(&'a str),
+    Inlist(&'a str),
+    Prefix(&'a str),
+    Property(&'a str),
+    Resource(&'a str),
+    Typeof(&'a str),
+    Vocab(&'a str),
 
     // Non-standard Attributes
-    AutoCapitalize(String),
-    AutoCorrect(String),
-    AutoSave(String),
-    Color(String),
-    ItemProp(String),
+    AutoCapitalize(&'a str),
+    AutoCorrect(&'a str),
+    AutoSave(&'a str),
+    Color(&'a str),
+    ItemProp(&'a str),
     ItemScope(bool),
-    ItemType(String),
-    ItemID(String),
-    ItemRef(String),
+    ItemType(&'a str),
+    ItemID(&'a str),
+    ItemRef(&'a str),
     Results(u64),
-    Security(String),
-    Unselectable(Unselectable),
+    Security(&'a str),
+    Unselectable(&'a Unselectable),
 
     // Living Standard
     /// Hints at the type of data that might be entered by the user while editing the element or its contents
     ///
     /// See <https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute>
-    InputMode(InputMode),
+    InputMode(&'a InputMode),
 
     /// Specify that a standard HTML element should behave like a defined custom built-in element
     ///
     /// See <https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is>
-    Is(String),
+    Is(&'a str),
 }
 
 /// An enum representing the different options for the `aria-role` attribute.
@@ -148,7 +147,7 @@ pub enum AriaRole {
     Custom(String),
 }
 
-impl Attribute for HtmlAttributes {
+impl<'a> Attribute for HtmlAttributes<'a> {
     fn get_key(&self) -> String {
         self.to_string()
     }
@@ -196,18 +195,6 @@ impl Attribute for HtmlAttributes {
                 _ => Some(val.to_string()),
             },
         }
-    }
-}
-
-impl PartialEq for HtmlAttributes {
-    fn eq(&self, other: &Self) -> bool {
-        core::mem::discriminant(self) == core::mem::discriminant(other)
-    }
-}
-
-impl Hash for HtmlAttributes {
-    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
-        core::mem::discriminant(self).hash(state);
     }
 }
 

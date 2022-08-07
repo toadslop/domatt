@@ -6,7 +6,7 @@ use crate::{Attribute, HtmlAttributeAnchorTarget, HtmlAttributeReferrerPolicy};
 /// An enum defining the different area-element-specific attribute keys. Each variant takes either tuple
 /// that represents the valid values for the attributes or nothing to represent a boolean
 /// attribute.
-#[derive(Debug, Clone, Display, Eq)]
+#[derive(Debug, Clone, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum AreaHtmlAttributes<'a> {
     Alt(&'a str),
@@ -25,19 +25,6 @@ pub enum AreaHtmlAttributes<'a> {
     /// shape are consistent, consider passing the same variable when setting these attributes.
     Shape(&'a Shape),
     Target(&'a HtmlAttributeAnchorTarget),
-}
-
-impl<'a> PartialEq for AreaHtmlAttributes<'a> {
-    fn eq(&self, other: &Self) -> bool {
-        // For equality, we only care if the keys are identical.
-        core::mem::discriminant(self) == core::mem::discriminant(other)
-    }
-}
-
-impl<'a> std::hash::Hash for AreaHtmlAttributes<'a> {
-    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
-        core::mem::discriminant(self).hash(state);
-    }
 }
 
 impl<'a> Attribute for AreaHtmlAttributes<'a> {

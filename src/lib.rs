@@ -95,13 +95,22 @@ impl fmt::Display for AttributeError {
 
 /// An enum representing a value that could be either a number or string. It's typically
 /// used to represent a number value that could have an optional unit attached to it.
-#[derive(Debug, Clone, Eq, PartialEq)]
-pub enum NumberOrString {
+#[derive(Debug, Clone)]
+pub enum NumberOrString<'a> {
     Number(i64),
-    String(String),
+    String(&'a str),
 }
 
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+impl<'a> Display for NumberOrString<'a> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            NumberOrString::Number(val) => write!(f, "{}", val),
+            NumberOrString::String(val) => write!(f, "{}", val),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum HtmlAttributeReferrerPolicy {
     NoReferrer,
@@ -116,7 +125,7 @@ pub enum HtmlAttributeReferrerPolicy {
     Blank,
 }
 
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Clone, Display)]
 pub enum HtmlAttributeAnchorTarget {
     #[strum(serialize = "_self")]
     Self_,
