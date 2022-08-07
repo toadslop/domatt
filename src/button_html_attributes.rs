@@ -4,7 +4,7 @@ use strum::Display;
 /// An enum defining the different button-specific attribute keys. Each variant takes either tuple
 /// that represents the valid values for the attributes or nothing to represent a boolean
 /// attribute.
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "camelCase")]
 pub enum ButtonHtmlAttributes<'a> {
     AutoFocus,
@@ -45,7 +45,7 @@ impl<'a> Attribute for ButtonHtmlAttributes<'a> {
 /// An enum representing the different options for the type attribute of a button element.
 ///
 ///  <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum ButtonType {
     Submit,

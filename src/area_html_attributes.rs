@@ -6,7 +6,7 @@ use crate::{Attribute, HtmlAttributeAnchorTarget, HtmlAttributeReferrerPolicy};
 /// An enum defining the different area-element-specific attribute keys. Each variant takes either tuple
 /// that represents the valid values for the attributes or nothing to represent a boolean
 /// attribute.
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum AreaHtmlAttributes<'a> {
     Alt(&'a str),
@@ -63,7 +63,7 @@ impl<'a> Attribute for AreaHtmlAttributes<'a> {
 /// Shape tag: <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-shape>
 ///
 /// Coord tag: <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-coords>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum Shape {
     Rect(Rect),
@@ -72,7 +72,7 @@ pub enum Shape {
 }
 
 /// Represents a rectangle shape for an html area tag.
-#[derive(Debug, PartialEq, Clone, Eq)]
+#[derive(Debug)]
 pub struct Rect {
     top_right: Coord,
     bottom_left: Coord,
@@ -99,7 +99,7 @@ impl std::fmt::Display for Rect {
 }
 
 /// Represents a circle for an html area tag.
-#[derive(Debug, PartialEq, Clone, Eq)]
+#[derive(Debug)]
 pub struct Circle {
     center: Coord,
     radius: u16,
@@ -118,7 +118,7 @@ impl std::fmt::Display for Circle {
 }
 
 /// Represents a polygon for an html area tag.
-#[derive(Debug, PartialEq, Clone, Eq)]
+#[derive(Debug)]
 pub struct Poly(Vec<Coord>);
 
 impl Poly {
@@ -159,7 +159,7 @@ impl std::fmt::Display for Poly {
 /// * [Poly]
 /// * [Rect]
 /// * [Circle]
-#[derive(Debug, PartialEq, Clone, Eq)]
+#[derive(Debug)]
 pub struct Coord {
     x: u16,
     y: u16,
@@ -180,7 +180,7 @@ impl std::fmt::Display for Coord {
 /// An enum defining the options for the rel attribute of an area tag.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum AreaTagRel {
     Alternate,

@@ -10,7 +10,7 @@ use crate::Attribute;
 /// that represents the valid values for the attributes or nothing to represent a boolean
 /// attribute. Note that 'class' and 'style' are not available because these are expected to
 /// be handled by whatever UI framework you're using.
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum HtmlAttributes<'a> {
     // Standard HTML Attributes
@@ -72,7 +72,7 @@ pub enum HtmlAttributes<'a> {
 /// An enum representing the different options for the `aria-role` attribute.
 ///
 ///  <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaRole {
     Alert,
@@ -201,7 +201,7 @@ impl<'a> Attribute for HtmlAttributes<'a> {
 /// An enum representing the different options for the `aria-role` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum ContentEditable {
     True,
@@ -212,7 +212,7 @@ pub enum ContentEditable {
 /// An enum representing the different options for the `translate` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/translate>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum Translate {
     Yes,
@@ -222,7 +222,7 @@ pub enum Translate {
 /// An enum representing the different options for the `unselectable` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/unselectable>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum Unselectable {
     On,
@@ -232,7 +232,7 @@ pub enum Unselectable {
 /// An enum representing the different options for the `inputmode` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum InputMode {
     None,

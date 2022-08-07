@@ -6,7 +6,7 @@ use crate::{Attribute, NumberOrString};
 /// used in conjunction with [crate::HtmlAttributes] to give you access to practically all HTML
 /// attributes. Each variant takes either tuple that represents the valid values for the
 /// attributes or nothing to represent a boolean attribute.
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum MiscHtmlAttributes<'a> {
     // Standard HTML Attributes

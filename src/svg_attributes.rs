@@ -1,20 +1,21 @@
+use std::fmt::Display;
+
 use super::html_attributes::AriaRole;
 use crate::{Attribute, NumberOrString};
-use std::fmt::Display;
 use strum::Display;
 
 /// An enum defining the different attribute keys for SVG elements. Each variant takes a tuple
 /// that represents the valid values for the attributes.
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum SVGAttributes<'a> {
     // Note: class is already handled well by Yew, so we are disabling it here.
     // Class(String),
     Color(&'a str),
-    Height(NumberOrString<'a>),
+    Height(SvgLength),
     Id(&'a str),
     Lang(&'a str),
-    Max(NumberOrString<'a>),
+    Max(NumberOrString<'a>), // TODO: define this type: https://developer.mozilla.org/en-US/docs/Web/SVG/Content_type#clock-value
     Media(&'a str),
     Method(&'a str),
     Min(NumberOrString<'a>),
@@ -23,20 +24,20 @@ pub enum SVGAttributes<'a> {
     // Style: CSSProperties
     Target(&'a str),
     Type(&'a str),
-    Width(NumberOrString<'a>),
+    Width(SvgLength),
     // Other HTML properties supported by SVG elements in browsers
-    Role(&'a AriaRole),
+    Role(AriaRole),
     TabIndex(i64),
-    CrossOrigin(&'a CrossOrigin),
+    CrossOrigin(CrossOrigin),
     // SVG Specific attributes
-    AccentHeight(NumberOrString<'a>),
-    Accumulate(&'a Accumulate),
-    Additive(&'a Additive),
-    AlignmentBaseline(&'a AlignmentBaseline),
+    AccentHeight(f64),
+    Accumulate(Accumulate),
+    Additive(Additive),
+    AlignmentBaseline(AlignmentBaseline),
     #[strum(serialize = "allowReorder")]
-    AllowReorder(&'a AllowReorder),
-    Alphabetic(NumberOrString<'a>),
-    Amplitude(NumberOrString<'a>),
+    AllowReorder(AllowReorder),
+    Alphabetic(NumberOrString<'a>), // TODO: make a data type that can better restrict the string to scientific notation
+    Amplitude(NumberOrString<'a>), // TODO: make a data type that can better restrict the string to scientific notation
     ArabicForm(&'a ArabicForm),
     Ascent(NumberOrString<'a>),
     #[strum(serialize = "attributeName")]
@@ -624,7 +625,7 @@ impl<'a> Attribute for SVGAttributes<'a> {
 /// An enum representing the different options for the `cross-origin` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum CrossOrigin {
     Anonymous,
@@ -636,7 +637,7 @@ pub enum CrossOrigin {
 /// An enum representing the different options for the `accumulate` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/accumulate>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum Accumulate {
     None,
@@ -646,7 +647,7 @@ pub enum Accumulate {
 /// An enum representing the different options for the `additive` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/additive>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum Additive {
     Replace,
@@ -656,7 +657,7 @@ pub enum Additive {
 /// An enum representing the different options for the `alignment-baseline` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/alignment-baseline>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum AlignmentBaseline {
     Auto,
@@ -677,7 +678,7 @@ pub enum AlignmentBaseline {
 /// An enum representing the different options for the `allow-reorder` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/allow-reorder>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum AllowReorder {
     No,
@@ -687,7 +688,7 @@ pub enum AllowReorder {
 /// An enum representing the different options for the `arabic-form` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/arabic-form>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum ArabicForm {
     Initial,
@@ -699,7 +700,7 @@ pub enum ArabicForm {
 /// An enum representing the different options for the `clip-rule` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/clip-rule>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum ClipRule {
     Nonzero,
@@ -710,7 +711,7 @@ pub enum ClipRule {
 /// An enum representing the different options for the `clipPathUnits` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/clipPathUnits>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "camelCase")]
 pub enum ClipPathUnits {
     UserSpaceOnUse,
@@ -720,7 +721,7 @@ pub enum ClipPathUnits {
 /// An enum representing the different options for the `color-interpolation-filters` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-interpolation-filters>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "camelCase")]
 pub enum ColorInterpolationFilters {
     Auto,
@@ -734,7 +735,7 @@ pub enum ColorInterpolationFilters {
 /// An enum representing the different options for the `fill-rule` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum FillRule {
     Nonzero,
@@ -745,7 +746,7 @@ pub enum FillRule {
 /// An enum representing the different options for the `focusable` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/focusable>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum Focusable {
     True,
@@ -756,7 +757,7 @@ pub enum Focusable {
 /// An enum representing the different options for the `stroke-linecap` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum StrokeLinecap {
     Butt,
@@ -768,11 +769,55 @@ pub enum StrokeLinecap {
 /// An enum representing the different options for the `stroke-linejoin` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linejoin>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum StrokeLinejoin {
     Miter,
     Round,
     Bevel,
     Inherit,
+}
+
+/// An enum representing the different options for the `stroke-linejoin` attribute.
+///
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/height>
+#[derive(Debug, Display)]
+#[strum(serialize_all = "lowercase")]
+pub enum SvgHeight {
+    Auto,
+    Length(SvgLength),
+}
+
+#[derive(Debug)]
+pub struct SvgLength {
+    value: f64,
+    unit: SvgLengthUnit,
+}
+
+impl SvgLength {
+    pub fn new(value: f64, unit: SvgLengthUnit) -> Self {
+        Self { value, unit }
+    }
+}
+
+impl Display for SvgLength {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}{}", self.value, self.unit)
+    }
+}
+
+/// An enum defining the different options for length units for svg elements.
+#[derive(Debug, Display)]
+#[strum(serialize_all = "lowercase")]
+pub enum SvgLengthUnit {
+    Em,
+    Ex,
+    Px,
+    In,
+    Cm,
+    Mm,
+    Pt,
+    Pc,
+    #[strum(serialize = "%")]
+    Percent,
 }

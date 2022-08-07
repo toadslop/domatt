@@ -4,7 +4,7 @@ use strum::Display;
 /// Models the possible values of the `aria-autocomplete` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete>
-#[derive(Debug, PartialEq, Clone, Display, Hash, Eq, Default)]
+#[derive(Debug, Display, Default)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaAutocomplete {
     #[default]
@@ -17,7 +17,7 @@ pub enum AriaAutocomplete {
 /// Models the possible values of the `aria-checked` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-checked>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaChecked {
     False,
@@ -28,7 +28,7 @@ pub enum AriaChecked {
 /// Models the possible values of the `aria-current` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaCurrent {
     False,
@@ -43,7 +43,7 @@ pub enum AriaCurrent {
 /// Models the possible values of the `aria-dropeffect` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-dropeffect>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaDropeffect {
     None,
@@ -57,7 +57,7 @@ pub enum AriaDropeffect {
 /// Models the possible values of the `aria-haspopup` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaHasPopup {
     False,
@@ -72,7 +72,7 @@ pub enum AriaHasPopup {
 /// Models the possible values of the `aria-invalid` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaInvalid {
     False,
@@ -84,7 +84,7 @@ pub enum AriaInvalid {
 /// Models the possible values of the `aria-live` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaLive {
     Off,
@@ -95,7 +95,7 @@ pub enum AriaLive {
 /// Models the possible values of the `aria-orientation` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaOrientation {
     Horizontal,
@@ -110,7 +110,7 @@ type AriaPressed = AriaChecked;
 /// Models the possible values of the `aria-relevant` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-relevant>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaRelevant {
     Additions,
@@ -134,7 +134,7 @@ pub enum AriaRelevant {
 /// Models the possible values of the `aria-sort` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-sort>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaSort {
     None,
@@ -147,7 +147,7 @@ pub enum AriaSort {
 /// that represents the valid values for the attributes.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA>
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum AriaAttributes<'a> {
     /// Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application.

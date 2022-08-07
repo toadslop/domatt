@@ -6,7 +6,7 @@ use crate::{Attribute, HtmlAttributeAnchorTarget, HtmlAttributeReferrerPolicy};
 /// An enum defining the different anchor-element-specific attribute keys. Each variant takes either tuple
 /// that represents the valid values for the attributes or nothing to represent a boolean
 /// attribute.
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum AnchorHtmlAttributes<'a> {
     Download(Option<&'a str>),
@@ -53,7 +53,7 @@ impl<'a> Attribute for AnchorHtmlAttributes<'a> {
 /// An enum defining the options for the rel attribute of a link tag.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types>
-#[derive(Debug, Clone, Display, Eq, PartialEq)]
+#[derive(Debug, Display)]
 #[strum(serialize_all = "lowercase")]
 pub enum ATagRel {
     Alternate,
