@@ -57,6 +57,9 @@ pub use blockquote_html_attributes::*;
 mod canvas_html_attributes;
 pub use canvas_html_attributes::*;
 
+mod col_html_attributes;
+pub use col_html_attributes::*;
+
 /// Marks a type as a DOM attribute.
 pub trait Attribute: Display {
     /// Returns a string representing the key of a DOM attribute.
