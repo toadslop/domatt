@@ -1,4 +1,4 @@
-use strum::Display;
+use strum::AsRefStr;
 
 use crate::{Attribute, NumberOrString};
 
@@ -6,7 +6,7 @@ use crate::{Attribute, NumberOrString};
 /// used in conjunction with [crate::HtmlAttributes] to give you access to practically all HTML
 /// attributes. Each variant takes either tuple that represents the valid values for the
 /// attributes or nothing to represent a boolean attribute.
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum MiscHtmlAttributes<'a> {
     // Standard HTML Attributes
@@ -119,119 +119,119 @@ pub enum MiscHtmlAttributes<'a> {
     Wrap(&'a str),
 }
 
-impl<'a> Attribute for MiscHtmlAttributes<'a> {
-    fn get_key(&self) -> String {
-        self.to_string()
+impl<'a> Attribute<'a> for MiscHtmlAttributes<'a> {
+    fn get_key(&self) -> &str {
+        self.as_ref()
     }
 
-    fn get_val(&self) -> Option<String> {
+    fn get_val(&self) -> Option<&str> {
         match self {
-            MiscHtmlAttributes::Accept(val) => Some(val.to_string()),
-            MiscHtmlAttributes::AcceptCharset(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Action(val) => Some(val.to_string()),
-            MiscHtmlAttributes::AllowFullScreen(val) => Some(val.to_string()),
-            MiscHtmlAttributes::AllowTransparency(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Alt(val) => Some(val.to_string()),
-            MiscHtmlAttributes::As(val) => Some(val.to_string()),
+            MiscHtmlAttributes::Accept(val) => Some(val),
+            MiscHtmlAttributes::AcceptCharset(val) => Some(val),
+            MiscHtmlAttributes::Action(val) => Some(val),
+            MiscHtmlAttributes::AllowFullScreen(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::AllowTransparency(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::Alt(val) => Some(val),
+            MiscHtmlAttributes::As(val) => Some(val),
             MiscHtmlAttributes::Async => None,
-            MiscHtmlAttributes::AutoComplete(val) => Some(val.to_string()),
+            MiscHtmlAttributes::AutoComplete(val) => Some(val),
             MiscHtmlAttributes::AutoFocus => None,
             MiscHtmlAttributes::AutoPlay => None,
-            MiscHtmlAttributes::Capture(val) => Some(val.to_string()),
-            MiscHtmlAttributes::CellPadding(val) => Some(val.to_string()),
-            MiscHtmlAttributes::CellSpacing(val) => Some(val.to_string()),
-            MiscHtmlAttributes::CharSet(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Challenge(val) => Some(val.to_string()),
+            MiscHtmlAttributes::Capture(val) => Some(val.as_ref()),
+            MiscHtmlAttributes::CellPadding(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::CellSpacing(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::CharSet(val) => Some(val),
+            MiscHtmlAttributes::Challenge(val) => Some(val),
             MiscHtmlAttributes::Checked => None,
-            MiscHtmlAttributes::Cite(val) => Some(val.to_string()),
-            MiscHtmlAttributes::ClassID(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Cols(val) => Some(val.to_string()),
-            MiscHtmlAttributes::ColSpan(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Content(val) => Some(val.to_string()),
+            MiscHtmlAttributes::Cite(val) => Some(val),
+            MiscHtmlAttributes::ClassID(val) => Some(val),
+            MiscHtmlAttributes::Cols(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::ColSpan(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::Content(val) => Some(val),
             MiscHtmlAttributes::Controls => None,
-            MiscHtmlAttributes::Coords(val) => Some(val.to_string()),
-            MiscHtmlAttributes::CrossOrigin(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Data(val) => Some(val.to_string()),
-            MiscHtmlAttributes::DateTime(val) => Some(val.to_string()),
+            MiscHtmlAttributes::Coords(val) => Some(val),
+            MiscHtmlAttributes::CrossOrigin(val) => Some(val),
+            MiscHtmlAttributes::Data(val) => Some(val),
+            MiscHtmlAttributes::DateTime(val) => Some(val),
             MiscHtmlAttributes::Default => None,
             MiscHtmlAttributes::Defer => None,
             MiscHtmlAttributes::Disabled => None,
             MiscHtmlAttributes::Download => None,
-            MiscHtmlAttributes::EncType(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Form(val) => Some(val.to_string()),
-            MiscHtmlAttributes::FormAction(val) => Some(val.to_string()),
-            MiscHtmlAttributes::FormEncType(val) => Some(val.to_string()),
-            MiscHtmlAttributes::FormMethod(val) => Some(val.to_string()),
+            MiscHtmlAttributes::EncType(val) => Some(val),
+            MiscHtmlAttributes::Form(val) => Some(val),
+            MiscHtmlAttributes::FormAction(val) => Some(val),
+            MiscHtmlAttributes::FormEncType(val) => Some(val),
+            MiscHtmlAttributes::FormMethod(val) => Some(val),
             MiscHtmlAttributes::FormNoValidate => None,
-            MiscHtmlAttributes::FormTarget(val) => Some(val.to_string()),
-            MiscHtmlAttributes::FrameBorder(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Headers(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Height(val) => Some(val.to_string()),
-            MiscHtmlAttributes::High(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Href(val) => Some(val.to_string()),
-            MiscHtmlAttributes::HrefLang(val) => Some(val.to_string()),
-            MiscHtmlAttributes::For(val) => Some(val.to_string()),
-            MiscHtmlAttributes::HttpEquiv(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Integrity(val) => Some(val.to_string()),
-            MiscHtmlAttributes::KeyParams(val) => Some(val.to_string()),
-            MiscHtmlAttributes::KeyType(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Kind(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Label(val) => Some(val.to_string()),
-            MiscHtmlAttributes::List(val) => Some(val.to_string()),
+            MiscHtmlAttributes::FormTarget(val) => Some(val),
+            MiscHtmlAttributes::FrameBorder(val) => Some(val.as_ref()),
+            MiscHtmlAttributes::Headers(val) => Some(val),
+            MiscHtmlAttributes::Height(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::High(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::Href(val) => Some(val),
+            MiscHtmlAttributes::HrefLang(val) => Some(val),
+            MiscHtmlAttributes::For(val) => Some(val),
+            MiscHtmlAttributes::HttpEquiv(val) => Some(val),
+            MiscHtmlAttributes::Integrity(val) => Some(val),
+            MiscHtmlAttributes::KeyParams(val) => Some(val),
+            MiscHtmlAttributes::KeyType(val) => Some(val),
+            MiscHtmlAttributes::Kind(val) => Some(val),
+            MiscHtmlAttributes::Label(val) => Some(val),
+            MiscHtmlAttributes::List(val) => Some(val),
             MiscHtmlAttributes::Loop => None,
-            MiscHtmlAttributes::Low(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Manifest(val) => Some(val.to_string()),
-            MiscHtmlAttributes::MarginHeight(val) => Some(val.to_string()),
-            MiscHtmlAttributes::MarginWidth(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Max(val) => Some(val.to_string()),
-            MiscHtmlAttributes::MaxLength(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Media(val) => Some(val.to_string()),
-            MiscHtmlAttributes::MediaGroup(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Method(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Min(val) => Some(val.to_string()),
-            MiscHtmlAttributes::MinLength(val) => Some(val.to_string()),
+            MiscHtmlAttributes::Low(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::Manifest(val) => Some(val),
+            MiscHtmlAttributes::MarginHeight(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::MarginWidth(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::Max(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::MaxLength(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::Media(val) => Some(val),
+            MiscHtmlAttributes::MediaGroup(val) => Some(val),
+            MiscHtmlAttributes::Method(val) => Some(val),
+            MiscHtmlAttributes::Min(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::MinLength(val) => Some(val.to_string().as_ref()),
             MiscHtmlAttributes::Multiple => None,
             MiscHtmlAttributes::Muted => None,
-            MiscHtmlAttributes::Name(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Nonce(val) => Some(val.to_string()),
+            MiscHtmlAttributes::Name(val) => Some(val),
+            MiscHtmlAttributes::Nonce(val) => Some(val),
             MiscHtmlAttributes::NoValidate => None,
             MiscHtmlAttributes::Open => None,
-            MiscHtmlAttributes::Optimum(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Pattern(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Placeholder(val) => Some(val.to_string()),
+            MiscHtmlAttributes::Optimum(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::Pattern(val) => Some(val),
+            MiscHtmlAttributes::Placeholder(val) => Some(val),
             MiscHtmlAttributes::PlaysInline => None,
-            MiscHtmlAttributes::Poster(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Preload(val) => Some(val.to_string()),
+            MiscHtmlAttributes::Poster(val) => Some(val),
+            MiscHtmlAttributes::Preload(val) => Some(val),
             MiscHtmlAttributes::ReadOnly => None,
-            MiscHtmlAttributes::Rel(val) => Some(val.to_string()),
+            MiscHtmlAttributes::Rel(val) => Some(val),
             MiscHtmlAttributes::Required => None,
             MiscHtmlAttributes::Reversed => None,
-            MiscHtmlAttributes::Rows(val) => Some(val.to_string()),
-            MiscHtmlAttributes::RowSpan(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Sandbox(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Scope(val) => Some(val.to_string()),
+            MiscHtmlAttributes::Rows(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::RowSpan(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::Sandbox(val) => Some(val),
+            MiscHtmlAttributes::Scope(val) => Some(val),
             MiscHtmlAttributes::Scoped => None,
-            MiscHtmlAttributes::Scrolling(val) => Some(val.to_string()),
+            MiscHtmlAttributes::Scrolling(val) => Some(val),
             MiscHtmlAttributes::Seamless => None,
             MiscHtmlAttributes::Selected => None,
-            MiscHtmlAttributes::Shape(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Size(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Sizes(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Span(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Src(val) => Some(val.to_string()),
-            MiscHtmlAttributes::SrcDoc(val) => Some(val.to_string()),
-            MiscHtmlAttributes::SrcLang(val) => Some(val.to_string()),
-            MiscHtmlAttributes::SrcSet(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Start(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Step(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Summary(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Target(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Type(val) => Some(val.to_string()),
-            MiscHtmlAttributes::UseMap(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Value(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Width(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Wwmode(val) => Some(val.to_string()),
-            MiscHtmlAttributes::Wrap(val) => Some(val.to_string()),
+            MiscHtmlAttributes::Shape(val) => Some(val),
+            MiscHtmlAttributes::Size(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::Sizes(val) => Some(val),
+            MiscHtmlAttributes::Span(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::Src(val) => Some(val),
+            MiscHtmlAttributes::SrcDoc(val) => Some(val),
+            MiscHtmlAttributes::SrcLang(val) => Some(val),
+            MiscHtmlAttributes::SrcSet(val) => Some(val),
+            MiscHtmlAttributes::Start(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::Step(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::Summary(val) => Some(val),
+            MiscHtmlAttributes::Target(val) => Some(val),
+            MiscHtmlAttributes::Type(val) => Some(val),
+            MiscHtmlAttributes::UseMap(val) => Some(val),
+            MiscHtmlAttributes::Value(val) => Some(val),
+            MiscHtmlAttributes::Width(val) => Some(val.to_string().as_ref()),
+            MiscHtmlAttributes::Wwmode(val) => Some(val),
+            MiscHtmlAttributes::Wrap(val) => Some(val),
         }
     }
 }
@@ -239,7 +239,7 @@ impl<'a> Attribute for MiscHtmlAttributes<'a> {
 /// An enum representing the different options for the `frameborder` attribute.
 ///
 /// <https://www.w3resource.com/html/attributes/html-frameborder-attribute.php#:~:text=The%20purpose%20of%20the%20HTML,1%E2%80%9D%20or%20%E2%80%9C0%E2%80%9D.&text=HTML%20frameborder%20attribute%20supports%20frame%20and%20iframe%20elements.>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, PartialEq, Clone, AsRefStr, Eq)]
 pub enum FrameBorder {
     #[strum(serialize = "0")]
     Zero,
@@ -250,7 +250,7 @@ pub enum FrameBorder {
 /// An enum representing the different options for the `capture` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode>
-#[derive(Debug, PartialEq, Clone, Display, Eq)]
+#[derive(Debug, PartialEq, Clone, AsRefStr, Eq)]
 #[strum(serialize_all = "lowercase")]
 pub enum Capture {
     User,

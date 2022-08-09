@@ -1,4 +1,4 @@
-use strum::Display;
+use strum::{AsRefStr, Display};
 
 use crate::Attribute;
 
@@ -10,7 +10,7 @@ use crate::Attribute;
 /// that represents the valid values for the attributes or nothing to represent a boolean
 /// attribute. Note that 'class' and 'style' are not available because these are expected to
 /// be handled by whatever UI framework you're using.
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum HtmlAttributes<'a> {
     // Standard HTML Attributes
@@ -147,52 +147,52 @@ pub enum AriaRole {
     Custom(String),
 }
 
-impl<'a> Attribute for HtmlAttributes<'a> {
-    fn get_key(&self) -> String {
-        self.to_string()
+impl<'a> Attribute<'a> for HtmlAttributes<'a> {
+    fn get_key(&self) -> &str {
+        self.as_ref()
     }
 
-    fn get_val(&self) -> Option<String> {
+    fn get_val(&self) -> Option<&str> {
         match self {
-            HtmlAttributes::AccessKey(val) => Some(val.to_string()),
-            HtmlAttributes::ContentEditable(val) => Some(val.to_string()),
-            HtmlAttributes::ContextMenu(val) => Some(val.to_string()),
-            HtmlAttributes::Dir(val) => Some(val.to_string()),
-            HtmlAttributes::Draggable(val) => Some(val.to_string()),
-            HtmlAttributes::Hidden(val) => Some(val.to_string()),
-            HtmlAttributes::Id(val) => Some(val.to_string()),
-            HtmlAttributes::Lang(val) => Some(val.to_string()),
-            HtmlAttributes::Placeholder(val) => Some(val.to_string()),
-            HtmlAttributes::Slot(val) => Some(val.to_string()),
-            HtmlAttributes::SpellCheck(val) => Some(val.to_string()),
-            HtmlAttributes::TabIndex(val) => Some(val.to_string()),
-            HtmlAttributes::Title(val) => Some(val.to_string()),
-            HtmlAttributes::Translate(val) => Some(val.to_string()),
-            HtmlAttributes::About(val) => Some(val.to_string()),
-            HtmlAttributes::Datatype(val) => Some(val.to_string()),
-            HtmlAttributes::Inlist(val) => Some(val.to_string()),
-            HtmlAttributes::Prefix(val) => Some(val.to_string()),
-            HtmlAttributes::Property(val) => Some(val.to_string()),
-            HtmlAttributes::Resource(val) => Some(val.to_string()),
-            HtmlAttributes::Typeof(val) => Some(val.to_string()),
-            HtmlAttributes::Vocab(val) => Some(val.to_string()),
-            HtmlAttributes::AutoCapitalize(val) => Some(val.to_string()),
-            HtmlAttributes::AutoCorrect(val) => Some(val.to_string()),
-            HtmlAttributes::AutoSave(val) => Some(val.to_string()),
-            HtmlAttributes::Color(val) => Some(val.to_string()),
-            HtmlAttributes::ItemProp(val) => Some(val.to_string()),
-            HtmlAttributes::ItemScope(val) => Some(val.to_string()),
-            HtmlAttributes::ItemType(val) => Some(val.to_string()),
-            HtmlAttributes::ItemID(val) => Some(val.to_string()),
-            HtmlAttributes::ItemRef(val) => Some(val.to_string()),
-            HtmlAttributes::Results(val) => Some(val.to_string()),
-            HtmlAttributes::Security(val) => Some(val.to_string()),
-            HtmlAttributes::Unselectable(val) => Some(val.to_string()),
-            HtmlAttributes::InputMode(val) => Some(val.to_string()),
-            HtmlAttributes::Is(val) => Some(val.to_string()),
+            HtmlAttributes::AccessKey(val) => Some(val),
+            HtmlAttributes::ContentEditable(val) => Some(val.as_ref()),
+            HtmlAttributes::ContextMenu(val) => Some(val),
+            HtmlAttributes::Dir(val) => Some(val),
+            HtmlAttributes::Draggable(val) => Some(val.to_string().as_ref()),
+            HtmlAttributes::Hidden(val) => Some(val.to_string().as_ref()),
+            HtmlAttributes::Id(val) => Some(val),
+            HtmlAttributes::Lang(val) => Some(val),
+            HtmlAttributes::Placeholder(val) => Some(val),
+            HtmlAttributes::Slot(val) => Some(val),
+            HtmlAttributes::SpellCheck(val) => Some(val.to_string().as_ref()),
+            HtmlAttributes::TabIndex(val) => Some(val.to_string().as_ref()),
+            HtmlAttributes::Title(val) => Some(val),
+            HtmlAttributes::Translate(val) => Some(val.as_ref()),
+            HtmlAttributes::About(val) => Some(val),
+            HtmlAttributes::Datatype(val) => Some(val),
+            HtmlAttributes::Inlist(val) => Some(val),
+            HtmlAttributes::Prefix(val) => Some(val),
+            HtmlAttributes::Property(val) => Some(val),
+            HtmlAttributes::Resource(val) => Some(val),
+            HtmlAttributes::Typeof(val) => Some(val),
+            HtmlAttributes::Vocab(val) => Some(val),
+            HtmlAttributes::AutoCapitalize(val) => Some(val),
+            HtmlAttributes::AutoCorrect(val) => Some(val),
+            HtmlAttributes::AutoSave(val) => Some(val),
+            HtmlAttributes::Color(val) => Some(val),
+            HtmlAttributes::ItemProp(val) => Some(val),
+            HtmlAttributes::ItemScope(val) => Some(val.to_string().as_ref()),
+            HtmlAttributes::ItemType(val) => Some(val),
+            HtmlAttributes::ItemID(val) => Some(val),
+            HtmlAttributes::ItemRef(val) => Some(val),
+            HtmlAttributes::Results(val) => Some(val.to_string().as_ref()),
+            HtmlAttributes::Security(val) => Some(val),
+            HtmlAttributes::Unselectable(val) => Some(val.as_ref()),
+            HtmlAttributes::InputMode(val) => Some(val.as_ref()),
+            HtmlAttributes::Is(val) => Some(val),
             HtmlAttributes::Role(val) => match val {
-                AriaRole::Custom(custom_val) => Some(custom_val.to_string()),
-                _ => Some(val.to_string()),
+                AriaRole::Custom(custom_val) => Some(custom_val),
+                _ => Some(val.to_string().as_ref()),
             },
         }
     }
@@ -201,7 +201,7 @@ impl<'a> Attribute for HtmlAttributes<'a> {
 /// An enum representing the different options for the `aria-role` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum ContentEditable {
     True,
@@ -212,7 +212,7 @@ pub enum ContentEditable {
 /// An enum representing the different options for the `translate` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/translate>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum Translate {
     Yes,
@@ -222,7 +222,7 @@ pub enum Translate {
 /// An enum representing the different options for the `unselectable` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/unselectable>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum Unselectable {
     On,
@@ -232,7 +232,7 @@ pub enum Unselectable {
 /// An enum representing the different options for the `inputmode` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum InputMode {
     None,

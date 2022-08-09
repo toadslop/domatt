@@ -1,4 +1,4 @@
-use strum::Display;
+use strum::AsRefStr;
 use url::Url;
 
 use crate::{Attribute, HtmlAttributeAnchorTarget, HtmlAttributeReferrerPolicy};
@@ -6,46 +6,51 @@ use crate::{Attribute, HtmlAttributeAnchorTarget, HtmlAttributeReferrerPolicy};
 /// An enum defining the different anchor-element-specific attribute keys. Each variant takes either tuple
 /// that represents the valid values for the attributes or nothing to represent a boolean
 /// attribute.
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
-pub enum AnchorHtmlAttributes<'a> {
-    Download(Option<&'a str>),
-    Href(&'a Url),
-    HrefLang(&'a str),
-    Media(&'a str),
-    Ping(&'a Vec<Url>),
-    Rel(&'a Vec<ATagRel>),
-    Target(HtmlAttributeAnchorTarget),
-    Type(&'a str), // TODO: create an enum representing the various MIME types. Ref: (https://developer.mozilla.org/en-US/docs/Glossary/MIME_type)
-    ReferrerPolicy(&'a HtmlAttributeReferrerPolicy),
+pub enum AnchorHtmlAttributes {
+    Download(Option<&'static str>),
+    Href(&'static Url),
+    HrefLang(&'static str),
+    Media(&'static str),
+    Ping(&'static Vec<Url>),
+    Rel(&'static Vec<ATagRel>),
+    // Target(&'static HtmlAttributeAnchorTarget),
+    Type(&'static str), // TODO: create an enum representing the various MIME types. Ref: (https://developer.mozilla.org/en-US/docs/Glossary/MIME_type)
+    ReferrerPolicy(&'static HtmlAttributeReferrerPolicy),
 }
 
-impl<'a> Attribute for AnchorHtmlAttributes<'a> {
-    fn get_key(&self) -> String {
-        self.to_string()
+impl<'a> Attribute<'a> for AnchorHtmlAttributes
+where
+    Self: 'static,
+{
+    fn get_key(&self) -> &str {
+        self.as_ref()
     }
 
-    fn get_val(&self) -> Option<String> {
+    fn get_val(&self) -> Option<&'static str> {
         match &self {
-            AnchorHtmlAttributes::Download(val) => val.map(|val| val.to_owned()),
-            AnchorHtmlAttributes::Href(val) => Some(val.to_string()),
-            AnchorHtmlAttributes::HrefLang(val) => Some(val.to_string()),
-            AnchorHtmlAttributes::Media(val) => Some(val.to_string()),
+            AnchorHtmlAttributes::Download(val) => val.map(|val| val),
+            AnchorHtmlAttributes::Href(val) => Some(val.as_str()),
+            AnchorHtmlAttributes::HrefLang(val) => Some(val),
+            AnchorHtmlAttributes::Media(val) => Some(val),
             AnchorHtmlAttributes::Ping(val) => Some(
                 val.iter()
-                    .map(|url| url.to_string())
-                    .collect::<Vec<String>>()
-                    .join(" "),
+                    .map(|url| url.as_ref())
+                    .collect::<Vec<&str>>()
+                    .join(" ")
+                    .as_str(),
             ),
             AnchorHtmlAttributes::Rel(val) => Some(
                 val.iter()
-                    .map(|rel| rel.to_string())
-                    .collect::<Vec<String>>()
-                    .join(" "),
+                    .map(|rel| rel.as_ref())
+                    .collect::<Vec<&str>>()
+                    .join(" ")
+                    .as_str(),
             ),
-            AnchorHtmlAttributes::Target(val) => Some(val.to_string()),
-            AnchorHtmlAttributes::Type(val) => Some(val.to_string()),
-            AnchorHtmlAttributes::ReferrerPolicy(val) => Some(val.to_string()),
+            AnchorHtmlAttributes::Target(val) => Some(val.as_ref()),
+            AnchorHtmlAttributes::Type(val) => Some(val),
+            AnchorHtmlAttributes::ReferrerPolicy(val) => Some(val.as_ref()),
         }
     }
 }
@@ -53,7 +58,7 @@ impl<'a> Attribute for AnchorHtmlAttributes<'a> {
 /// An enum defining the options for the rel attribute of a link tag.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum ATagRel {
     Alternate,

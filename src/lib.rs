@@ -21,7 +21,7 @@
 
 use std::fmt::{self, Debug, Display};
 
-use strum::Display;
+use strum::{AsRefStr, Display};
 use web_sys::Element;
 
 mod aria_attributes;
@@ -36,8 +36,8 @@ pub use html_attributes::*;
 mod misc_html_attributes;
 pub use misc_html_attributes::*;
 
-mod svg_attributes;
-pub use svg_attributes::*;
+// mod svg_attributes;
+// pub use svg_attributes::*;
 
 mod anchor_html_attributes;
 pub use anchor_html_attributes::*;
@@ -70,18 +70,24 @@ mod details_html_attributes;
 pub use details_html_attributes::*;
 
 /// Marks a type as a DOM attribute.
-pub trait Attribute: Display {
+pub trait Attribute<'a>: From<Self>
+where
+    Self: 'a,
+{
     /// Returns a string representing the key of a DOM attribute.
-    fn get_key(&self) -> String;
+    fn get_key(&self) -> &str;
 
     /// Returns an `Option<String>` representing the value of a DOM
     /// attribute. `None` indicates a boolean attribute, such as `disabled`,
     /// which has no value.
-    fn get_val(&self) -> Option<String>;
+    fn get_val(&self) -> Option<&str>;
 }
 
 /// Convenience method for setting an attribute on an element.
-pub fn set_attribute<T: Attribute>(element: &Element, attribute: &T) -> Result<(), AttributeError> {
+pub fn set_attribute<'a, T: Attribute<'a>>(
+    element: &Element,
+    attribute: &'a T,
+) -> Result<(), AttributeError<'a>> {
     let key = attribute.get_key();
     let value = attribute.get_val().unwrap_or_default();
     element
@@ -97,14 +103,14 @@ pub fn set_attribute<T: Attribute>(element: &Element, attribute: &T) -> Result<(
 
 /// Error indicating an error with performing operations with attributes on an element.
 #[derive(Debug, Clone)]
-pub struct AttributeError {
-    key: String,
-    value: String,
+pub struct AttributeError<'a> {
+    key: &'a str,
+    value: &'a str,
     tag: String,
     message: String,
 }
 
-impl fmt::Display for AttributeError {
+impl<'a> fmt::Display for AttributeError<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
@@ -131,7 +137,7 @@ impl<'a> Display for NumberOrString<'a> {
     }
 }
 
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "kebab-case")]
 pub enum HtmlAttributeReferrerPolicy {
     NoReferrer,
@@ -146,7 +152,7 @@ pub enum HtmlAttributeReferrerPolicy {
     Blank,
 }
 
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Clone, AsRefStr)]
 pub enum HtmlAttributeAnchorTarget {
     #[strum(serialize = "_self")]
     Self_,
@@ -156,5 +162,5 @@ pub enum HtmlAttributeAnchorTarget {
     Parent,
     #[strum(serialize = "_top")]
     Top,
-    Custom(String),
+    Custom(&'static str),
 }

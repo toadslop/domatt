@@ -1,10 +1,10 @@
 use crate::Attribute;
-use strum::Display;
+use strum::{AsRefStr, Display};
 
 /// Models the possible values of the `aria-autocomplete` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete>
-#[derive(Debug, Display, Default)]
+#[derive(Debug, AsRefStr, Default)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaAutocomplete {
     #[default]
@@ -17,7 +17,7 @@ pub enum AriaAutocomplete {
 /// Models the possible values of the `aria-checked` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-checked>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaChecked {
     False,
@@ -28,7 +28,7 @@ pub enum AriaChecked {
 /// Models the possible values of the `aria-current` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaCurrent {
     False,
@@ -43,7 +43,7 @@ pub enum AriaCurrent {
 /// Models the possible values of the `aria-dropeffect` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-dropeffect>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaDropeffect {
     None,
@@ -57,7 +57,7 @@ pub enum AriaDropeffect {
 /// Models the possible values of the `aria-haspopup` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaHasPopup {
     False,
@@ -72,7 +72,7 @@ pub enum AriaHasPopup {
 /// Models the possible values of the `aria-invalid` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaInvalid {
     False,
@@ -84,7 +84,7 @@ pub enum AriaInvalid {
 /// Models the possible values of the `aria-live` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaLive {
     Off,
@@ -95,7 +95,7 @@ pub enum AriaLive {
 /// Models the possible values of the `aria-orientation` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaOrientation {
     Horizontal,
@@ -110,7 +110,7 @@ type AriaPressed = AriaChecked;
 /// Models the possible values of the `aria-relevant` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-relevant>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaRelevant {
     Additions,
@@ -134,7 +134,7 @@ pub enum AriaRelevant {
 /// Models the possible values of the `aria-sort` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-sort>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaSort {
     None,
@@ -147,7 +147,7 @@ pub enum AriaSort {
 /// that represents the valid values for the attributes.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "kebab-case")]
 pub enum AriaAttributes<'a> {
     /// Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application.
@@ -362,61 +362,61 @@ pub enum AriaAttributes<'a> {
     AriaValuetext(&'a str),
 }
 
-impl<'a> Attribute for AriaAttributes<'a> {
-    fn get_key(&self) -> String {
-        self.to_string()
+impl<'a> Attribute<'a> for AriaAttributes<'a> {
+    fn get_key(&self) -> &str {
+        self.as_ref()
     }
 
-    fn get_val(&self) -> Option<String> {
+    fn get_val(&self) -> Option<&str> {
         match self {
-            AriaAttributes::AriaActivedescendant(val) => Some(val.to_string()),
-            AriaAttributes::AriaAtomic(val) => Some(val.to_string()),
-            AriaAttributes::AriaAutocomplete(val) => Some(val.to_string()),
-            AriaAttributes::AriaBusy(val) => Some(val.to_string()),
-            AriaAttributes::AriaChecked(val) => Some(val.to_string()),
-            AriaAttributes::AriaColcount(val) => Some(val.to_string()),
-            AriaAttributes::AriaColindex(val) => Some(val.to_string()),
-            AriaAttributes::AriaColspan(val) => Some(val.to_string()),
-            AriaAttributes::AriaControls(val) => Some(val.to_string()),
-            AriaAttributes::AriaCurrent(val) => Some(val.to_string()),
-            AriaAttributes::AriaDescribedby(val) => Some(val.to_string()),
-            AriaAttributes::AriaDetails(val) => Some(val.to_string()),
-            AriaAttributes::AriaDisabled(val) => Some(val.to_string()),
-            AriaAttributes::AriaDropeffect(val) => Some(val.to_string()),
-            AriaAttributes::AriaErrormessage(val) => Some(val.to_string()),
-            AriaAttributes::AriaExpanded(val) => Some(val.to_string()),
-            AriaAttributes::AriaFlowto(val) => Some(val.to_string()),
-            AriaAttributes::AriaGrabbed(val) => Some(val.to_string()),
-            AriaAttributes::AriaHaspopup(val) => Some(val.to_string()),
-            AriaAttributes::AriaHidden(val) => Some(val.to_string()),
-            AriaAttributes::AriaInvalid(val) => Some(val.to_string()),
-            AriaAttributes::AriaKeyshortcuts(val) => Some(val.to_string()),
-            AriaAttributes::AriaLabel(val) => Some(val.to_string()),
-            AriaAttributes::AriaLabelledby(val) => Some(val.to_string()),
-            AriaAttributes::AriaLevel(val) => Some(val.to_string()),
-            AriaAttributes::AriaLive(val) => Some(val.to_string()),
-            AriaAttributes::AriaModal(val) => Some(val.to_string()),
-            AriaAttributes::AriaMultiline(val) => Some(val.to_string()),
-            AriaAttributes::AriaMultiselectable(val) => Some(val.to_string()),
-            AriaAttributes::AriaOrientation(val) => Some(val.to_string()),
-            AriaAttributes::AriaOwns(val) => Some(val.to_string()),
-            AriaAttributes::AriaPlaceholder(val) => Some(val.to_string()),
-            AriaAttributes::AriaPosinset(val) => Some(val.to_string()),
-            AriaAttributes::AriaPressed(val) => Some(val.to_string()),
-            AriaAttributes::AriaReadonly(val) => Some(val.to_string()),
-            AriaAttributes::AriaRelevant(val) => Some(val.to_string()),
-            AriaAttributes::AriaRequired(val) => Some(val.to_string()),
-            AriaAttributes::AriaRoledescription(val) => Some(val.to_string()),
-            AriaAttributes::AriaRowcount(val) => Some(val.to_string()),
-            AriaAttributes::AriaRowindex(val) => Some(val.to_string()),
-            AriaAttributes::AriaRowspan(val) => Some(val.to_string()),
-            AriaAttributes::AriaSelected(val) => Some(val.to_string()),
-            AriaAttributes::AriaSetsize(val) => Some(val.to_string()),
-            AriaAttributes::AriaSort(val) => Some(val.to_string()),
-            AriaAttributes::AriaValuemax(val) => Some(val.to_string()),
-            AriaAttributes::AriaValuemin(val) => Some(val.to_string()),
-            AriaAttributes::AriaValuenow(val) => Some(val.to_string()),
-            AriaAttributes::AriaValuetext(val) => Some(val.to_string()),
+            AriaAttributes::AriaActivedescendant(val) => Some(val),
+            AriaAttributes::AriaAtomic(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaAutocomplete(val) => Some(val.as_ref()),
+            AriaAttributes::AriaBusy(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaChecked(val) => Some(val.as_ref()),
+            AriaAttributes::AriaColcount(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaColindex(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaColspan(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaControls(val) => Some(val),
+            AriaAttributes::AriaCurrent(val) => Some(val.as_ref()),
+            AriaAttributes::AriaDescribedby(val) => Some(val),
+            AriaAttributes::AriaDetails(val) => Some(val),
+            AriaAttributes::AriaDisabled(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaDropeffect(val) => Some(val.as_ref()),
+            AriaAttributes::AriaErrormessage(val) => Some(val),
+            AriaAttributes::AriaExpanded(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaFlowto(val) => Some(val),
+            AriaAttributes::AriaGrabbed(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaHaspopup(val) => Some(val.as_ref()),
+            AriaAttributes::AriaHidden(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaInvalid(val) => Some(val.as_ref()),
+            AriaAttributes::AriaKeyshortcuts(val) => Some(val),
+            AriaAttributes::AriaLabel(val) => Some(val),
+            AriaAttributes::AriaLabelledby(val) => Some(val),
+            AriaAttributes::AriaLevel(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaLive(val) => Some(val.as_ref()),
+            AriaAttributes::AriaModal(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaMultiline(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaMultiselectable(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaOrientation(val) => Some(val.as_ref()),
+            AriaAttributes::AriaOwns(val) => Some(val),
+            AriaAttributes::AriaPlaceholder(val) => Some(val),
+            AriaAttributes::AriaPosinset(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaPressed(val) => Some(val.as_ref()),
+            AriaAttributes::AriaReadonly(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaRelevant(val) => Some(val.as_ref()),
+            AriaAttributes::AriaRequired(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaRoledescription(val) => Some(val),
+            AriaAttributes::AriaRowcount(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaRowindex(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaRowspan(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaSelected(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaSetsize(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaSort(val) => Some(val.as_ref()),
+            AriaAttributes::AriaValuemax(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaValuemin(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaValuenow(val) => Some(val.to_string().as_ref()),
+            AriaAttributes::AriaValuetext(val) => Some(val),
         }
     }
 }

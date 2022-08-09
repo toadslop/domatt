@@ -1,10 +1,10 @@
 use crate::Attribute;
-use strum::Display;
+use strum::AsRefStr;
 
 /// An enum defining the different button-specific attribute keys. Each variant takes either tuple
 /// that represents the valid values for the attributes or nothing to represent a boolean
 /// attribute.
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "camelCase")]
 pub enum ButtonHtmlAttributes<'a> {
     AutoFocus,
@@ -20,24 +20,24 @@ pub enum ButtonHtmlAttributes<'a> {
     Value(&'a str),
 }
 
-impl<'a> Attribute for ButtonHtmlAttributes<'a> {
-    fn get_key(&self) -> String {
-        self.to_string()
+impl<'a> Attribute<'a> for ButtonHtmlAttributes<'a> {
+    fn get_key(&self) -> &str {
+        self.as_ref()
     }
 
-    fn get_val(&self) -> Option<String> {
+    fn get_val(&self) -> Option<&str> {
         match self {
             ButtonHtmlAttributes::AutoFocus => None,
             ButtonHtmlAttributes::Disabled => None,
-            ButtonHtmlAttributes::Form(val) => Some(val.to_string()),
-            ButtonHtmlAttributes::FormAction(val) => Some(val.to_string()),
-            ButtonHtmlAttributes::FormEncType(val) => Some(val.to_string()),
-            ButtonHtmlAttributes::FormMethod(val) => Some(val.to_string()),
+            ButtonHtmlAttributes::Form(val) => Some(val),
+            ButtonHtmlAttributes::FormAction(val) => Some(val),
+            ButtonHtmlAttributes::FormEncType(val) => Some(val),
+            ButtonHtmlAttributes::FormMethod(val) => Some(val),
             ButtonHtmlAttributes::FormNoValidate => None,
-            ButtonHtmlAttributes::FormTarget(val) => Some(val.to_string()),
-            ButtonHtmlAttributes::Name(val) => Some(val.to_string()),
-            ButtonHtmlAttributes::Type(val) => Some(val.to_string()),
-            ButtonHtmlAttributes::Value(val) => Some(val.to_string()),
+            ButtonHtmlAttributes::FormTarget(val) => Some(val),
+            ButtonHtmlAttributes::Name(val) => Some(val),
+            ButtonHtmlAttributes::Type(val) => Some(val.as_ref()),
+            ButtonHtmlAttributes::Value(val) => Some(val),
         }
     }
 }
@@ -45,7 +45,7 @@ impl<'a> Attribute for ButtonHtmlAttributes<'a> {
 /// An enum representing the different options for the type attribute of a button element.
 ///
 ///  <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "kebab-case")]
 pub enum ButtonType {
     Submit,

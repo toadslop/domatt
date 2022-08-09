@@ -1,4 +1,4 @@
-use strum::Display;
+use strum::AsRefStr;
 use url::Url;
 
 use crate::{Attribute, HtmlAttributeAnchorTarget, HtmlAttributeReferrerPolicy};
@@ -6,7 +6,7 @@ use crate::{Attribute, HtmlAttributeAnchorTarget, HtmlAttributeReferrerPolicy};
 /// An enum defining the different area-element-specific attribute keys. Each variant takes either tuple
 /// that represents the valid values for the attributes or nothing to represent a boolean
 /// attribute.
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum AreaHtmlAttributes<'a> {
     Alt(&'a str),
@@ -27,32 +27,33 @@ pub enum AreaHtmlAttributes<'a> {
     Target(&'a HtmlAttributeAnchorTarget),
 }
 
-impl<'a> Attribute for AreaHtmlAttributes<'a> {
-    fn get_key(&self) -> String {
-        self.to_string()
+impl<'a> Attribute<'a> for AreaHtmlAttributes<'a> {
+    fn get_key(&self) -> &str {
+        self.as_ref()
     }
 
-    fn get_val(&self) -> Option<String> {
+    fn get_val(&self) -> Option<&str> {
         match self {
-            AreaHtmlAttributes::Alt(val) => Some(val.to_string()),
+            AreaHtmlAttributes::Alt(val) => Some(val),
             AreaHtmlAttributes::Coords(val) => match val {
-                Shape::Rect(rect) => Some(rect.to_string()),
-                Shape::Circle(circle) => Some(circle.to_string()),
-                Shape::Poly(poly) => Some(poly.to_string()),
+                Shape::Rect(rect) => Some(rect.into()),
+                Shape::Circle(circle) => Some(circle.into()),
+                Shape::Poly(poly) => Some(poly.into()),
             },
-            AreaHtmlAttributes::Download(val) => val.map(|val| val.to_string()),
-            AreaHtmlAttributes::Href(val) => Some(val.to_string()),
-            AreaHtmlAttributes::HrefLang(val) => Some(val.to_string()),
-            AreaHtmlAttributes::Media(val) => Some(val.to_string()),
-            AreaHtmlAttributes::ReferrerPolicy(val) => Some(val.to_string()),
+            AreaHtmlAttributes::Download(val) => val.map(|val| val.as_ref()),
+            AreaHtmlAttributes::Href(val) => Some(val.as_ref()),
+            AreaHtmlAttributes::HrefLang(val) => Some(val),
+            AreaHtmlAttributes::Media(val) => Some(val),
+            AreaHtmlAttributes::ReferrerPolicy(val) => Some(val.as_ref()),
             AreaHtmlAttributes::Rel(val) => Some(
                 val.iter()
-                    .map(|url| url.to_string())
-                    .collect::<Vec<String>>()
-                    .join(" "),
+                    .map(|url| url.as_ref())
+                    .collect::<Vec<&str>>()
+                    .join(" ")
+                    .as_ref(),
             ),
-            AreaHtmlAttributes::Shape(val) => Some(val.to_string()),
-            AreaHtmlAttributes::Target(val) => Some(val.to_string()),
+            AreaHtmlAttributes::Shape(val) => Some(val.as_ref()),
+            AreaHtmlAttributes::Target(val) => Some(val.as_ref()),
         }
     }
 }
@@ -63,7 +64,7 @@ impl<'a> Attribute for AreaHtmlAttributes<'a> {
 /// Shape tag: <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-shape>
 ///
 /// Coord tag: <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-coords>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum Shape {
     Rect(Rect),
@@ -87,14 +88,33 @@ impl Rect {
     }
 }
 
-impl std::fmt::Display for Rect {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "{},{}",
-            self.top_right.to_string(),
-            self.bottom_left.to_string()
-        )
+// impl From<&str> for Rect {
+//     fn from(input: &str) -> Self {
+//         use std::process;
+//         let split: Vec<&str> = input.split(",").collect();
+//         if split.len() != 4 {
+//             process::abort()
+//         }
+//         Self {
+//             top_right: Coord {
+//                 x: split[0].parse().unwrap(),
+//                 y: split[1].parse().unwrap(),
+//             },
+//             bottom_left: Coord {
+//                 x: split[2].parse().unwrap(),
+//                 y: split[3].parse().unwrap(),
+//             },
+//         }
+//     }
+// }
+
+impl From<&Rect> for &str {
+    fn from(input: &Rect) -> Self {
+        let x1 = input.top_right.x.to_string();
+        let y1 = input.top_right.y.to_string();
+        let x2 = input.bottom_left.x.to_string();
+        let y2 = input.bottom_left.y.to_string();
+        format!("{},{},{},{}", x1, y1, x2, y2).as_str()
     }
 }
 
@@ -111,9 +131,26 @@ impl Circle {
     }
 }
 
-impl std::fmt::Display for Circle {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{},{}", self.center.to_string(), self.radius)
+// impl From<&str> for Circle {
+//     fn from(input: &str) -> Self {
+//         use std::process;
+//         let split: Vec<&str> = input.split(",").collect();
+//         if split.len > 2 || split.len() < 2 {
+//             process::abort()
+//         }
+//         Self {
+//             center: split[0],
+//             radius: split[1],
+//         }
+//     }
+// }
+
+impl From<&Circle> for &str {
+    fn from(input: &Circle) -> Self {
+        let x = input.center.x.to_string();
+        let y = input.center.y.to_string();
+        let radius = input.radius.to_string();
+        format!("{},{},{}", x, y, radius).as_str()
     }
 }
 
@@ -137,19 +174,40 @@ impl From<Vec<Coord>> for Poly {
     }
 }
 
-impl std::fmt::Display for Poly {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "{}",
-            self.0
-                .iter()
-                .map(|coord| coord.to_string())
-                .collect::<Vec<String>>()
-                .join(",")
-        )
+impl From<&Poly> for &str {
+    fn from(input: &Poly) -> Self {
+        let string: String = "".into();
+
+        for (index, coord) in input.0.iter().enumerate() {
+            if index != 0 || index != input.0.len() {
+                string.push_str(",")
+            }
+            string.push_str(coord.to_string().as_str())
+        }
+        string.as_str()
     }
 }
+
+// impl From<&str> for Poly {
+//     fn from(input: &str) -> Self {
+//         use std::process;
+//         let split: Vec<&str> = input.split(",").collect();
+//         if !split.len % 2 == 0 {
+//             process::abort()
+//         }
+//         let mut poly = Self::new();
+
+//         for x in 0..split.len() {
+//             if x % 2 == 0 {
+//                 continue;
+//             }
+//             let coord = Coord::new(split[x - 1], split[x]);
+//             poly.add_cord(coord);
+//         }
+
+//         poly
+//     }
+// }
 
 /// Represents a single coordinate, used for modelling the coordinates of an html
 /// area tag.
@@ -180,7 +238,7 @@ impl std::fmt::Display for Coord {
 /// An enum defining the options for the rel attribute of an area tag.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types>
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum AreaTagRel {
     Alternate,

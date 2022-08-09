@@ -12,5 +12,11 @@ description = "Rust type definitions for HTML attributes and their values for us
 
 [dependencies]
 strum = {version = "0.24.1", features = ["derive"]}
-url = "2.2.2"
+url = { version = "2.2.2" }
 web-sys = { version = "0.3.59", features = ["Element"] }
+
+[profile.release]
+panic = 'abort'
+codegen-units = 1
+opt-level = 'z'
+lto = true
