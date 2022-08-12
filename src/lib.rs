@@ -25,45 +25,55 @@ use strum::Display;
 use web_sys::Element;
 
 mod aria_attributes;
+#[cfg(feature = "aria_attributes")]
 pub use aria_attributes::*;
 
 mod button_html_attributes;
+#[cfg(feature = "button_html_attributes")]
 pub use button_html_attributes::*;
 
 mod html_attributes;
+#[cfg(feature = "html_attributes")]
 pub use html_attributes::*;
 
-mod misc_html_attributes;
-pub use misc_html_attributes::*;
-
 mod svg_attributes;
+#[cfg(feature = "svg_attributes")]
 pub use svg_attributes::*;
 
 mod anchor_html_attributes;
+#[cfg(feature = "anchor_html_attributes")]
 pub use anchor_html_attributes::*;
 
 mod audio_html_attributes;
+#[cfg(feature = "audio_html_attributes")]
 pub use audio_html_attributes::*;
 
 mod area_html_attributes;
+#[cfg(feature = "area_html_attributes")]
 pub use area_html_attributes::*;
 
 mod base_html_attributes;
+#[cfg(feature = "base_html_attributes")]
 pub use base_html_attributes::*;
 
 mod blockquote_html_attributes;
+#[cfg(feature = "blockquote_html_attributes")]
 pub use blockquote_html_attributes::*;
 
 mod canvas_html_attributes;
+#[cfg(feature = "canvas_html_attributes")]
 pub use canvas_html_attributes::*;
 
 mod col_html_attributes;
+#[cfg(feature = "col_html_attributes")]
 pub use col_html_attributes::*;
 
 mod colgroup_html_attributes;
+#[cfg(feature = "colgroup_html_attributes")]
 pub use colgroup_html_attributes::*;
 
 mod data_html_attributes;
+#[cfg(feature = "data_html_attributes")]
 pub use data_html_attributes::*;
 
 /// Marks a type as a DOM attribute.

@@ -1,7 +1,6 @@
+use crate::{Attribute, HtmlAttributeAnchorTarget, HtmlAttributeReferrerPolicy};
 use strum::Display;
 use url::Url;
-
-use crate::{Attribute, HtmlAttributeAnchorTarget, HtmlAttributeReferrerPolicy};
 
 /// An enum defining the different anchor-element-specific attribute keys. Each variant takes either tuple
 /// that represents the valid values for the attributes or nothing to represent a boolean
