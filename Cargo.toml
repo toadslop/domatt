@@ -11,6 +11,61 @@ license = "Apache-2.0"
 description = "Rust type definitions for HTML attributes and their values for use in WASM applications."
 
 [dependencies]
+gloo-console = "0.2.1"
 strum = {version = "0.24.1", features = ["derive"]}
 url = "2.2.2"
 web-sys = { version = "0.3.59", features = ["Element"] }
+
+[profile.release]
+panic = 'abort'
+codegen-units = 1
+opt-level = 'z'
+lto = true
+
+[lib]
+crate-type = ["rlib", "cdylib"]
+
+[features]
+aria_attributes = []
+button_html_attributes = []
+html_attributes = []
+svg_attributes = []
+anchor_html_attributes = []
+audio_html_attributes = []
+area_html_attributes = []
+base_html_attributes = []
+blockquote_html_attributes = []
+canvas_html_attributes = []
+col_html_attributes = []
+colgroup_html_attributes = []
+data_html_attributes = []
+full = [
+    "aria_attributes",
+    "button_html_attributes",
+    "html_attributes",
+    "svg_attributes",
+    "anchor_html_attributes",
+    "audio_html_attributes",
+    "area_html_attributes",
+    "base_html_attributes",
+    "blockquote_html_attributes",
+    "canvas_html_attributes",
+    "col_html_attributes",
+    "colgroup_html_attributes",
+    "data_html_attributes"
+]
+default = [
+  "aria_attributes",
+  "button_html_attributes",
+  "html_attributes",
+  "svg_attributes",
+  "anchor_html_attributes",
+  "audio_html_attributes",
+  "area_html_attributes",
+  "base_html_attributes",
+  "blockquote_html_attributes",
+  "canvas_html_attributes",
+  "col_html_attributes",
+  "colgroup_html_attributes",
+  "data_html_attributes"
+]
