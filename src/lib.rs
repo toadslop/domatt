@@ -65,6 +65,8 @@ mod data;
 #[cfg(feature = "details")]
 pub mod details;
 
+pub mod events;
+
 /// Marks a type as a DOM attribute.
 pub trait Attribute: Debug {
     /// Returns a string representing the key of a DOM attribute.
