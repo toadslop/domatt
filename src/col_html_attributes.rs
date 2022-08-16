@@ -1,24 +1,27 @@
-use strum::Display;
-
 use crate::Attribute;
 
-/// An enum defining the different canvas-element-specific attribute keys. Each variant takes either tuple
-/// that represents the valid values for the attributes or nothing to represent a boolean
-/// attribute.
-#[derive(Debug, Display)]
-#[strum(serialize_all = "lowercase")]
-pub enum ColHtmlAttributes {
-    Span(u16),
+pub trait ColAttribute: Attribute {}
+
+/// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/col#attr-span>
+#[derive(Debug, Clone, PartialEq)]
+pub struct Span {
+    val: String,
 }
 
-impl Attribute for ColHtmlAttributes {
-    fn get_key(&self) -> String {
-        self.to_string()
+impl Span {
+    pub fn new(val: u8) -> Self {
+        Self {
+            val: val.to_string(),
+        }
+    }
+}
+
+impl Attribute for Span {
+    fn get_val(&self) -> Option<&str> {
+        Some(self.val.as_ref())
     }
 
-    fn get_val(&self) -> Option<String> {
-        match &self {
-            ColHtmlAttributes::Span(val) => Some(val.to_string()),
-        }
+    fn get_key(&self) -> &str {
+        "span"
     }
 }

@@ -1,32 +1,56 @@
-use strum::Display;
-
 use crate::Attribute;
+pub trait CanvasAttribute: Attribute {}
 
-/// An enum defining the different canvas-element-specific attribute keys. Each variant takes either tuple
-/// that represents the valid values for the attributes or nothing to represent a boolean
-/// attribute.
-#[derive(Debug, Display)]
-#[strum(serialize_all = "lowercase")]
-pub enum CanvasHtmlAttributes {
-    /// Canvas height takes just a number of pixels with no unit specified. Since the largest screens
-    /// available today are well within the max value of a u-16 and because negative height doesn't make
-    /// sense, we use u16 to reduce unneccessary memory usage.
-    Height(u16),
-    /// Canvas width takes just a number of pixels with no unit specified. Since the largest screens
-    /// available today are well within the max value of a u-16 and because negative height doesn't make
-    /// sense, we use u16 to reduce unneccessary memory usage.
-    Width(u16),
+/// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas#attr-height>
+#[derive(Debug, Clone, PartialEq)]
+pub struct Height {
+    val: String,
 }
 
-impl Attribute for CanvasHtmlAttributes {
-    fn get_key(&self) -> String {
-        self.to_string()
-    }
-
-    fn get_val(&self) -> Option<String> {
-        match &self {
-            CanvasHtmlAttributes::Height(val) => Some(val.to_string()),
-            CanvasHtmlAttributes::Width(val) => Some(val.to_string()),
+impl Height {
+    pub fn new(val: u16) -> Self {
+        Self {
+            val: val.to_string(),
         }
     }
 }
+
+impl Attribute for Height {
+    fn get_val(&self) -> Option<&str> {
+        Some(self.val.as_ref())
+    }
+
+    fn get_key(&self) -> &str {
+        "height"
+    }
+}
+
+impl CanvasAttribute for Height {}
+
+/// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas#attr-width>
+#[derive(Debug, Clone, PartialEq)]
+pub struct Width {
+    val: String,
+}
+
+impl Width {
+    pub fn new(val: u16) -> Self {
+        Self {
+            val: val.to_string(),
+        }
+    }
+}
+// Note: unsigned because we can't have a negative colcount and 8-bit because you
+// could never render more than 255 columns on a screen, so we do this for optimization
+
+impl Attribute for Width {
+    fn get_val(&self) -> Option<&str> {
+        Some(self.val.as_ref())
+    }
+
+    fn get_key(&self) -> &str {
+        "width"
+    }
+}
+
+impl CanvasAttribute for Width {}

@@ -1,24 +1,19 @@
-use strum::Display;
-
 use crate::Attribute;
 
-/// An enum defining the different canvas-element-specific attribute keys. Each variant takes either tuple
-/// that represents the valid values for the attributes or nothing to represent a boolean
-/// attribute.
-#[derive(Debug, Display)]
-#[strum(serialize_all = "lowercase")]
-pub enum DataHtmlAttributes<'a> {
-    Value(&'a str),
-}
+pub trait DataAttribute {}
 
-impl<'a> Attribute for DataHtmlAttributes<'a> {
-    fn get_key(&self) -> String {
-        self.to_string()
+/// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data#attr-value>
+#[derive(Debug, Clone, PartialEq)]
+pub struct Value(String);
+
+impl Attribute for Value {
+    fn get_val(&self) -> Option<&str> {
+        Some(self.0.as_str())
     }
 
-    fn get_val(&self) -> Option<String> {
-        match self {
-            DataHtmlAttributes::Value(val) => Some(val.to_string()),
-        }
+    fn get_key(&self) -> &str {
+        "value"
     }
 }
+
+impl DataAttribute for Value {}

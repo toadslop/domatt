@@ -21,7 +21,7 @@
 
 use std::fmt::{self, Debug, Display};
 
-use strum::Display;
+use strum::AsRefStr;
 use web_sys::Element;
 
 mod aria_attributes;
@@ -32,25 +32,23 @@ mod button_html_attributes;
 #[cfg(feature = "button_html_attributes")]
 pub use button_html_attributes::*;
 
-mod html_attributes;
+mod global_attributes;
 #[cfg(feature = "html_attributes")]
-pub use html_attributes::*;
+pub use global_attributes::*;
 
 mod svg_attributes;
 #[cfg(feature = "svg_attributes")]
 pub use svg_attributes::*;
 
-mod anchor_html_attributes;
 #[cfg(feature = "anchor_html_attributes")]
-pub use anchor_html_attributes::*;
+pub mod anchor_html_attributes;
 
 mod audio_html_attributes;
 #[cfg(feature = "audio_html_attributes")]
 pub use audio_html_attributes::*;
 
-mod area_html_attributes;
 #[cfg(feature = "area_html_attributes")]
-pub use area_html_attributes::*;
+pub mod area_html_attributes;
 
 mod base_html_attributes;
 #[cfg(feature = "base_html_attributes")]
@@ -80,20 +78,20 @@ mod details_html_attributes;
 pub use details_html_attributes::*;
 
 /// Marks a type as a DOM attribute.
-pub trait Attribute: Display {
+pub trait Attribute: Debug {
     /// Returns a string representing the key of a DOM attribute.
-    fn get_key(&self) -> String;
+    fn get_key(&self) -> &str;
 
     /// Returns an `Option<String>` representing the value of a DOM
     /// attribute. `None` indicates a boolean attribute, such as `disabled`,
     /// which has no value.
-    fn get_val(&self) -> Option<String>;
+    fn get_val(&self) -> Option<&str>;
 }
 
 /// Convenience method for setting an attribute on an element.
 pub fn set_attribute<T: Attribute>(element: &Element, attribute: &T) -> Result<(), AttributeError> {
-    let key = attribute.get_key();
-    let value = attribute.get_val().unwrap_or_default();
+    let key = attribute.get_key().to_owned();
+    let value = attribute.get_val().unwrap_or_default().to_owned();
     element
         .set_attribute(&key, &value)
         .map_err(|_err| AttributeError {
@@ -141,7 +139,7 @@ impl<'a> Display for NumberOrString<'a> {
     }
 }
 
-#[derive(Debug, Display)]
+#[derive(Debug, AsRefStr, Clone, PartialEq)]
 #[strum(serialize_all = "kebab-case")]
 pub enum HtmlAttributeReferrerPolicy {
     NoReferrer,
@@ -156,8 +154,8 @@ pub enum HtmlAttributeReferrerPolicy {
     Blank,
 }
 
-#[derive(Debug, Clone, Display)]
-pub enum HtmlAttributeAnchorTarget {
+#[derive(Debug, AsRefStr, Clone, PartialEq)]
+pub enum TargetOption {
     #[strum(serialize = "_self")]
     Self_,
     #[strum(serialize = "_blank")]
@@ -168,3 +166,21 @@ pub enum HtmlAttributeAnchorTarget {
     Top,
     Custom(String),
 }
+
+macro_rules! add_impls {
+    ($attr_struct:ty ) => {
+        impl AnchorAttribute for $attr_struct {}
+        impl AreaAttribute for $attr_struct {}
+        impl AudioAttribute for $attr_struct {}
+        impl BaseAttribute for $attr_struct {}
+        impl BlockQuoteAttribute for $attr_struct {}
+        impl ButtonAttribute for $attr_struct {}
+        impl CanvasAttribute for $attr_struct {}
+        impl ColAttribute for $attr_struct {}
+        impl ColGroupAttribute for $attr_struct {}
+        impl DataAttribute for $attr_struct {}
+        impl DetailsAttribute for $attr_struct {}
+    };
+}
+
+pub(crate) use add_impls;

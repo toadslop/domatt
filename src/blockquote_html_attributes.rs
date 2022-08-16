@@ -1,25 +1,20 @@
-use strum::Display;
+use crate::Attribute;
 use url::Url;
 
-use crate::Attribute;
+pub trait BlockQuoteAttribute: Attribute {}
 
-/// An enum defining the different base-element-specific attribute keys. Each variant takes either tuple
-/// that represents the valid values for the attributes or nothing to represent a boolean
-/// attribute.
-#[derive(Debug, Display)]
-#[strum(serialize_all = "lowercase")]
-pub enum BlockquoteHtmlAttributes<'a> {
-    Cite(&'a Url),
-}
+/// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote#attr-cite>
+#[derive(Debug, Clone, PartialEq)]
+pub struct Cite(Url);
 
-impl<'a> Attribute for BlockquoteHtmlAttributes<'a> {
-    fn get_key(&self) -> String {
-        self.to_string()
+impl Attribute for Cite {
+    fn get_val(&self) -> Option<&str> {
+        Some(self.0.as_str())
     }
 
-    fn get_val(&self) -> Option<String> {
-        match &self {
-            BlockquoteHtmlAttributes::Cite(val) => Some(val.to_string()),
-        }
+    fn get_key(&self) -> &str {
+        "cite"
     }
 }
+
+impl BlockQuoteAttribute for Cite {}
