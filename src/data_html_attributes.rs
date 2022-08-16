@@ -3,7 +3,7 @@ use crate::Attribute;
 pub trait DataAttribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data#attr-value>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Value(String);
 
 impl Attribute for Value {

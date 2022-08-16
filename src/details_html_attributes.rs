@@ -3,7 +3,7 @@ use crate::Attribute;
 pub trait DetailsAttribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details#attr-open>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Open;
 
 impl Attribute for Open {

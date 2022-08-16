@@ -3,7 +3,7 @@ use crate::Attribute;
 pub trait ColAttribute: Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/col#attr-span>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Span {
     val: String,
 }

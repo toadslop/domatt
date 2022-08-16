@@ -6,7 +6,7 @@ use url::Url;
 pub trait AnchorAttribute: Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-download>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Download(Option<String>);
 
 impl Attribute for Download {
@@ -22,7 +22,7 @@ impl Attribute for Download {
 impl AnchorAttribute for Download {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Href(Url);
 
 impl Attribute for Href {
@@ -40,7 +40,7 @@ impl AnchorAttribute for Href {}
 // TODO: create a data structure to help generate language tags.
 // https://gist.github.com/msikma/8912e62ed866778ff8cd
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-hreflang>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct HrefLang(String);
 
 impl Attribute for HrefLang {
@@ -56,7 +56,7 @@ impl Attribute for HrefLang {
 impl AnchorAttribute for HrefLang {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-ping>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Ping {
     value: String,
 }
@@ -86,7 +86,7 @@ impl Attribute for Ping {
 impl AnchorAttribute for Ping {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-referrerpolicy>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct ReferrerPolicy(HtmlAttributeReferrerPolicy);
 
 impl Attribute for ReferrerPolicy {
@@ -102,7 +102,7 @@ impl Attribute for ReferrerPolicy {
 impl AnchorAttribute for ReferrerPolicy {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-rel>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Rel {
     value: String,
 }
@@ -132,7 +132,7 @@ impl Attribute for Rel {
 impl AnchorAttribute for Rel {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Target(TargetOption);
 
 impl Attribute for Target {
@@ -150,7 +150,7 @@ impl AnchorAttribute for Target {}
 // TODO: create an enum representing the various MIME types or a struct for generating mime types.
 // Ref: (https://developer.mozilla.org/en-US/docs/Glossary/MIME_type)
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-type>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Type(String);
 
 impl Attribute for Type {

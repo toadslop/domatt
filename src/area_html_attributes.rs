@@ -5,7 +5,7 @@ use strum::AsRefStr;
 pub trait AreaAttribute: Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-alt>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Alt(String);
 
 impl Attribute for Alt {
@@ -21,7 +21,7 @@ impl Attribute for Alt {
 impl AreaAttribute for Alt {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-alt>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Coords(AreaTagShape);
 
 impl Attribute for Coords {
@@ -54,7 +54,7 @@ pub use crate::anchor_html_attributes::ReferrerPolicy;
 impl AreaAttribute for ReferrerPolicy {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-rel>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Rel {
     value: String,
 }
@@ -84,7 +84,7 @@ impl Attribute for Rel {
 impl AreaAttribute for Rel {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-rel>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Shape(AreaTagShape);
 
 impl Attribute for Shape {
@@ -106,7 +106,7 @@ impl AreaAttribute for Target {}
 /// Shape tag: <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-shape>
 ///
 /// Coord tag: <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-coords>
-#[derive(Debug, AsRefStr, Clone, PartialEq)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum AreaTagShape {
     Rect(Rect),
@@ -115,7 +115,7 @@ pub enum AreaTagShape {
 }
 
 /// Represents a rectangle shape for an html area tag.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Rect {
     rect: String,
 }
@@ -137,7 +137,7 @@ impl Rect {
 }
 
 /// Represents a circle for an html area tag.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Circle {
     circle: String,
 }
@@ -159,7 +159,7 @@ impl Circle {
 }
 
 /// Represents a polygon for an html area tag.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Poly {
     poly: String,
 }

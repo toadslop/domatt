@@ -2,7 +2,7 @@ use crate::Attribute;
 pub trait CanvasAttribute: Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas#attr-height>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Height {
     val: String,
 }
@@ -28,7 +28,7 @@ impl Attribute for Height {
 impl CanvasAttribute for Height {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas#attr-width>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Width {
     val: String,
 }

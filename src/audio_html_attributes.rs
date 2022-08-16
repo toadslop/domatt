@@ -5,7 +5,7 @@ use url::Url;
 pub trait AudioAttribute: Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio#attr-autoplay>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Autoplay;
 
 impl Attribute for Autoplay {
@@ -21,7 +21,7 @@ impl Attribute for Autoplay {
 impl AudioAttribute for Autoplay {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio#attr-controls>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Controls;
 
 impl Attribute for Controls {
@@ -37,7 +37,7 @@ impl Attribute for Controls {
 impl AudioAttribute for Controls {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio#attr-crossorigin>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct CrossOrigin(AudioCrossOriginOptions);
 
 impl Attribute for CrossOrigin {
@@ -53,7 +53,7 @@ impl Attribute for CrossOrigin {
 impl AudioAttribute for CrossOrigin {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio#attr-disableremoteplayback>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct DisableRemotePlayback;
 
 impl Attribute for DisableRemotePlayback {
@@ -69,7 +69,7 @@ impl Attribute for DisableRemotePlayback {
 impl AudioAttribute for DisableRemotePlayback {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio#attr-loop>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Loop;
 
 impl Attribute for Loop {
@@ -85,7 +85,7 @@ impl Attribute for Loop {
 impl AudioAttribute for Loop {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio#attr-muted>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Muted;
 
 impl Attribute for Muted {
@@ -101,7 +101,7 @@ impl Attribute for Muted {
 impl AudioAttribute for Muted {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio#attr-preload>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Preload(AudioPreloadOptions);
 
 impl Attribute for Preload {
@@ -117,7 +117,7 @@ impl Attribute for Preload {
 impl AudioAttribute for Preload {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-src>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Src(Url);
 
 impl Attribute for Src {
@@ -130,14 +130,14 @@ impl Attribute for Src {
     }
 }
 
-#[derive(Debug, AsRefStr, Clone, PartialEq)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "kebab-case")]
 pub enum AudioCrossOriginOptions {
     Anonymous,
     UseCredentials,
 }
 
-#[derive(Debug, AsRefStr, Clone, PartialEq)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum AudioPreloadOptions {
     None,

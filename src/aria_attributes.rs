@@ -8,7 +8,7 @@ use strum::AsRefStr;
 pub trait AriaAttribute: Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-activedescendant>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaActivedescendant(String);
 
 impl Attribute for AriaActivedescendant {
@@ -20,9 +20,10 @@ impl Attribute for AriaActivedescendant {
         "aria-activedescendant"
     }
 }
+crate::add_impls!(AriaActivedescendant);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-atomic>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaAtomic {
     val: String,
 }
@@ -47,7 +48,7 @@ impl Attribute for AriaAtomic {
 crate::add_impls!(AriaAtomic);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaAutocomplete(AriaAutocompleteOption);
 
 impl Attribute for AriaAutocomplete {
@@ -62,7 +63,7 @@ impl Attribute for AriaAutocomplete {
 crate::add_impls!(AriaAutocomplete);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaBusy {
     val: String,
 }
@@ -87,7 +88,7 @@ impl Attribute for AriaBusy {
 crate::add_impls!(AriaBusy);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-checked>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaChecked(AriaCheckedOption);
 
 impl Attribute for AriaChecked {
@@ -102,7 +103,7 @@ impl Attribute for AriaChecked {
 crate::add_impls!(AriaChecked);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colcount>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaColCount {
     val: String,
 }
@@ -130,7 +131,7 @@ impl Attribute for AriaColCount {
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindex>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaColIndex {
     val: String,
 }
@@ -156,7 +157,7 @@ impl Attribute for AriaColIndex {
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colspan>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaColSpan {
     val: String,
 }
@@ -182,7 +183,7 @@ impl Attribute for AriaColSpan {
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaControls {
     val: String,
 }
@@ -205,7 +206,7 @@ impl Attribute for AriaControls {
 crate::add_impls!(AriaControls);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaCurrent(AriaCurrentOption);
 
 impl Attribute for AriaCurrent {
@@ -220,7 +221,7 @@ impl Attribute for AriaCurrent {
 crate::add_impls!(AriaCurrent);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaDescribedby {
     val: String,
 }
@@ -243,7 +244,7 @@ impl Attribute for AriaDescribedby {
 crate::add_impls!(AriaDescribedby);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-details>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaDetails {
     val: String,
 }
@@ -266,7 +267,7 @@ impl Attribute for AriaDetails {
 crate::add_impls!(AriaDetails);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaDisabled {
     val: String,
 }
@@ -291,7 +292,7 @@ impl Attribute for AriaDisabled {
 crate::add_impls!(AriaDisabled);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-dropeffect>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaDropEffect(AriaDropEffectOption);
 
 impl Attribute for AriaDropEffect {
@@ -306,7 +307,7 @@ impl Attribute for AriaDropEffect {
 crate::add_impls!(AriaDropEffect);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaErrormessage(String);
 
 impl Attribute for AriaErrormessage {
@@ -321,7 +322,7 @@ impl Attribute for AriaErrormessage {
 // TODO: impl this for input elements only
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaExpanded {
     val: String,
 }
@@ -346,7 +347,7 @@ impl Attribute for AriaExpanded {
 crate::add_impls!(AriaExpanded);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-flowto>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaFlowTo {
     val: String,
 }
@@ -369,7 +370,7 @@ impl Attribute for AriaFlowTo {
 crate::add_impls!(AriaFlowTo);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-grabbed>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaGrabbed {
     val: String,
 }
@@ -394,7 +395,7 @@ impl Attribute for AriaGrabbed {
 crate::add_impls!(AriaGrabbed);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaHasPopup(AriaHasPopupOption);
 
 impl Attribute for AriaHasPopup {
@@ -409,7 +410,7 @@ impl Attribute for AriaHasPopup {
 crate::add_impls!(AriaHasPopup);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaHidden {
     val: String,
 }
@@ -434,7 +435,7 @@ impl Attribute for AriaHidden {
 crate::add_impls!(AriaHidden);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaInvalid(AriaHasPopupOption);
 
 impl Attribute for AriaInvalid {
@@ -449,7 +450,7 @@ impl Attribute for AriaInvalid {
 // TODO: impl this for input elements
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaKeyshortcuts(String);
 
 impl Attribute for AriaKeyshortcuts {
@@ -464,7 +465,7 @@ impl Attribute for AriaKeyshortcuts {
 crate::add_impls!(AriaKeyshortcuts);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaLabel(String);
 
 impl Attribute for AriaLabel {
@@ -479,7 +480,7 @@ impl Attribute for AriaLabel {
 crate::add_impls!(AriaLabel);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaLabelledBy {
     val: String,
 }
@@ -502,7 +503,7 @@ impl Attribute for AriaLabelledBy {
 crate::add_impls!(AriaLabelledBy);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-level>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaLevel {
     val: String,
 }
@@ -527,7 +528,7 @@ impl Attribute for AriaLevel {
 crate::add_impls!(AriaLevel);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaLive(AriaLiveOption);
 
 impl Attribute for AriaLive {
@@ -542,7 +543,7 @@ impl Attribute for AriaLive {
 crate::add_impls!(AriaLive);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-modal>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaModal {
     val: String,
 }
@@ -567,7 +568,7 @@ impl Attribute for AriaModal {
 crate::add_impls!(AriaModal);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiline>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaMultiline {
     val: String,
 }
@@ -592,7 +593,7 @@ impl Attribute for AriaMultiline {
 crate::add_impls!(AriaMultiline);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiselectable>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaMultiselectable {
     val: String,
 }
@@ -617,7 +618,7 @@ impl Attribute for AriaMultiselectable {
 crate::add_impls!(AriaMultiselectable);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaOrientation(AriaOrientationOption);
 
 impl Attribute for AriaOrientation {
@@ -632,7 +633,7 @@ impl Attribute for AriaOrientation {
 crate::add_impls!(AriaOrientation);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-owns>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaOwns {
     val: String,
 }
@@ -655,7 +656,7 @@ impl Attribute for AriaOwns {
 crate::add_impls!(AriaOwns);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-placeholder>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaPlaceholder(String);
 
 impl Attribute for AriaPlaceholder {
@@ -670,7 +671,7 @@ impl Attribute for AriaPlaceholder {
 crate::add_impls!(AriaPlaceholder);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-posinset>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaPosInset {
     val: String,
 }
@@ -695,7 +696,7 @@ impl Attribute for AriaPosInset {
 crate::add_impls!(AriaPosInset);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaPressed(AriaOrientationOption);
 
 impl Attribute for AriaPressed {
@@ -710,7 +711,7 @@ impl Attribute for AriaPressed {
 impl ButtonAttribute for AriaPressed {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaReadonly {
     val: String,
 }
@@ -735,7 +736,7 @@ impl Attribute for AriaReadonly {
 crate::add_impls!(AriaReadonly);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-relevant>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaRelevant(AriaRelevantOption);
 
 impl Attribute for AriaRelevant {
@@ -750,7 +751,7 @@ impl Attribute for AriaRelevant {
 crate::add_impls!(AriaRelevant);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-required>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaRequired {
     val: String,
 }
@@ -775,7 +776,7 @@ impl Attribute for AriaRequired {
 // TODO: just implement for input element
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaRoleDescription(String);
 
 impl Attribute for AriaRoleDescription {
@@ -790,7 +791,7 @@ impl Attribute for AriaRoleDescription {
 crate::add_impls!(AriaRoleDescription);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaRowCount {
     val: String,
 }
@@ -815,7 +816,7 @@ impl Attribute for AriaRowCount {
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaRowIndex {
     val: String,
 }
@@ -840,7 +841,7 @@ impl Attribute for AriaRowIndex {
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaRowSpan {
     val: String,
 }
@@ -865,7 +866,7 @@ impl Attribute for AriaRowSpan {
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaSelected {
     val: String,
 }
@@ -890,7 +891,7 @@ impl Attribute for AriaSelected {
 crate::add_impls!(AriaSelected);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-setsize>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaSetSize {
     val: String,
 }
@@ -915,7 +916,7 @@ impl Attribute for AriaSetSize {
 crate::add_impls!(AriaSetSize);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-sort>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaSort(AriaSortOption);
 
 impl Attribute for AriaSort {
@@ -929,7 +930,7 @@ impl Attribute for AriaSort {
 }
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaValueMax {
     val: String,
 }
@@ -954,7 +955,7 @@ impl Attribute for AriaValueMax {
 crate::add_impls!(AriaValueMax);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaValueMin {
     val: String,
 }
@@ -979,7 +980,7 @@ impl Attribute for AriaValueMin {
 crate::add_impls!(AriaValueMin);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaValueNow {
     val: String,
 }
@@ -1004,7 +1005,7 @@ impl Attribute for AriaValueNow {
 crate::add_impls!(AriaValueNow);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct AriaValueText(String);
 
 impl Attribute for AriaValueText {
@@ -1021,7 +1022,7 @@ crate::add_impls!(AriaValueText);
 /// Models the possible values of the `aria-autocomplete` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete>
-#[derive(Debug, AsRefStr, Default, Clone, PartialEq)]
+#[derive(Debug, AsRefStr, Default)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaAutocompleteOption {
     #[default]
@@ -1034,7 +1035,7 @@ pub enum AriaAutocompleteOption {
 /// Models the possible values of the `aria-checked` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-checked>
-#[derive(Debug, AsRefStr, Default, Clone, PartialEq)]
+#[derive(Debug, AsRefStr, Default)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaCheckedOption {
     False,
@@ -1047,7 +1048,7 @@ pub enum AriaCheckedOption {
 /// Models the possible values of the `aria-current` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current>
-#[derive(Debug, AsRefStr, Default, Clone, PartialEq)]
+#[derive(Debug, AsRefStr, Default)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaCurrentOption {
     #[default]
@@ -1063,7 +1064,7 @@ pub enum AriaCurrentOption {
 /// Models the possible values of the `aria-dropeffect` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-dropeffect>
-#[derive(Debug, AsRefStr, Default, Clone, PartialEq)]
+#[derive(Debug, AsRefStr, Default)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaDropEffectOption {
     #[default]
@@ -1078,7 +1079,7 @@ pub enum AriaDropEffectOption {
 /// Models the possible values of the `aria-haspopup` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup>
-#[derive(Debug, AsRefStr, Default, Clone, PartialEq)]
+#[derive(Debug, AsRefStr, Default)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaHasPopupOption {
     #[default]
@@ -1107,7 +1108,7 @@ pub enum AriaInvalidOption {
 /// Models the possible values of the `aria-live` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live>
-#[derive(Debug, AsRefStr, Default, Clone, PartialEq)]
+#[derive(Debug, AsRefStr, Default)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaLiveOption {
     #[default]
@@ -1119,7 +1120,7 @@ pub enum AriaLiveOption {
 /// Models the possible values of the `aria-orientation` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation>
-#[derive(Debug, AsRefStr, Clone, PartialEq)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaOrientationOption {
     Horizontal,
@@ -1134,7 +1135,7 @@ type AriaPressedOption = AriaCheckedOption;
 /// Models the possible values of the `aria-relevant` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-relevant>
-#[derive(Debug, AsRefStr, Default, Clone, PartialEq)]
+#[derive(Debug, AsRefStr, Default)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaRelevantOption {
     Additions,
@@ -1159,7 +1160,7 @@ pub enum AriaRelevantOption {
 /// Models the possible values of the `aria-sort` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-sort>
-#[derive(Debug, AsRefStr, Default, Clone, PartialEq)]
+#[derive(Debug, AsRefStr, Default)]
 #[strum(serialize_all = "lowercase")]
 pub enum AriaSortOption {
     #[default]

@@ -4,7 +4,7 @@ use url::Url;
 pub trait BlockQuoteAttribute: Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote#attr-cite>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Cite(Url);
 
 impl Attribute for Cite {

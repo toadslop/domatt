@@ -7,7 +7,7 @@ use url::Url;
 pub trait ButtonAttribute: Debug + Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-autofocus>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Autofocus;
 
 impl Attribute for Autofocus {
@@ -23,7 +23,7 @@ impl Attribute for Autofocus {
 impl ButtonAttribute for Autofocus {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-disabled>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Disabled;
 
 impl Attribute for Disabled {
@@ -39,7 +39,7 @@ impl Attribute for Disabled {
 impl ButtonAttribute for Disabled {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-form>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Form(String);
 
 impl Attribute for Form {
@@ -55,7 +55,7 @@ impl Attribute for Form {
 impl ButtonAttribute for Form {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-formaction>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct FormAction(Url);
 
 impl Attribute for FormAction {
@@ -71,7 +71,7 @@ impl Attribute for FormAction {
 impl ButtonAttribute for FormAction {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-formenctype>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct FormEncType(FormEncTypeOption);
 
 impl Attribute for FormEncType {
@@ -87,7 +87,7 @@ impl Attribute for FormEncType {
 impl ButtonAttribute for FormEncType {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-formmethod>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct FormMethod(FormEncTypeOption);
 
 impl Attribute for FormMethod {
@@ -103,7 +103,7 @@ impl Attribute for FormMethod {
 impl ButtonAttribute for FormMethod {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-formnovalidate>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct FormNoValidate;
 
 impl Attribute for FormNoValidate {
@@ -119,7 +119,7 @@ impl Attribute for FormNoValidate {
 impl ButtonAttribute for FormNoValidate {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-formtarget>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct FormTarget(TargetOption);
 
 impl Attribute for FormTarget {
@@ -135,7 +135,7 @@ impl Attribute for FormTarget {
 impl ButtonAttribute for FormTarget {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-name>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Name(String);
 
 impl Attribute for Name {
@@ -151,7 +151,7 @@ impl Attribute for Name {
 impl ButtonAttribute for Name {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Type(ButtonTypeOption);
 
 impl Attribute for Type {
@@ -167,7 +167,7 @@ impl Attribute for Type {
 impl ButtonAttribute for Type {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-value>
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct Value(String);
 
 impl Attribute for Value {
@@ -185,7 +185,7 @@ impl ButtonAttribute for Value {}
 /// An enum representing the different options for the type attribute of a button element.
 ///
 ///  <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type>
-#[derive(Debug, AsRefStr, Clone, PartialEq)]
+#[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum ButtonTypeOption {
     Submit,
@@ -196,7 +196,7 @@ pub enum ButtonTypeOption {
 /// An enum representing the different options for the formenctype attribute of a button element.
 ///
 ///  <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type>
-#[derive(Debug, AsRefStr, Clone, PartialEq)]
+#[derive(Debug, AsRefStr)]
 pub enum FormEncTypeOption {
     #[strum(serialize = "application/x-www-form-urlencoded")]
     Application,
