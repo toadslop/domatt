@@ -67,6 +67,10 @@ pub mod details;
 
 /// Marks a type as a DOM attribute.
 pub trait Attribute: Debug {
+    type InputType;
+
+    fn new(value: Self::InputType) -> Self;
+
     /// Returns a string representing the key of a DOM attribute.
     fn get_key(&self) -> &str;
 

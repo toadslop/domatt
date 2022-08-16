@@ -10,6 +10,12 @@ pub trait AnchorAttribute: Attribute {}
 pub struct Download(Option<String>);
 
 impl Attribute for Download {
+    type InputType = Option<String>;
+
+    fn new(val: Option<String>) -> Self {
+        Self(val)
+    }
+
     fn get_val(&self) -> Option<&str> {
         self.0.as_ref().map(|x| &**x)
     }
@@ -26,6 +32,12 @@ impl AnchorAttribute for Download {}
 pub struct Href(Url);
 
 impl Attribute for Href {
+    type InputType = Url;
+
+    fn new(val: Url) -> Self {
+        Self(val)
+    }
+
     fn get_val(&self) -> Option<&str> {
         Some(self.0.as_str())
     }
@@ -44,6 +56,12 @@ impl AnchorAttribute for Href {}
 pub struct HrefLang(String);
 
 impl Attribute for HrefLang {
+    type InputType = String;
+
+    fn new(val: String) -> Self {
+        Self(val)
+    }
+
     fn get_val(&self) -> Option<&str> {
         Some(self.0.as_str())
     }
@@ -57,25 +75,22 @@ impl AnchorAttribute for HrefLang {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-ping>
 #[derive(Debug)]
-pub struct Ping {
-    value: String,
-}
+pub struct Ping(String);
 
-impl Ping {
-    pub fn new(urls: Vec<Url>) -> Self {
-        Self {
-            value: urls
-                .iter()
+impl Attribute for Ping {
+    type InputType = Vec<Url>;
+
+    fn new(urls: Vec<Url>) -> Self {
+        Self(
+            urls.iter()
                 .map(Url::as_str)
                 .collect::<Vec<&str>>()
                 .join(" "),
-        }
+        )
     }
-}
 
-impl Attribute for Ping {
     fn get_val(&self) -> Option<&str> {
-        Some(self.value.as_ref())
+        Some(self.0.as_ref())
     }
 
     fn get_key(&self) -> &str {
@@ -90,6 +105,12 @@ impl AnchorAttribute for Ping {}
 pub struct ReferrerPolicy(HtmlAttributeReferrerPolicy);
 
 impl Attribute for ReferrerPolicy {
+    type InputType = HtmlAttributeReferrerPolicy;
+
+    fn new(val: HtmlAttributeReferrerPolicy) -> Self {
+        Self(val)
+    }
+
     fn get_val(&self) -> Option<&str> {
         Some(self.0.as_ref())
     }
@@ -103,25 +124,22 @@ impl AnchorAttribute for ReferrerPolicy {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-rel>
 #[derive(Debug)]
-pub struct Rel {
-    value: String,
-}
+pub struct Rel(String);
 
-impl Rel {
-    pub fn new(rels: Vec<ATagRel>) -> Self {
-        Self {
-            value: rels
-                .iter()
+impl Attribute for Rel {
+    type InputType = Vec<ATagRel>;
+
+    fn new(rels: Vec<ATagRel>) -> Self {
+        Self(
+            rels.iter()
                 .map(ATagRel::as_ref)
                 .collect::<Vec<&str>>()
                 .join(" "),
-        }
+        )
     }
-}
 
-impl Attribute for Rel {
     fn get_val(&self) -> Option<&str> {
-        Some(self.value.as_ref())
+        Some(self.0.as_ref())
     }
 
     fn get_key(&self) -> &str {
@@ -136,6 +154,12 @@ impl AnchorAttribute for Rel {}
 pub struct Target(TargetOption);
 
 impl Attribute for Target {
+    type InputType = TargetOption;
+
+    fn new(val: TargetOption) -> Self {
+        Self(val)
+    }
+
     fn get_val(&self) -> Option<&str> {
         Some(self.0.as_ref())
     }
@@ -154,6 +178,12 @@ impl AnchorAttribute for Target {}
 pub struct Type(String);
 
 impl Attribute for Type {
+    type InputType = String;
+
+    fn new(val: String) -> Self {
+        Self(val)
+    }
+
     fn get_val(&self) -> Option<&str> {
         Some(self.0.as_ref())
     }
