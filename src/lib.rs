@@ -19,63 +19,11 @@
 //! Please file an [issue](https://github.com/toadslop/domatt/issues), or if you'd like
 //! to solve it yourself feel free to put in a PR.
 
-use std::fmt::{self, Debug, Display};
-
-use strum::AsRefStr;
+use std::fmt::{self, Debug};
 use web_sys::Element;
 
-mod aria_attributes;
-#[cfg(feature = "aria_attributes")]
-pub use aria_attributes::*;
-
-mod button_html_attributes;
-#[cfg(feature = "button_html_attributes")]
-pub use button_html_attributes::*;
-
-mod global_attributes;
-#[cfg(feature = "html_attributes")]
-pub use global_attributes::*;
-
-mod svg_attributes;
-#[cfg(feature = "svg_attributes")]
-pub use svg_attributes::*;
-
-#[cfg(feature = "anchor_html_attributes")]
-pub mod anchor_html_attributes;
-
-mod audio_html_attributes;
-#[cfg(feature = "audio_html_attributes")]
-pub use audio_html_attributes::*;
-
-#[cfg(feature = "area_html_attributes")]
-pub mod area_html_attributes;
-
-mod base_html_attributes;
-#[cfg(feature = "base_html_attributes")]
-pub use base_html_attributes::*;
-
-mod blockquote_html_attributes;
-#[cfg(feature = "blockquote_html_attributes")]
-pub use blockquote_html_attributes::*;
-
-mod canvas_html_attributes;
-#[cfg(feature = "canvas_html_attributes")]
-pub use canvas_html_attributes::*;
-
-mod col_html_attributes;
-#[cfg(feature = "col_html_attributes")]
-pub use col_html_attributes::*;
-
-mod colgroup_html_attributes;
-#[cfg(feature = "colgroup_html_attributes")]
-pub use colgroup_html_attributes::*;
-
-mod data_html_attributes;
-#[cfg(feature = "data_html_attributes")]
-pub use data_html_attributes::*;
-
-mod details_html_attributes;
-pub use details_html_attributes::*;
+pub mod html;
+pub mod svg;
 
 /// Marks a type as a DOM attribute.
 pub trait Attribute: Debug {
@@ -121,66 +69,3 @@ impl fmt::Display for AttributeError {
         )
     }
 }
-
-/// An enum representing a value that could be either a number or string. It's typically
-/// used to represent a number value that could have an optional unit attached to it.
-#[derive(Debug)]
-pub enum NumberOrString<'a> {
-    Number(f64),
-    String(&'a str),
-}
-
-impl<'a> Display for NumberOrString<'a> {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            NumberOrString::Number(val) => write!(f, "{}", val),
-            NumberOrString::String(val) => write!(f, "{}", val),
-        }
-    }
-}
-
-#[derive(Debug, AsRefStr, Clone, PartialEq)]
-#[strum(serialize_all = "kebab-case")]
-pub enum HtmlAttributeReferrerPolicy {
-    NoReferrer,
-    NoReferrerWhenDowngrade,
-    Origin,
-    OriginWhenCrossOrigin,
-    SameOrigin,
-    StrictOrigin,
-    StrictOriginWhenCrossOrigin,
-    UnsafeUrl,
-    #[strum(serialize = "")]
-    Blank,
-}
-
-#[derive(Debug, AsRefStr, Clone, PartialEq)]
-pub enum TargetOption {
-    #[strum(serialize = "_self")]
-    Self_,
-    #[strum(serialize = "_blank")]
-    Blank,
-    #[strum(serialize = "_parent")]
-    Parent,
-    #[strum(serialize = "_top")]
-    Top,
-    Custom(String),
-}
-
-macro_rules! add_impls {
-    ($attr_struct:ty ) => {
-        impl AnchorAttribute for $attr_struct {}
-        impl AreaAttribute for $attr_struct {}
-        impl AudioAttribute for $attr_struct {}
-        impl BaseAttribute for $attr_struct {}
-        impl BlockQuoteAttribute for $attr_struct {}
-        impl ButtonAttribute for $attr_struct {}
-        impl CanvasAttribute for $attr_struct {}
-        impl ColAttribute for $attr_struct {}
-        impl ColGroupAttribute for $attr_struct {}
-        impl DataAttribute for $attr_struct {}
-        impl DetailsAttribute for $attr_struct {}
-    };
-}
-
-pub(crate) use add_impls;

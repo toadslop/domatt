@@ -1,11 +1,17 @@
 use crate::{
-    anchor_html_attributes::AnchorAttribute, area_html_attributes::AreaAttribute, Attribute,
-    AudioAttribute, BaseAttribute, BlockQuoteAttribute, ButtonAttribute, CanvasAttribute,
-    ColAttribute, ColGroupAttribute, DataAttribute, DetailsAttribute,
+    html::{
+        anchor::AnchorAttribute, area::AreaAttribute, audio::AudioAttribute, base::BaseAttribute,
+        blockquote::BlockQuoteAttribute, button::ButtonAttribute, canvas::CanvasAttribute,
+        col::ColAttribute, colgroup::ColGroupAttribute, data::DataAttribute,
+        details::DetailsAttribute,
+    },
+    Attribute,
 };
 use std::fmt::Display;
 use strum::AsRefStr;
 use url::Url;
+
+use super::set_attributes;
 
 pub trait GlobalAttribute: Attribute {}
 
@@ -38,7 +44,7 @@ impl Attribute for AccessKey {
 }
 
 impl GlobalAttribute for AccessKey {}
-crate::add_impls!(AccessKey);
+set_attributes!(AccessKey);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize>
 #[derive(Debug, Clone, PartialEq)]
@@ -66,7 +72,7 @@ pub enum AutoCapitalizeOptions {
 }
 
 impl GlobalAttribute for AutoCapitalize {}
-crate::add_impls!(AutoCapitalize);
+set_attributes!(AutoCapitalize);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autofocus>
 #[derive(Debug, Clone, PartialEq)]
@@ -83,7 +89,7 @@ impl Attribute for Autofocus {
 }
 
 impl GlobalAttribute for Autofocus {}
-crate::add_impls!(Autofocus);
+set_attributes!(Autofocus);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable>
 #[derive(Debug, Clone, PartialEq)]
@@ -100,7 +106,7 @@ impl Attribute for ContentEditable {
 }
 
 impl GlobalAttribute for ContentEditable {}
-crate::add_impls!(ContentEditable);
+set_attributes!(ContentEditable);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*>
 #[derive(Debug, Clone, PartialEq)]
@@ -133,7 +139,7 @@ impl Attribute for Data {
 }
 
 impl GlobalAttribute for Data {}
-crate::add_impls!(Data);
+set_attributes!(Data);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir>
 #[derive(Debug, Clone, PartialEq)]
@@ -157,7 +163,7 @@ impl Attribute for Dir {
     }
 }
 impl GlobalAttribute for Dir {}
-crate::add_impls!(Dir);
+set_attributes!(Dir);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable>
 #[derive(Debug, Clone, PartialEq)]
@@ -184,7 +190,7 @@ impl Attribute for Draggable {
 }
 
 impl GlobalAttribute for Draggable {}
-crate::add_impls!(Draggable);
+set_attributes!(Draggable);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint>
 #[derive(Debug, Clone, PartialEq)]
@@ -213,7 +219,7 @@ impl Attribute for EnterKeyHint {
 }
 
 impl GlobalAttribute for EnterKeyHint {}
-crate::add_impls!(EnterKeyHint);
+set_attributes!(EnterKeyHint);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden>
 #[derive(Debug, Clone, PartialEq)]
@@ -230,7 +236,7 @@ impl Attribute for Hidden {
 }
 
 impl GlobalAttribute for Hidden {}
-crate::add_impls!(Hidden);
+set_attributes!(Hidden);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id>
 #[derive(Debug, Clone, PartialEq)]
@@ -247,7 +253,7 @@ impl Attribute for Id {
 }
 
 impl GlobalAttribute for Id {}
-crate::add_impls!(Id);
+set_attributes!(Id);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode>
 #[derive(Debug, Clone, PartialEq)]
@@ -278,7 +284,7 @@ impl Attribute for InputMode {
 }
 
 impl GlobalAttribute for InputMode {}
-crate::add_impls!(InputMode);
+set_attributes!(InputMode);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is>
 #[derive(Debug, Clone, PartialEq)]
@@ -295,7 +301,7 @@ impl Attribute for Is {
 }
 
 impl GlobalAttribute for Is {}
-crate::add_impls!(Is);
+set_attributes!(Is);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemid>
 #[derive(Debug, Clone, PartialEq)]
@@ -312,7 +318,7 @@ impl Attribute for ItemId {
 }
 
 impl GlobalAttribute for ItemId {}
-crate::add_impls!(ItemId);
+set_attributes!(ItemId);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop>
 #[derive(Debug, Clone, PartialEq)]
@@ -329,7 +335,7 @@ impl Attribute for ItemProp {
 }
 
 impl GlobalAttribute for ItemProp {}
-crate::add_impls!(ItemProp);
+set_attributes!(ItemProp);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemref>
 #[derive(Debug, Clone, PartialEq)]
@@ -360,7 +366,7 @@ impl Attribute for ItemRef {
 }
 
 impl GlobalAttribute for ItemRef {}
-crate::add_impls!(ItemRef);
+set_attributes!(ItemRef);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope>
 #[derive(Debug, Clone, PartialEq)]
@@ -377,7 +383,7 @@ impl Attribute for ItemScope {
 }
 
 impl GlobalAttribute for ItemScope {}
-crate::add_impls!(ItemScope);
+set_attributes!(ItemScope);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemtype>
 #[derive(Debug, Clone, PartialEq)]
@@ -394,7 +400,7 @@ impl Attribute for ItemType {
 }
 
 impl GlobalAttribute for ItemType {}
-crate::add_impls!(ItemType);
+set_attributes!(ItemType);
 
 // TODO: make a struct to help with making language tags
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang>
@@ -412,7 +418,7 @@ impl Attribute for Lang {
 }
 
 impl GlobalAttribute for Lang {}
-crate::add_impls!(Lang);
+set_attributes!(Lang);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce>
 #[derive(Debug, Clone, PartialEq)]
@@ -429,7 +435,7 @@ impl Attribute for Nonce {
 }
 
 impl GlobalAttribute for Nonce {}
-crate::add_impls!(Nonce);
+set_attributes!(Nonce);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part>
 #[derive(Debug, Clone, PartialEq)]
@@ -460,7 +466,7 @@ impl Attribute for Part {
 }
 
 impl GlobalAttribute for Part {}
-crate::add_impls!(Part);
+set_attributes!(Part);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot>
 #[derive(Debug, Clone, PartialEq)]
@@ -477,7 +483,7 @@ impl Attribute for Slot {
 }
 
 impl GlobalAttribute for Slot {}
-crate::add_impls!(Slot);
+set_attributes!(Slot);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/spellcheck>
 #[derive(Debug, Clone, PartialEq)]
@@ -504,7 +510,7 @@ impl Attribute for Spellcheck {
 }
 
 impl GlobalAttribute for Spellcheck {}
-crate::add_impls!(Spellcheck);
+set_attributes!(Spellcheck);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex>
 #[derive(Debug, Clone, PartialEq)]
@@ -531,7 +537,7 @@ impl Attribute for TabIndex {
 }
 
 impl GlobalAttribute for TabIndex {}
-crate::add_impls!(TabIndex);
+set_attributes!(TabIndex);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title>
 #[derive(Debug, Clone, PartialEq)]
@@ -548,7 +554,7 @@ impl Attribute for Title {
 }
 
 impl GlobalAttribute for Title {}
-crate::add_impls!(Title);
+set_attributes!(Title);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/translate>
 #[derive(Debug, Clone, PartialEq)]
@@ -565,7 +571,7 @@ impl Attribute for Translate {
 }
 
 impl GlobalAttribute for Translate {}
-crate::add_impls!(Translate);
+set_attributes!(Translate);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/role>
 #[derive(Debug, Clone, PartialEq)]
@@ -582,7 +588,7 @@ impl Attribute for Role {
 }
 
 impl GlobalAttribute for Role {}
-crate::add_impls!(Role);
+set_attributes!(Role);
 
 /// An enum representing the different options for the `aria-role` attribute.
 ///

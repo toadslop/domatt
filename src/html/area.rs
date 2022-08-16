@@ -1,5 +1,5 @@
+use crate::html::anchor::Target;
 use crate::Attribute;
-use crate::Target;
 use strum::AsRefStr;
 
 pub trait AreaAttribute: Attribute {}
@@ -40,17 +40,18 @@ impl Attribute for Coords {
 
 impl AreaAttribute for Coords {}
 
-pub use crate::anchor_html_attributes::Download;
+pub use crate::html::anchor::Download;
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-download>
 impl AreaAttribute for Download {}
 
-pub use crate::anchor_html_attributes::Href;
+pub use crate::html::anchor::Href;
 impl AreaAttribute for Href {}
 
-pub use crate::anchor_html_attributes::HrefLang;
+pub use crate::html::anchor::HrefLang;
 impl AreaAttribute for HrefLang {}
 
-pub use crate::anchor_html_attributes::ReferrerPolicy;
+pub use crate::html::anchor::ReferrerPolicy;
+
 impl AreaAttribute for ReferrerPolicy {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-rel>

@@ -1,7 +1,9 @@
-use crate::{Attribute, HtmlAttributeReferrerPolicy, TargetOption};
+use crate::Attribute;
 use std::fmt::Debug;
 use strum::AsRefStr;
 use url::Url;
+
+use super::{HtmlAttributeReferrerPolicy, TargetOption};
 
 pub trait AnchorAttribute: Attribute {}
 

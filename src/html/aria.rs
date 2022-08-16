@@ -1,8 +1,10 @@
-use crate::{
-    anchor_html_attributes::AnchorAttribute, area_html_attributes::AreaAttribute, Attribute,
-    AudioAttribute, BaseAttribute, BlockQuoteAttribute, ButtonAttribute, CanvasAttribute,
-    ColAttribute, ColGroupAttribute, DataAttribute, DetailsAttribute,
+use super::set_attributes;
+use crate::html::{
+    anchor::AnchorAttribute, area::AreaAttribute, audio::AudioAttribute, base::BaseAttribute,
+    blockquote::BlockQuoteAttribute, button::ButtonAttribute, canvas::CanvasAttribute,
+    col::ColAttribute, colgroup::ColGroupAttribute, data::DataAttribute, details::DetailsAttribute,
 };
+use crate::Attribute;
 use strum::AsRefStr;
 
 pub trait AriaAttribute: Attribute {}
@@ -44,7 +46,7 @@ impl Attribute for AriaAtomic {
         "aria-atomic"
     }
 }
-crate::add_impls!(AriaAtomic);
+set_attributes!(AriaAtomic);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete>
 #[derive(Debug, Clone, PartialEq)]
@@ -59,7 +61,7 @@ impl Attribute for AriaAutocomplete {
         "aria-autocomplete"
     }
 }
-crate::add_impls!(AriaAutocomplete);
+set_attributes!(AriaAutocomplete);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy>
 #[derive(Debug, Clone, PartialEq)]
@@ -84,7 +86,7 @@ impl Attribute for AriaBusy {
         "aria-busy"
     }
 }
-crate::add_impls!(AriaBusy);
+set_attributes!(AriaBusy);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-checked>
 #[derive(Debug, Clone, PartialEq)]
@@ -99,7 +101,7 @@ impl Attribute for AriaChecked {
         "aria-checked"
     }
 }
-crate::add_impls!(AriaChecked);
+set_attributes!(AriaChecked);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colcount>
 #[derive(Debug, Clone, PartialEq)]
@@ -202,7 +204,7 @@ impl Attribute for AriaControls {
         "aria-controls"
     }
 }
-crate::add_impls!(AriaControls);
+set_attributes!(AriaControls);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current>
 #[derive(Debug, Clone, PartialEq)]
@@ -217,7 +219,7 @@ impl Attribute for AriaCurrent {
         "aria-current"
     }
 }
-crate::add_impls!(AriaCurrent);
+set_attributes!(AriaCurrent);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby>
 #[derive(Debug, Clone, PartialEq)]
@@ -240,7 +242,7 @@ impl Attribute for AriaDescribedby {
         "aria-describedby"
     }
 }
-crate::add_impls!(AriaDescribedby);
+set_attributes!(AriaDescribedby);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-details>
 #[derive(Debug, Clone, PartialEq)]
@@ -263,7 +265,7 @@ impl Attribute for AriaDetails {
         "aria-details"
     }
 }
-crate::add_impls!(AriaDetails);
+set_attributes!(AriaDetails);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled>
 #[derive(Debug, Clone, PartialEq)]
@@ -288,7 +290,7 @@ impl Attribute for AriaDisabled {
         "aria-disabled"
     }
 }
-crate::add_impls!(AriaDisabled);
+set_attributes!(AriaDisabled);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-dropeffect>
 #[derive(Debug, Clone, PartialEq)]
@@ -303,7 +305,7 @@ impl Attribute for AriaDropEffect {
         "aria-dropeffect"
     }
 }
-crate::add_impls!(AriaDropEffect);
+set_attributes!(AriaDropEffect);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage>
 #[derive(Debug, Clone, PartialEq)]
@@ -343,7 +345,7 @@ impl Attribute for AriaExpanded {
         "aria-expanded"
     }
 }
-crate::add_impls!(AriaExpanded);
+set_attributes!(AriaExpanded);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-flowto>
 #[derive(Debug, Clone, PartialEq)]
@@ -366,7 +368,7 @@ impl Attribute for AriaFlowTo {
         "aria-flowto"
     }
 }
-crate::add_impls!(AriaFlowTo);
+set_attributes!(AriaFlowTo);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-grabbed>
 #[derive(Debug, Clone, PartialEq)]
@@ -391,7 +393,7 @@ impl Attribute for AriaGrabbed {
         "aria-grabbed"
     }
 }
-crate::add_impls!(AriaGrabbed);
+set_attributes!(AriaGrabbed);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup>
 #[derive(Debug, Clone, PartialEq)]
@@ -406,7 +408,7 @@ impl Attribute for AriaHasPopup {
         "aria-haspopup"
     }
 }
-crate::add_impls!(AriaHasPopup);
+set_attributes!(AriaHasPopup);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden>
 #[derive(Debug, Clone, PartialEq)]
@@ -431,7 +433,7 @@ impl Attribute for AriaHidden {
         "aria-hidden"
     }
 }
-crate::add_impls!(AriaHidden);
+set_attributes!(AriaHidden);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid>
 #[derive(Debug, Clone, PartialEq)]
@@ -461,7 +463,7 @@ impl Attribute for AriaKeyshortcuts {
         "aria-keyshortcuts"
     }
 }
-crate::add_impls!(AriaKeyshortcuts);
+set_attributes!(AriaKeyshortcuts);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label>
 #[derive(Debug, Clone, PartialEq)]
@@ -476,7 +478,7 @@ impl Attribute for AriaLabel {
         "aria-label"
     }
 }
-crate::add_impls!(AriaLabel);
+set_attributes!(AriaLabel);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby>
 #[derive(Debug, Clone, PartialEq)]
@@ -499,7 +501,7 @@ impl Attribute for AriaLabelledBy {
         "aria-labelledby"
     }
 }
-crate::add_impls!(AriaLabelledBy);
+set_attributes!(AriaLabelledBy);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-level>
 #[derive(Debug, Clone, PartialEq)]
@@ -524,7 +526,7 @@ impl Attribute for AriaLevel {
         "aria-level"
     }
 }
-crate::add_impls!(AriaLevel);
+set_attributes!(AriaLevel);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live>
 #[derive(Debug, Clone, PartialEq)]
@@ -539,7 +541,7 @@ impl Attribute for AriaLive {
         "aria-live"
     }
 }
-crate::add_impls!(AriaLive);
+set_attributes!(AriaLive);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-modal>
 #[derive(Debug, Clone, PartialEq)]
@@ -564,7 +566,7 @@ impl Attribute for AriaModal {
         "aria-modal"
     }
 }
-crate::add_impls!(AriaModal);
+set_attributes!(AriaModal);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiline>
 #[derive(Debug, Clone, PartialEq)]
@@ -589,7 +591,7 @@ impl Attribute for AriaMultiline {
         "aria-multiline"
     }
 }
-crate::add_impls!(AriaMultiline);
+set_attributes!(AriaMultiline);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiselectable>
 #[derive(Debug, Clone, PartialEq)]
@@ -614,7 +616,7 @@ impl Attribute for AriaMultiselectable {
         "aria-multiselectable"
     }
 }
-crate::add_impls!(AriaMultiselectable);
+set_attributes!(AriaMultiselectable);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation>
 #[derive(Debug, Clone, PartialEq)]
@@ -629,7 +631,7 @@ impl Attribute for AriaOrientation {
         "aria-orientation"
     }
 }
-crate::add_impls!(AriaOrientation);
+set_attributes!(AriaOrientation);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-owns>
 #[derive(Debug, Clone, PartialEq)]
@@ -652,7 +654,7 @@ impl Attribute for AriaOwns {
         "aria-owns"
     }
 }
-crate::add_impls!(AriaOwns);
+set_attributes!(AriaOwns);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-placeholder>
 #[derive(Debug, Clone, PartialEq)]
@@ -667,7 +669,7 @@ impl Attribute for AriaPlaceholder {
         "aria-placeholder"
     }
 }
-crate::add_impls!(AriaPlaceholder);
+set_attributes!(AriaPlaceholder);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-posinset>
 #[derive(Debug, Clone, PartialEq)]
@@ -692,7 +694,7 @@ impl Attribute for AriaPosInset {
         "aria-posinset"
     }
 }
-crate::add_impls!(AriaPosInset);
+set_attributes!(AriaPosInset);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed>
 #[derive(Debug, Clone, PartialEq)]
@@ -732,7 +734,7 @@ impl Attribute for AriaReadonly {
         "aria-readonly"
     }
 }
-crate::add_impls!(AriaReadonly);
+set_attributes!(AriaReadonly);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-relevant>
 #[derive(Debug, Clone, PartialEq)]
@@ -747,7 +749,7 @@ impl Attribute for AriaRelevant {
         "aria-relevant"
     }
 }
-crate::add_impls!(AriaRelevant);
+set_attributes!(AriaRelevant);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-required>
 #[derive(Debug, Clone, PartialEq)]
@@ -787,7 +789,7 @@ impl Attribute for AriaRoleDescription {
         "aria-roledescription"
     }
 }
-crate::add_impls!(AriaRoleDescription);
+set_attributes!(AriaRoleDescription);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
 #[derive(Debug, Clone, PartialEq)]
@@ -887,7 +889,7 @@ impl Attribute for AriaSelected {
         "aria-selected"
     }
 }
-crate::add_impls!(AriaSelected);
+set_attributes!(AriaSelected);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-setsize>
 #[derive(Debug, Clone, PartialEq)]
@@ -912,7 +914,7 @@ impl Attribute for AriaSetSize {
         "aria-setsize"
     }
 }
-crate::add_impls!(AriaSetSize);
+set_attributes!(AriaSetSize);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-sort>
 #[derive(Debug, Clone, PartialEq)]
@@ -951,7 +953,7 @@ impl Attribute for AriaValueMax {
         "aria-valuemax"
     }
 }
-crate::add_impls!(AriaValueMax);
+set_attributes!(AriaValueMax);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin>
 #[derive(Debug, Clone, PartialEq)]
@@ -976,7 +978,7 @@ impl Attribute for AriaValueMin {
         "aria-valuemin"
     }
 }
-crate::add_impls!(AriaValueMin);
+set_attributes!(AriaValueMin);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow>
 #[derive(Debug, Clone, PartialEq)]
@@ -1001,7 +1003,7 @@ impl Attribute for AriaValueNow {
         "aria-valuenow"
     }
 }
-crate::add_impls!(AriaValueNow);
+set_attributes!(AriaValueNow);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext>
 #[derive(Debug, Clone, PartialEq)]
@@ -1016,7 +1018,7 @@ impl Attribute for AriaValueText {
         "aria-valuetext"
     }
 }
-crate::add_impls!(AriaValueText);
+set_attributes!(AriaValueText);
 
 /// Models the possible values of the `aria-autocomplete` attribute.
 ///
@@ -1126,10 +1128,10 @@ pub enum AriaOrientationOption {
     Vertical,
 }
 
-/// Models the possible values of the `aria-pressed` attribute.
-///
-/// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed>
-type AriaPressedOption = AriaCheckedOption;
+// / Models the possible values of the `aria-pressed` attribute.
+// /
+// / <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed>
+// type AriaPressedOption = AriaCheckedOption;
 
 /// Models the possible values of the `aria-relevant` attribute.
 ///

@@ -1,8 +1,10 @@
 use std::fmt::Debug;
 
-use crate::{Attribute, TargetOption};
+use crate::Attribute;
 use strum::AsRefStr;
 use url::Url;
+
+use super::TargetOption;
 
 pub trait ButtonAttribute: Debug + Attribute {}
 
