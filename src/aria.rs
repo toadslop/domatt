@@ -1,7 +1,8 @@
 use crate::{
-    anchor_html_attributes::AnchorAttribute, area_html_attributes::AreaAttribute, Attribute,
-    AudioAttribute, BaseAttribute, BlockQuoteAttribute, ButtonAttribute, CanvasAttribute,
-    ColAttribute, ColGroupAttribute, DataAttribute, DetailsAttribute,
+    anchor::AnchorAttribute, area::AreaAttribute, audio::AudioAttribute, base::BaseAttribute,
+    blockquote::BlockQuoteAttribute, button::ButtonAttribute, canvas::CanvasAttribute,
+    col::ColAttribute, colgroup::ColGroupAttribute, data::DataAttribute, details::DetailsAttribute,
+    svg::SvgAttribute, Attribute,
 };
 use strum::AsRefStr;
 
@@ -9,9 +10,9 @@ pub trait AriaAttribute: Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-activedescendant>
 #[derive(Debug)]
-pub struct AriaActivedescendant(String);
+pub struct AriaActiveDescendant(String);
 
-impl Attribute for AriaActivedescendant {
+impl Attribute for AriaActiveDescendant {
     fn get_val(&self) -> Option<&str> {
         Some(self.0.as_str())
     }
@@ -20,7 +21,7 @@ impl Attribute for AriaActivedescendant {
         "aria-activedescendant"
     }
 }
-crate::add_impls!(AriaActivedescendant);
+crate::add_impls!(AriaActiveDescendant);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-atomic>
 #[derive(Debug)]
@@ -1130,7 +1131,7 @@ pub enum AriaOrientationOption {
 /// Models the possible values of the `aria-pressed` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed>
-type AriaPressedOption = AriaCheckedOption;
+// type AriaPressedOption = AriaCheckedOption;
 
 /// Models the possible values of the `aria-relevant` attribute.
 ///

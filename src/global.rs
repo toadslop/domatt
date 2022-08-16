@@ -1,7 +1,8 @@
 use crate::{
-    anchor_html_attributes::AnchorAttribute, area_html_attributes::AreaAttribute, Attribute,
-    AudioAttribute, BaseAttribute, BlockQuoteAttribute, ButtonAttribute, CanvasAttribute,
-    ColAttribute, ColGroupAttribute, DataAttribute, DetailsAttribute,
+    anchor::AnchorAttribute, area::AreaAttribute, audio::AudioAttribute, base::BaseAttribute,
+    blockquote::BlockQuoteAttribute, button::ButtonAttribute, canvas::CanvasAttribute,
+    col::ColAttribute, colgroup::ColGroupAttribute, data::DataAttribute, details::DetailsAttribute,
+    svg::SvgAttribute, Attribute,
 };
 use std::fmt::Display;
 use strum::AsRefStr;
@@ -569,7 +570,7 @@ crate::add_impls!(Translate);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/role>
 #[derive(Debug)]
-pub struct Role(AriaRole);
+pub struct Role(pub AriaRole);
 
 impl Attribute for Role {
     fn get_val(&self) -> Option<&str> {

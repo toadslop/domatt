@@ -19,63 +19,51 @@
 //! Please file an [issue](https://github.com/toadslop/domatt/issues), or if you'd like
 //! to solve it yourself feel free to put in a PR.
 
-use std::fmt::{self, Debug, Display};
-
+use std::fmt::{self, Debug};
 use strum::AsRefStr;
 use web_sys::Element;
 
-mod aria_attributes;
-#[cfg(feature = "aria_attributes")]
-pub use aria_attributes::*;
+#[cfg(feature = "anchor")]
+pub mod anchor;
 
-mod button_html_attributes;
-#[cfg(feature = "button_html_attributes")]
-pub use button_html_attributes::*;
+#[cfg(feature = "area")]
+pub mod area;
 
-mod global_attributes;
-#[cfg(feature = "html_attributes")]
-pub use global_attributes::*;
+#[cfg(feature = "aria")]
+pub mod aria;
 
-mod svg_attributes;
-#[cfg(feature = "svg_attributes")]
-pub use svg_attributes::*;
+#[cfg(feature = "button")]
+pub mod button;
 
-#[cfg(feature = "anchor_html_attributes")]
-pub mod anchor_html_attributes;
+#[cfg(feature = "global")]
+pub mod global;
 
-mod audio_html_attributes;
-#[cfg(feature = "audio_html_attributes")]
-pub use audio_html_attributes::*;
+#[cfg(feature = "svg")]
+pub mod svg;
 
-#[cfg(feature = "area_html_attributes")]
-pub mod area_html_attributes;
+#[cfg(feature = "audio")]
+pub mod audio;
 
-mod base_html_attributes;
-#[cfg(feature = "base_html_attributes")]
-pub use base_html_attributes::*;
+#[cfg(feature = "base")]
+pub mod base;
 
-mod blockquote_html_attributes;
-#[cfg(feature = "blockquote_html_attributes")]
-pub use blockquote_html_attributes::*;
+#[cfg(feature = "blockquote")]
+pub mod blockquote;
 
-mod canvas_html_attributes;
-#[cfg(feature = "canvas_html_attributes")]
-pub use canvas_html_attributes::*;
+#[cfg(feature = "canvas")]
+pub mod canvas;
 
-mod col_html_attributes;
-#[cfg(feature = "col_html_attributes")]
-pub use col_html_attributes::*;
+#[cfg(feature = "col")]
+pub mod col;
 
-mod colgroup_html_attributes;
-#[cfg(feature = "colgroup_html_attributes")]
-pub use colgroup_html_attributes::*;
+#[cfg(feature = "colgroup")]
+pub mod colgroup;
 
-mod data_html_attributes;
-#[cfg(feature = "data_html_attributes")]
-pub use data_html_attributes::*;
+#[cfg(feature = "data")]
+mod data;
 
-mod details_html_attributes;
-pub use details_html_attributes::*;
+#[cfg(feature = "details")]
+pub mod details;
 
 /// Marks a type as a DOM attribute.
 pub trait Attribute: Debug {
@@ -125,16 +113,16 @@ impl fmt::Display for AttributeError {
 /// An enum representing a value that could be either a number or string. It's typically
 /// used to represent a number value that could have an optional unit attached to it.
 #[derive(Debug)]
-pub enum NumberOrString<'a> {
+pub enum NumberOrString {
     Number(f64),
-    String(&'a str),
+    String(String),
 }
 
-impl<'a> Display for NumberOrString<'a> {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl NumberOrString {
+    pub fn to_string(&self) -> String {
         match self {
-            NumberOrString::Number(val) => write!(f, "{}", val),
-            NumberOrString::String(val) => write!(f, "{}", val),
+            NumberOrString::Number(num) => num.to_string(),
+            NumberOrString::String(string) => string.to_owned(),
         }
     }
 }
@@ -180,6 +168,7 @@ macro_rules! add_impls {
         impl ColGroupAttribute for $attr_struct {}
         impl DataAttribute for $attr_struct {}
         impl DetailsAttribute for $attr_struct {}
+        impl SvgAttribute for $attr_struct {}
     };
 }
 
