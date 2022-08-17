@@ -8,13 +8,13 @@ pub trait AnchorAttribute: crate::Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-download>
 #[derive(Debug, Attribute)]
-#[attribute("camelCase", Option<String>)]
+#[attribute("lowercase", Option<String>)]
 pub struct Download(String);
 impl AnchorAttribute for Download {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href>
 #[derive(Debug, Attribute)]
-#[attribute("camelCase", Url)]
+#[attribute("lowercase", Url)]
 pub struct Href(String);
 
 impl AnchorAttribute for Href {}
@@ -23,13 +23,13 @@ impl AnchorAttribute for Href {}
 // https://gist.github.com/msikma/8912e62ed866778ff8cd
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-hreflang>
 #[derive(Debug, Attribute)]
-#[attribute("camelCase", String)]
+#[attribute("lowercase", String)]
 pub struct HrefLang(String);
 impl AnchorAttribute for HrefLang {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-ping>
 #[derive(Debug, Attribute)]
-#[attribute("camelCase", Vec<Url>)]
+#[attribute("lowercase", Vec<Url>)]
 pub struct Ping(String);
 impl AnchorAttribute for Ping {}
 

@@ -7,245 +7,69 @@ use url::Url;
 pub trait ButtonAttribute: Debug + Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-autofocus>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase")]
 pub struct Autofocus;
-
-impl Attribute for Autofocus {
-    fn get_val(&self) -> Option<&str> {
-        None
-    }
-
-    fn get_key(&self) -> &str {
-        "autofocus"
-    }
-
-    type InputType = Self;
-
-    fn new(value: Self::InputType) -> Self {
-        Self
-    }
-}
-
 impl ButtonAttribute for Autofocus {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-disabled>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase")]
 pub struct Disabled;
-
-impl Attribute for Disabled {
-    fn get_val(&self) -> Option<&str> {
-        None
-    }
-
-    fn get_key(&self) -> &str {
-        "disabled"
-    }
-
-    type InputType = Self;
-
-    fn new(value: Self::InputType) -> Self {
-        Self
-    }
-}
-
 impl ButtonAttribute for Disabled {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-form>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
 pub struct Form(String);
-
-impl Attribute for Form {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "form"
-    }
-
-    type InputType = String;
-
-    fn new(value: Self::InputType) -> Self {
-        Self(value)
-    }
-}
-
 impl ButtonAttribute for Form {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-formaction>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", Url)]
 pub struct FormAction(String);
-
-impl Attribute for FormAction {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "formaction"
-    }
-
-    type InputType = Url;
-
-    fn new(value: Self::InputType) -> Self {
-        Self(value.to_string())
-    }
-}
-
 impl ButtonAttribute for FormAction {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-formenctype>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", FormEncTypeOption)]
 pub struct FormEncType(FormEncTypeOption);
-
-impl Attribute for FormEncType {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "formenctype"
-    }
-
-    type InputType = FormEncTypeOption;
-
-    fn new(value: Self::InputType) -> Self {
-        Self(value)
-    }
-}
-
 impl ButtonAttribute for FormEncType {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-formmethod>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", FormMethodOption)]
 pub struct FormMethod(FormMethodOption);
-
-impl Attribute for FormMethod {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "formmethod"
-    }
-
-    type InputType = FormMethodOption;
-
-    fn new(value: Self::InputType) -> Self {
-        Self(value)
-    }
-}
-
 impl ButtonAttribute for FormMethod {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-formnovalidate>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase")]
 pub struct FormNoValidate;
-
-impl Attribute for FormNoValidate {
-    fn get_val(&self) -> Option<&str> {
-        None
-    }
-
-    fn get_key(&self) -> &str {
-        "formnovalidate"
-    }
-
-    type InputType = Self;
-
-    fn new(value: Self::InputType) -> Self {
-        Self
-    }
-}
-
 impl ButtonAttribute for FormNoValidate {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-formtarget>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", TargetOption)]
 pub struct FormTarget(TargetOption);
-
-impl Attribute for FormTarget {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "formtarget"
-    }
-
-    type InputType = TargetOption;
-
-    fn new(value: Self::InputType) -> Self {
-        Self(value)
-    }
-}
-
 impl ButtonAttribute for FormTarget {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-name>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
 pub struct Name(String);
-
-impl Attribute for Name {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "name"
-    }
-
-    type InputType = String;
-
-    fn new(value: Self::InputType) -> Self {
-        Self(value)
-    }
-}
-
 impl ButtonAttribute for Name {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", ButtonTypeOption)]
 pub struct Type(ButtonTypeOption);
-
-impl Attribute for Type {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "type"
-    }
-
-    type InputType = ButtonTypeOption;
-
-    fn new(value: Self::InputType) -> Self {
-        Self(value)
-    }
-}
-
 impl ButtonAttribute for Type {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-value>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
 pub struct Value(String);
-
-impl Attribute for Value {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "value"
-    }
-
-    type InputType = String;
-
-    fn new(value: Self::InputType) -> Self {
-        Self(value)
-    }
-}
-
 impl ButtonAttribute for Value {}
 
 /// An enum representing the different options for the type attribute of a button element.

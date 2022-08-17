@@ -45,18 +45,39 @@ pub fn attribute(input: TokenStream) -> TokenStream {
                     let args = generic.args;
                     let arg = args.first().unwrap();
 
-                    quote! {
-                       pub fn new(val: Vec<#arg>) -> Self {
-                           Self(val.iter()
-                           .map(|item| item.as_ref())
-                           .collect::<Vec<&str>>()
-                           .join(" "))
-                       }
+                    let type_ = match arg {
+                        syn::GenericArgument::Type(type_) => match type_ {
+                            syn::Type::Path(type_) => type_,
+
+                            _ => panic!("Invalid generic type"),
+                        },
+                        _ => panic!("Invalid generic parameter"),
+                    };
+                    let generic_ident = type_.path.get_ident().unwrap().to_string();
+                    if generic_ident == "char" {
+                        quote! {
+                            pub fn new(val: Vec<#arg>) -> Self {
+                                Self(val.iter()
+                                    .map(char::to_string)
+                                    .collect::<Vec<String>>()
+                                    .join(" ")
+                                )
+                            }
+                        }
+                    } else {
+                        quote! {
+                           pub fn new(val: Vec<#arg>) -> Self {
+                               Self(val.iter()
+                               .map(|item| item.as_ref())
+                               .collect::<Vec<&str>>()
+                               .join(" "))
+                           }
+                        }
                     }
                 }
                 None => panic!("Need a generic type"),
             },
-            "Url" | "String" => {
+            "Url" | "String" | "u16" | "u8" | "i16" | "bool" => {
                 quote! {
                     pub fn new(val: #input_type) -> Self {
                         Self(val.to_string())
@@ -88,13 +109,25 @@ pub fn attribute(input: TokenStream) -> TokenStream {
 
     let serial = stringify!(ident).to_case(case);
 
+    let get_val = if is_unit {
+        quote! {
+            fn get_val(&self) -> Option<&str> {
+                None
+            }
+        }
+    } else {
+        quote! {
+            fn get_val(&self) -> Option<&str> {
+                Some(self.0.as_ref())
+            }
+        }
+    };
+
     let output = quote! {
         #constructor
 
         impl Attribute for #ident {
-            fn get_val(&self) -> Option<&str> {
-                Some(self.0.as_ref())
-            }
+            #get_val
 
             fn get_key(&self) -> &str {
                 #serial
