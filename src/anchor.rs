@@ -3,73 +3,27 @@ use std::fmt::Debug;
 use strum::AsRefStr;
 use url::Url;
 
-pub trait AnchorAttribute: Attribute {}
+pub trait AnchorAttribute: crate::Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-download>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", Option<String>)]
 pub struct Download(Option<String>);
-
-impl Attribute for Download {
-    type InputType = Option<String>;
-
-    fn new(val: Option<String>) -> Self {
-        Self(val)
-    }
-
-    fn get_val(&self) -> Option<&str> {
-        self.0.as_ref().map(|x| &**x)
-    }
-
-    fn get_key(&self) -> &str {
-        "download"
-    }
-}
-
 impl AnchorAttribute for Download {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href>
-#[derive(Debug)]
-pub struct Href(Url);
-
-impl Attribute for Href {
-    type InputType = Url;
-
-    fn new(val: Url) -> Self {
-        Self(val)
-    }
-
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "href"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", Url)]
+pub struct Href(String);
 
 impl AnchorAttribute for Href {}
 
 // TODO: create a data structure to help generate language tags.
 // https://gist.github.com/msikma/8912e62ed866778ff8cd
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-hreflang>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", String)]
 pub struct HrefLang(String);
-
-impl Attribute for HrefLang {
-    type InputType = String;
-
-    fn new(val: String) -> Self {
-        Self(val)
-    }
-
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "hreflang"
-    }
-}
 
 impl AnchorAttribute for HrefLang {}
 

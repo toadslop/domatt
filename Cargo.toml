@@ -15,6 +15,7 @@ gloo-console = "0.2.1"
 strum = {version = "0.24.1", features = ["derive"]}
 url = "2.2.2"
 web-sys = { version = "0.3.59", features = ["Element"] }
+attribute-derive = { path = "attribute-derive" }
 
 [profile.release]
 panic = 'abort'

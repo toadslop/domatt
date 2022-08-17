@@ -19,6 +19,7 @@
 //! Please file an [issue](https://github.com/toadslop/domatt/issues), or if you'd like
 //! to solve it yourself feel free to put in a PR.
 
+use attribute_derive::Attribute;
 use std::fmt::{self, Debug};
 use strum::AsRefStr;
 use web_sys::Element;
@@ -67,9 +68,9 @@ pub mod details;
 
 /// Marks a type as a DOM attribute.
 pub trait Attribute: Debug {
-    type InputType;
+    // type InputType;
 
-    fn new(value: Self::InputType) -> Self;
+    // fn new(value: Self::InputType) -> Self;
 
     /// Returns a string representing the key of a DOM attribute.
     fn get_key(&self) -> &str;
