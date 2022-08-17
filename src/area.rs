@@ -17,6 +17,12 @@ impl Attribute for Alt {
     fn get_key(&self) -> &str {
         "alt"
     }
+
+    type InputType = String;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 
 impl AreaAttribute for Alt {}
@@ -37,6 +43,12 @@ impl Attribute for Coords {
     fn get_key(&self) -> &str {
         "coords"
     }
+
+    type InputType = AreaTagShape;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 
 impl AreaAttribute for Coords {}
@@ -56,25 +68,22 @@ impl AreaAttribute for ReferrerPolicy {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-rel>
 #[derive(Debug)]
-pub struct Rel {
-    value: String,
-}
+pub struct Rel(String);
 
-impl Rel {
-    pub fn new(rels: Vec<AreaTagRel>) -> Self {
-        Self {
-            value: rels
-                .iter()
+impl Attribute for Rel {
+    type InputType = Vec<AreaTagRel>;
+
+    fn new(rels: Self::InputType) -> Self {
+        Self(
+            rels.iter()
                 .map(AreaTagRel::as_ref)
                 .collect::<Vec<&str>>()
                 .join(" "),
-        }
+        )
     }
-}
 
-impl Attribute for Rel {
     fn get_val(&self) -> Option<&str> {
-        Some(self.value.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
@@ -95,6 +104,12 @@ impl Attribute for Shape {
 
     fn get_key(&self) -> &str {
         "shape"
+    }
+
+    type InputType = AreaTagShape;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
     }
 }
 
