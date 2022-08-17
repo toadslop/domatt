@@ -20,30 +20,32 @@ impl Attribute for AriaActiveDescendant {
     fn get_key(&self) -> &str {
         "aria-activedescendant"
     }
+
+    type InputType = String;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 crate::add_impls!(AriaActiveDescendant);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-atomic>
 #[derive(Debug)]
-pub struct AriaAtomic {
-    val: String,
-}
-
-impl AriaAtomic {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaAtomic(String);
 
 impl Attribute for AriaAtomic {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-atomic"
+    }
+
+    type InputType = bool;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaAtomic);
@@ -60,30 +62,32 @@ impl Attribute for AriaAutocomplete {
     fn get_key(&self) -> &str {
         "aria-autocomplete"
     }
+
+    type InputType = AriaAutocompleteOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 crate::add_impls!(AriaAutocomplete);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy>
 #[derive(Debug)]
-pub struct AriaBusy {
-    val: String,
-}
-
-impl AriaBusy {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaBusy(String);
 
 impl Attribute for AriaBusy {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-busy"
+    }
+
+    type InputType = bool;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaBusy);
@@ -100,32 +104,34 @@ impl Attribute for AriaChecked {
     fn get_key(&self) -> &str {
         "aria-checked"
     }
+
+    type InputType = AriaCheckedOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 crate::add_impls!(AriaChecked);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colcount>
 #[derive(Debug)]
-pub struct AriaColCount {
-    val: String,
-}
-
-impl AriaColCount {
-    pub fn new(val: u8) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaColCount(String);
 
 // Note: unsigned because we can't have a negative colcount and 8-bit because you
 // could never render more than 255 columns on a screen, so we do this for optimization
 impl Attribute for AriaColCount {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-colcount"
+    }
+
+    type InputType = u8;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 
@@ -133,25 +139,21 @@ impl Attribute for AriaColCount {
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindex>
 #[derive(Debug)]
-pub struct AriaColIndex {
-    val: String,
-}
-
-impl AriaColIndex {
-    pub fn new(val: u8) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaColIndex(String);
 
 impl Attribute for AriaColIndex {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-colindex"
+    }
+
+    type InputType = u8;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 
@@ -159,25 +161,21 @@ impl Attribute for AriaColIndex {
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colspan>
 #[derive(Debug)]
-pub struct AriaColSpan {
-    val: String,
-}
-
-impl AriaColSpan {
-    pub fn new(val: u8) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaColSpan(String);
 
 impl Attribute for AriaColSpan {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
+        Some(self.0.as_ref())
     }
 
     fn get_key(&self) -> &str {
         "aria-colspan"
+    }
+
+    type InputType = u8;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 
@@ -185,23 +183,21 @@ impl Attribute for AriaColSpan {
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls>
 #[derive(Debug)]
-pub struct AriaControls {
-    val: String,
-}
-
-impl AriaControls {
-    pub fn new(val: Vec<String>) -> Self {
-        Self { val: val.join(" ") }
-    }
-}
+pub struct AriaControls(String);
 
 impl Attribute for AriaControls {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-controls"
+    }
+
+    type InputType = Vec<String>;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.join(" "))
     }
 }
 crate::add_impls!(AriaControls);
@@ -218,76 +214,74 @@ impl Attribute for AriaCurrent {
     fn get_key(&self) -> &str {
         "aria-current"
     }
+
+    type InputType = AriaCurrentOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 crate::add_impls!(AriaCurrent);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby>
 #[derive(Debug)]
-pub struct AriaDescribedby {
-    val: String,
-}
-
-impl AriaDescribedby {
-    pub fn new(val: Vec<String>) -> Self {
-        Self { val: val.join(" ") }
-    }
-}
+pub struct AriaDescribedby(String);
 
 impl Attribute for AriaDescribedby {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-describedby"
+    }
+
+    type InputType = Vec<String>;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.join(" "))
     }
 }
 crate::add_impls!(AriaDescribedby);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-details>
 #[derive(Debug)]
-pub struct AriaDetails {
-    val: String,
-}
-
-impl AriaDetails {
-    pub fn new(val: Vec<String>) -> Self {
-        Self { val: val.join(" ") }
-    }
-}
+pub struct AriaDetails(String);
 
 impl Attribute for AriaDetails {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-details"
+    }
+
+    type InputType = Vec<String>;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.join(" "))
     }
 }
 crate::add_impls!(AriaDetails);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled>
 #[derive(Debug)]
-pub struct AriaDisabled {
-    val: String,
-}
-
-impl AriaDisabled {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaDisabled(String);
 
 impl Attribute for AriaDisabled {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-disabled"
+    }
+
+    type InputType = bool;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaDisabled);
@@ -304,14 +298,20 @@ impl Attribute for AriaDropEffect {
     fn get_key(&self) -> &str {
         "aria-dropeffect"
     }
+
+    type InputType = AriaDropEffectOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 crate::add_impls!(AriaDropEffect);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage>
 #[derive(Debug)]
-pub struct AriaErrormessage(String);
+pub struct AriaErrorMessage(String);
 
-impl Attribute for AriaErrormessage {
+impl Attribute for AriaErrorMessage {
     fn get_val(&self) -> Option<&str> {
         Some(self.0.as_str())
     }
@@ -319,78 +319,74 @@ impl Attribute for AriaErrormessage {
     fn get_key(&self) -> &str {
         "aria-errormessage"
     }
+
+    type InputType = String;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 // TODO: impl this for input elements only
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded>
 #[derive(Debug)]
-pub struct AriaExpanded {
-    val: String,
-}
-
-impl AriaExpanded {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaExpanded(String);
 
 impl Attribute for AriaExpanded {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-expanded"
+    }
+
+    type InputType = bool;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaExpanded);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-flowto>
 #[derive(Debug)]
-pub struct AriaFlowTo {
-    val: String,
-}
-
-impl AriaFlowTo {
-    pub fn new(val: Vec<String>) -> Self {
-        Self { val: val.join(" ") }
-    }
-}
+pub struct AriaFlowTo(String);
 
 impl Attribute for AriaFlowTo {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-flowto"
+    }
+
+    type InputType = Vec<String>;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.join(" "))
     }
 }
 crate::add_impls!(AriaFlowTo);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-grabbed>
 #[derive(Debug)]
-pub struct AriaGrabbed {
-    val: String,
-}
-
-impl AriaGrabbed {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaGrabbed(String);
 
 impl Attribute for AriaGrabbed {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-grabbed"
+    }
+
+    type InputType = bool;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaGrabbed);
@@ -407,30 +403,32 @@ impl Attribute for AriaHasPopup {
     fn get_key(&self) -> &str {
         "aria-haspopup"
     }
+
+    type InputType = AriaHasPopupOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 crate::add_impls!(AriaHasPopup);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden>
 #[derive(Debug)]
-pub struct AriaHidden {
-    val: String,
-}
-
-impl AriaHidden {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaHidden(String);
 
 impl Attribute for AriaHidden {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-hidden"
+    }
+
+    type InputType = bool;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaHidden);
@@ -447,6 +445,12 @@ impl Attribute for AriaInvalid {
     fn get_key(&self) -> &str {
         "aria-invalid"
     }
+
+    type InputType = AriaHasPopupOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 // TODO: impl this for input elements
 
@@ -461,6 +465,12 @@ impl Attribute for AriaKeyshortcuts {
 
     fn get_key(&self) -> &str {
         "aria-keyshortcuts"
+    }
+
+    type InputType = String;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
     }
 }
 crate::add_impls!(AriaKeyshortcuts);
@@ -477,53 +487,53 @@ impl Attribute for AriaLabel {
     fn get_key(&self) -> &str {
         "aria-label"
     }
+
+    type InputType = String;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 crate::add_impls!(AriaLabel);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby>
 #[derive(Debug)]
-pub struct AriaLabelledBy {
-    val: String,
-}
-
-impl AriaLabelledBy {
-    pub fn new(val: Vec<String>) -> Self {
-        Self { val: val.join(" ") }
-    }
-}
+pub struct AriaLabelledBy(String);
 
 impl Attribute for AriaLabelledBy {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-labelledby"
+    }
+
+    type InputType = Vec<String>;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.join(" "))
     }
 }
 crate::add_impls!(AriaLabelledBy);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-level>
 #[derive(Debug)]
-pub struct AriaLevel {
-    val: String,
-}
-
-impl AriaLevel {
-    pub fn new(val: u8) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaLevel(String);
 
 impl Attribute for AriaLevel {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
+        Some(self.0.as_ref())
     }
 
     fn get_key(&self) -> &str {
         "aria-level"
+    }
+
+    type InputType = u8;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaLevel);
@@ -540,80 +550,74 @@ impl Attribute for AriaLive {
     fn get_key(&self) -> &str {
         "aria-live"
     }
+
+    type InputType = AriaLiveOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 crate::add_impls!(AriaLive);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-modal>
 #[derive(Debug)]
-pub struct AriaModal {
-    val: String,
-}
-
-impl AriaModal {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaModal(String);
 
 impl Attribute for AriaModal {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-modal"
+    }
+
+    type InputType = bool;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaModal);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiline>
 #[derive(Debug)]
-pub struct AriaMultiline {
-    val: String,
-}
-
-impl AriaMultiline {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaMultiline(String);
 
 impl Attribute for AriaMultiline {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-multiline"
+    }
+
+    type InputType = bool;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaMultiline);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiselectable>
 #[derive(Debug)]
-pub struct AriaMultiselectable {
-    val: String,
-}
-
-impl AriaMultiselectable {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaMultiselectable(String);
 
 impl Attribute for AriaMultiselectable {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-multiselectable"
+    }
+
+    type InputType = bool;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaMultiselectable);
@@ -630,28 +634,32 @@ impl Attribute for AriaOrientation {
     fn get_key(&self) -> &str {
         "aria-orientation"
     }
+
+    type InputType = AriaOrientationOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 crate::add_impls!(AriaOrientation);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-owns>
 #[derive(Debug)]
-pub struct AriaOwns {
-    val: String,
-}
-
-impl AriaOwns {
-    pub fn new(val: Vec<String>) -> Self {
-        Self { val: val.join(" ") }
-    }
-}
+pub struct AriaOwns(String);
 
 impl Attribute for AriaOwns {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-owns"
+    }
+
+    type InputType = Vec<String>;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.join(" "))
     }
 }
 crate::add_impls!(AriaOwns);
@@ -668,30 +676,32 @@ impl Attribute for AriaPlaceholder {
     fn get_key(&self) -> &str {
         "aria-placeholder"
     }
+
+    type InputType = String;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 crate::add_impls!(AriaPlaceholder);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-posinset>
 #[derive(Debug)]
-pub struct AriaPosInset {
-    val: String,
-}
-
-impl AriaPosInset {
-    pub fn new(val: u16) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaPosInset(String);
 
 impl Attribute for AriaPosInset {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
+        Some(self.0.as_ref())
     }
 
     fn get_key(&self) -> &str {
         "aria-posinset"
+    }
+
+    type InputType = u16;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaPosInset);
@@ -708,30 +718,32 @@ impl Attribute for AriaPressed {
     fn get_key(&self) -> &str {
         "aria-pressed"
     }
+
+    type InputType = AriaOrientationOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 impl ButtonAttribute for AriaPressed {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly>
 #[derive(Debug)]
-pub struct AriaReadonly {
-    val: String,
-}
-
-impl AriaReadonly {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaReadonly(String);
 
 impl Attribute for AriaReadonly {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-readonly"
+    }
+
+    type InputType = bool;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaReadonly);
@@ -748,30 +760,32 @@ impl Attribute for AriaRelevant {
     fn get_key(&self) -> &str {
         "aria-relevant"
     }
+
+    type InputType = AriaRelevantOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 crate::add_impls!(AriaRelevant);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-required>
 #[derive(Debug)]
-pub struct AriaRequired {
-    val: String,
-}
-
-impl AriaRequired {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaRequired(String);
 
 impl Attribute for AriaRequired {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-required"
+    }
+
+    type InputType = bool;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 // TODO: just implement for input element
@@ -788,130 +802,116 @@ impl Attribute for AriaRoleDescription {
     fn get_key(&self) -> &str {
         "aria-roledescription"
     }
+
+    type InputType = String;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 crate::add_impls!(AriaRoleDescription);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
 #[derive(Debug)]
-pub struct AriaRowCount {
-    val: String,
-}
-
-impl AriaRowCount {
-    pub fn new(val: u8) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaRowCount(String);
 
 impl Attribute for AriaRowCount {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
+        Some(self.0.as_ref())
     }
 
     fn get_key(&self) -> &str {
         "aria-rowcount"
+    }
+
+    type InputType = u8;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex>
 #[derive(Debug)]
-pub struct AriaRowIndex {
-    val: String,
-}
-
-impl AriaRowIndex {
-    pub fn new(val: u8) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaRowIndex(String);
 
 impl Attribute for AriaRowIndex {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
+        Some(self.0.as_ref())
     }
 
     fn get_key(&self) -> &str {
         "aria-rowindex"
+    }
+
+    type InputType = u8;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan>
 #[derive(Debug)]
-pub struct AriaRowSpan {
-    val: String,
-}
-
-impl AriaRowSpan {
-    pub fn new(val: u8) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaRowSpan(String);
 
 impl Attribute for AriaRowSpan {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
+        Some(self.0.as_ref())
     }
 
     fn get_key(&self) -> &str {
         "aria-rowspan"
+    }
+
+    type InputType = u8;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected>
 #[derive(Debug)]
-pub struct AriaSelected {
-    val: String,
-}
-
-impl AriaSelected {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaSelected(String);
 
 impl Attribute for AriaSelected {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
+        Some(self.0.as_str())
     }
 
     fn get_key(&self) -> &str {
         "aria-selected"
+    }
+
+    type InputType = bool;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaSelected);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-setsize>
 #[derive(Debug)]
-pub struct AriaSetSize {
-    val: String,
-}
-
-impl AriaSetSize {
-    pub fn new(val: i16) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaSetSize(String);
 
 impl Attribute for AriaSetSize {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
+        Some(self.0.as_ref())
     }
 
     fn get_key(&self) -> &str {
         "aria-setsize"
+    }
+
+    type InputType = i16;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaSetSize);
@@ -928,79 +928,73 @@ impl Attribute for AriaSort {
     fn get_key(&self) -> &str {
         "aria-sort"
     }
+
+    type InputType = AriaSortOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax>
 #[derive(Debug)]
-pub struct AriaValueMax {
-    val: String,
-}
-
-impl AriaValueMax {
-    pub fn new(val: i16) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaValueMax(String);
 
 impl Attribute for AriaValueMax {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
+        Some(self.0.as_ref())
     }
 
     fn get_key(&self) -> &str {
         "aria-valuemax"
+    }
+
+    type InputType = i16;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaValueMax);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin>
 #[derive(Debug)]
-pub struct AriaValueMin {
-    val: String,
-}
-
-impl AriaValueMin {
-    pub fn new(val: i16) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaValueMin(String);
 
 impl Attribute for AriaValueMin {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
+        Some(self.0.as_ref())
     }
 
     fn get_key(&self) -> &str {
         "aria-valuemin"
+    }
+
+    type InputType = i16;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaValueMin);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow>
 #[derive(Debug)]
-pub struct AriaValueNow {
-    val: String,
-}
-
-impl AriaValueNow {
-    pub fn new(val: i16) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
+pub struct AriaValueNow(String);
 
 impl Attribute for AriaValueNow {
     fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
+        Some(self.0.as_ref())
     }
 
     fn get_key(&self) -> &str {
         "aria-valuenow"
+    }
+
+    type InputType = i16;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 crate::add_impls!(AriaValueNow);
@@ -1016,6 +1010,12 @@ impl Attribute for AriaValueText {
 
     fn get_key(&self) -> &str {
         "aria-valuetext"
+    }
+
+    type InputType = String;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
     }
 }
 crate::add_impls!(AriaValueText);
