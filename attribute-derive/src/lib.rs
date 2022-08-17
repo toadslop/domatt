@@ -14,36 +14,60 @@ pub fn attribute(input: TokenStream) -> TokenStream {
     let DeriveInput {
         ident, data, attrs, ..
     } = parse_macro_input!(input);
-
+    println!("{:?}", ident);
     let attribute = get_attribute(&attrs);
 
-    let AttributeParams(case, input_type, option_type) =
+    let AttributeParams(case, input_type, generic) =
         syn::parse2(attribute.tokens.clone()).expect("Invalid attribute!");
 
     let is_unit = is_unit(data);
 
     let constructor = if !is_unit && input_type.is_some() {
         let input_type = input_type.unwrap();
+
         let converter = match input_type.to_string().as_str() {
-            "Option" => match option_type {
+            "Option" => match generic {
                 Some(option_type) => {
                     let args = option_type.args;
                     quote! {
                         pub fn new(val: Option<#args>) -> Self {
-                            val
+                            match val {
+                                Some(val) => Self(val),
+                                None => Self(String::from(""))
+                            }
                         }
                     }
                 }
-                None => panic!("Need an option type"),
+                None => panic!("Need a generic type"),
+            },
+            "Vec" => match generic {
+                Some(generic) => {
+                    let args = generic.args;
+                    let arg = args.first().unwrap();
+
+                    quote! {
+                       pub fn new(val: Vec<#arg>) -> Self {
+                           Self(val.iter()
+                           .map(|item| item.as_ref())
+                           .collect::<Vec<&str>>()
+                           .join(" "))
+                       }
+                    }
+                }
+                None => panic!("Need a generic type"),
             },
             "Url" | "String" => {
                 quote! {
                     pub fn new(val: #input_type) -> Self {
-                        val.to_string()
+                        Self(val.to_string())
                     }
                 }
             }
-            _ => panic!("Unsupported type"),
+            _ => quote! {
+                pub fn new(val: #input_type) -> Self {
+                    Self(val)
+                }
+            },
         };
 
         quote! {
@@ -58,6 +82,7 @@ pub fn attribute(input: TokenStream) -> TokenStream {
     let case = match case.value().as_str() {
         "camelCase" => Case::Camel,
         "kebab-case" => Case::Kebab,
+        "lowercase" => Case::Lower,
         _ => panic!("Invalid case"),
     };
 
@@ -68,7 +93,7 @@ pub fn attribute(input: TokenStream) -> TokenStream {
 
         impl Attribute for #ident {
             fn get_val(&self) -> Option<&str> {
-                Some(self.0.as_str())
+                Some(self.0.as_ref())
             }
 
             fn get_key(&self) -> &str {

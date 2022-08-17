@@ -27,44 +27,44 @@ use web_sys::Element;
 #[cfg(feature = "anchor")]
 pub mod anchor;
 
-#[cfg(feature = "area")]
-pub mod area;
+// #[cfg(feature = "area")]
+// pub mod area;
 
-#[cfg(feature = "aria")]
-pub mod aria;
+// #[cfg(feature = "aria")]
+// pub mod aria;
 
-#[cfg(feature = "button")]
-pub mod button;
+// #[cfg(feature = "button")]
+// pub mod button;
 
-#[cfg(feature = "global")]
-pub mod global;
+// #[cfg(feature = "global")]
+// pub mod global;
 
-#[cfg(feature = "svg")]
-pub mod svg;
+// #[cfg(feature = "svg")]
+// pub mod svg;
 
-#[cfg(feature = "audio")]
-pub mod audio;
+// #[cfg(feature = "audio")]
+// pub mod audio;
 
-#[cfg(feature = "base")]
-pub mod base;
+// #[cfg(feature = "base")]
+// pub mod base;
 
-#[cfg(feature = "blockquote")]
-pub mod blockquote;
+// #[cfg(feature = "blockquote")]
+// pub mod blockquote;
 
-#[cfg(feature = "canvas")]
-pub mod canvas;
+// #[cfg(feature = "canvas")]
+// pub mod canvas;
 
-#[cfg(feature = "col")]
-pub mod col;
+// #[cfg(feature = "col")]
+// pub mod col;
 
-#[cfg(feature = "colgroup")]
-pub mod colgroup;
+// #[cfg(feature = "colgroup")]
+// pub mod colgroup;
 
-#[cfg(feature = "data")]
-mod data;
+// #[cfg(feature = "data")]
+// mod data;
 
-#[cfg(feature = "details")]
-pub mod details;
+// #[cfg(feature = "details")]
+// pub mod details;
 
 /// Marks a type as a DOM attribute.
 pub trait Attribute: Debug {
