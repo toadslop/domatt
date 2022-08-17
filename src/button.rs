@@ -18,6 +18,12 @@ impl Attribute for Autofocus {
     fn get_key(&self) -> &str {
         "autofocus"
     }
+
+    type InputType = Self;
+
+    fn new(value: Self::InputType) -> Self {
+        Self
+    }
 }
 
 impl ButtonAttribute for Autofocus {}
@@ -33,6 +39,12 @@ impl Attribute for Disabled {
 
     fn get_key(&self) -> &str {
         "disabled"
+    }
+
+    type InputType = Self;
+
+    fn new(value: Self::InputType) -> Self {
+        Self
     }
 }
 
@@ -50,13 +62,19 @@ impl Attribute for Form {
     fn get_key(&self) -> &str {
         "form"
     }
+
+    type InputType = String;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 
 impl ButtonAttribute for Form {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-formaction>
 #[derive(Debug)]
-pub struct FormAction(Url);
+pub struct FormAction(String);
 
 impl Attribute for FormAction {
     fn get_val(&self) -> Option<&str> {
@@ -65,6 +83,12 @@ impl Attribute for FormAction {
 
     fn get_key(&self) -> &str {
         "formaction"
+    }
+
+    type InputType = Url;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 
@@ -82,13 +106,19 @@ impl Attribute for FormEncType {
     fn get_key(&self) -> &str {
         "formenctype"
     }
+
+    type InputType = FormEncTypeOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 
 impl ButtonAttribute for FormEncType {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-formmethod>
 #[derive(Debug)]
-pub struct FormMethod(FormEncTypeOption);
+pub struct FormMethod(FormMethodOption);
 
 impl Attribute for FormMethod {
     fn get_val(&self) -> Option<&str> {
@@ -97,6 +127,12 @@ impl Attribute for FormMethod {
 
     fn get_key(&self) -> &str {
         "formmethod"
+    }
+
+    type InputType = FormMethodOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
     }
 }
 
@@ -114,6 +150,12 @@ impl Attribute for FormNoValidate {
     fn get_key(&self) -> &str {
         "formnovalidate"
     }
+
+    type InputType = Self;
+
+    fn new(value: Self::InputType) -> Self {
+        Self
+    }
 }
 
 impl ButtonAttribute for FormNoValidate {}
@@ -129,6 +171,12 @@ impl Attribute for FormTarget {
 
     fn get_key(&self) -> &str {
         "formtarget"
+    }
+
+    type InputType = TargetOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
     }
 }
 
@@ -146,6 +194,12 @@ impl Attribute for Name {
     fn get_key(&self) -> &str {
         "name"
     }
+
+    type InputType = String;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 
 impl ButtonAttribute for Name {}
@@ -162,6 +216,12 @@ impl Attribute for Type {
     fn get_key(&self) -> &str {
         "type"
     }
+
+    type InputType = ButtonTypeOption;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 
 impl ButtonAttribute for Type {}
@@ -177,6 +237,12 @@ impl Attribute for Value {
 
     fn get_key(&self) -> &str {
         "value"
+    }
+
+    type InputType = String;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
     }
 }
 
