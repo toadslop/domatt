@@ -80,6 +80,8 @@ pub trait Attribute: Debug {
     fn get_val(&self) -> Option<&str>;
 }
 
+pub trait BaseAttribute {}
+
 /// Convenience method for setting an attribute on an element.
 pub fn set_attribute<T: Attribute>(element: &Element, attribute: &T) -> Result<(), AttributeError> {
     let key = attribute.get_key().to_owned();

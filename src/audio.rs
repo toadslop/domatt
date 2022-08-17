@@ -16,6 +16,12 @@ impl Attribute for Autoplay {
     fn get_key(&self) -> &str {
         "autoplay"
     }
+
+    type InputType = Self;
+
+    fn new(value: Self::InputType) -> Self {
+        Self
+    }
 }
 
 impl AudioAttribute for Autoplay {}
@@ -31,6 +37,12 @@ impl Attribute for Controls {
 
     fn get_key(&self) -> &str {
         "controls"
+    }
+
+    type InputType = Self;
+
+    fn new(value: Self::InputType) -> Self {
+        Self
     }
 }
 
@@ -48,6 +60,12 @@ impl Attribute for CrossOrigin {
     fn get_key(&self) -> &str {
         "crossorigin"
     }
+
+    type InputType = AudioCrossOriginOptions;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 
 impl AudioAttribute for CrossOrigin {}
@@ -63,6 +81,12 @@ impl Attribute for DisableRemotePlayback {
 
     fn get_key(&self) -> &str {
         "disableremoteplayback"
+    }
+
+    type InputType = Self;
+
+    fn new(value: Self::InputType) -> Self {
+        todo!()
     }
 }
 
@@ -80,6 +104,12 @@ impl Attribute for Loop {
     fn get_key(&self) -> &str {
         "loop"
     }
+
+    type InputType = Self;
+
+    fn new(value: Self::InputType) -> Self {
+        Self
+    }
 }
 
 impl AudioAttribute for Loop {}
@@ -95,6 +125,12 @@ impl Attribute for Muted {
 
     fn get_key(&self) -> &str {
         "muted"
+    }
+
+    type InputType = Self;
+
+    fn new(value: Self::InputType) -> Self {
+        Self
     }
 }
 
@@ -112,13 +148,19 @@ impl Attribute for Preload {
     fn get_key(&self) -> &str {
         "preload"
     }
+
+    type InputType = AudioPreloadOptions;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value)
+    }
 }
 
 impl AudioAttribute for Preload {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-src>
 #[derive(Debug)]
-pub struct Src(Url);
+pub struct Src(String);
 
 impl Attribute for Src {
     fn get_val(&self) -> Option<&str> {
@@ -127,6 +169,12 @@ impl Attribute for Src {
 
     fn get_key(&self) -> &str {
         "src"
+    }
+
+    type InputType = Url;
+
+    fn new(value: Self::InputType) -> Self {
+        Self(value.to_string())
     }
 }
 
