@@ -1137,66 +1137,93 @@ crate::add_impls!(ViewBox);
 pub struct Visibility(String);
 crate::add_impls!(Visibility);
 
-/// An enum defining the different attribute keys for SVG elements. Each variant takes a tuple
-/// that represents the valid values for the attributes.
-#[derive(Debug, Display)]
-#[strum(serialize_all = "kebab-case")]
-pub enum SVGAttributes<'a> {
-    Widths(NumberOrString),
-    WordSpacing(NumberOrString),
-    WritingMode(NumberOrString),
-    #[strum(serialize = "x1")]
-    X1(NumberOrString),
-    #[strum(serialize = "x2")]
-    X2(NumberOrString),
-    X(NumberOrString),
-    #[strum(serialize = "xChannelSelector")]
-    XChannelSelector(&'a str),
-    XHeight(NumberOrString),
-    #[strum(serialize = "xlink:actuate")]
-    XlinkActuate(&'a str),
-    #[strum(serialize = "xlink:arcrole")]
-    XlinkArcrole(&'a str),
-    #[strum(serialize = "xlink:href")]
-    XlinkHref(&'a str),
-    #[strum(serialize = "xlink:role")]
-    XlinkRole(&'a str),
-    #[strum(serialize = "xlink:show")]
-    XlinkShow(&'a str),
-    #[strum(serialize = "xlink:title")]
-    XlinkTitle(&'a str),
-    #[strum(serialize = "xlink:type")]
-    XlinkType(&'a str),
-    #[strum(serialize = "xml:base")]
-    XmlBase(&'a str),
-    #[strum(serialize = "xml:lang")]
-    XmlLang(&'a str),
-    Xmlns(&'a str),
-    #[strum(serialize = "xmlns:xlink")]
-    XmlnsXlink(&'a str),
-    #[strum(serialize = "xml:space")]
-    XmlSpace(&'a str),
-    #[strum(serialize = "y1")]
-    Y1(NumberOrString),
-    #[strum(serialize = "y2")]
-    Y2(NumberOrString),
-    Y(NumberOrString),
-    #[strum(serialize = "yChannelSelector ")]
-    YChannelSelector(&'a str),
-    Z(NumberOrString),
-    #[strum(serialize = "zoomAndPan")]
-    ZoomAndPan(&'a str),
-}
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/word-spacing>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct WordSpacing(String);
+crate::add_impls!(WordSpacing);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/writing-mode>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct WritingMode(String);
+crate::add_impls!(WritingMode);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/x>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct X(String);
+crate::add_impls!(X);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/x1>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct X1(String);
+crate::add_impls!(X1);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/x2>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct X2(String);
+crate::add_impls!(X2);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/xChannelSelector>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct XChannelSelector(String);
+crate::add_impls!(XChannelSelector);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/xml:lang>
+#[derive(Debug, Attribute)]
+#[attribute("xml:lang", NumberOrString)]
+pub struct XmlLang(String);
+crate::add_impls!(XmlLang);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/y>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct Y(String);
+crate::add_impls!(Y);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/y1>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct Y1(String);
+crate::add_impls!(Y1);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/y2>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct Y2(String);
+crate::add_impls!(Y2);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/yChannelSelector>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct YChannelSelector(String);
+crate::add_impls!(YChannelSelector);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/z>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct Z(String);
+crate::add_impls!(Z);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/crossorigin>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", CrossOriginOption)]
+pub struct Crossorigin(CrossOriginOption);
+crate::add_impls!(Crossorigin);
 
 /// An enum representing the different options for the `cross-origin` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin>
 #[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "kebab-case")]
-pub enum CrossOrigin {
+pub enum CrossOriginOption {
     Anonymous,
     UseCredentials,
-    #[strum(serialize = "\"\"")] // TODO: add backslash once the interet comes back
+    #[strum(serialize = "\"\"")]
     Blank,
 }
 
