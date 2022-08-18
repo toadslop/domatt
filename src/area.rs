@@ -6,39 +6,15 @@ use strum::AsRefStr;
 pub trait AreaAttribute: Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-alt>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
 pub struct Alt(String);
-
-impl Attribute for Alt {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "alt"
-    }
-}
-
 impl AreaAttribute for Alt {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-alt>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", AreaTagShape)]
 pub struct Coords(AreaTagShape);
-
-impl Attribute for Coords {
-    fn get_val(&self) -> Option<&str> {
-        match &self.0 {
-            AreaTagShape::Rect(rect) => Some(rect.as_str()),
-            AreaTagShape::Circle(circle) => Some(circle.as_str()),
-            AreaTagShape::Poly(poly) => Some(poly.as_str()),
-        }
-    }
-
-    fn get_key(&self) -> &str {
-        "coords"
-    }
-}
-
 impl AreaAttribute for Coords {}
 
 pub use crate::anchor::Download;
@@ -55,50 +31,17 @@ pub use crate::anchor::ReferrerPolicy;
 impl AreaAttribute for ReferrerPolicy {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-rel>
-#[derive(Debug)]
-pub struct Rel {
-    value: String,
-}
-
-impl Rel {
-    pub fn new(rels: Vec<AreaTagRel>) -> Self {
-        Self {
-            value: rels
-                .iter()
-                .map(AreaTagRel::as_ref)
-                .collect::<Vec<&str>>()
-                .join(" "),
-        }
-    }
-}
-
-impl Attribute for Rel {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.value.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "rel"
-    }
-}
-
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", Vec<AreaTagRel>)]
+pub struct Rel(String);
 impl AreaAttribute for Rel {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-rel>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", AreaTagShape)]
 pub struct Shape(AreaTagShape);
-
-impl Attribute for Shape {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "shape"
-    }
-}
-
 impl AreaAttribute for Shape {}
+
 impl AreaAttribute for Target {}
 
 /// An enum representing the different options for the both the shape attribute of

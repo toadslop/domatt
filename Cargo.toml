@@ -5,7 +5,7 @@ edition = "2021"
 authors = ["toadslop <bnheise@gmail.com>"]
 repository = "https://github.com/toadslop/domatt"
 homepage = "tbd"
-keywords = ["clayui", "yew", "wasm"]
+keywords = ["clayui", "wasm"]
 categories = ["web-programming", "wasm"]
 license = "Apache-2.0"
 description = "Rust type definitions for HTML attributes and their values for use in WASM applications."
@@ -15,6 +15,7 @@ gloo-console = "0.2.1"
 strum = {version = "0.24.1", features = ["derive"]}
 url = "2.2.2"
 web-sys = { version = "0.3.59", features = ["Element"] }
+attribute-derive = { path = "attribute-derive" }
 
 [profile.release]
 panic = 'abort'

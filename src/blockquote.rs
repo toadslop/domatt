@@ -4,17 +4,7 @@ use url::Url;
 pub trait BlockQuoteAttribute: Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote#attr-cite>
-#[derive(Debug)]
-pub struct Cite(Url);
-
-impl Attribute for Cite {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "cite"
-    }
-}
-
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", Url)]
+pub struct Cite(String);
 impl BlockQuoteAttribute for Cite {}

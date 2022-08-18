@@ -19,6 +19,7 @@
 //! Please file an [issue](https://github.com/toadslop/domatt/issues), or if you'd like
 //! to solve it yourself feel free to put in a PR.
 
+use attribute_derive::Attribute;
 use std::fmt::{self, Debug};
 use strum::AsRefStr;
 use web_sys::Element;
@@ -32,15 +33,6 @@ pub mod area;
 #[cfg(feature = "aria")]
 pub mod aria;
 
-#[cfg(feature = "button")]
-pub mod button;
-
-#[cfg(feature = "global")]
-pub mod global;
-
-#[cfg(feature = "svg")]
-pub mod svg;
-
 #[cfg(feature = "audio")]
 pub mod audio;
 
@@ -49,6 +41,9 @@ pub mod base;
 
 #[cfg(feature = "blockquote")]
 pub mod blockquote;
+
+#[cfg(feature = "button")]
+pub mod button;
 
 #[cfg(feature = "canvas")]
 pub mod canvas;
@@ -60,10 +55,16 @@ pub mod col;
 pub mod colgroup;
 
 #[cfg(feature = "data")]
-mod data;
+pub mod data;
 
 #[cfg(feature = "details")]
 pub mod details;
+
+#[cfg(feature = "global")]
+pub mod global;
+
+#[cfg(feature = "svg")]
+pub mod svg;
 
 pub mod events;
 
@@ -77,6 +78,8 @@ pub trait Attribute: Debug {
     /// which has no value.
     fn get_val(&self) -> Option<&str>;
 }
+
+pub trait BaseAttribute {}
 
 /// Convenience method for setting an attribute on an element.
 pub fn set_attribute<T: Attribute>(element: &Element, attribute: &T) -> Result<(), AttributeError> {

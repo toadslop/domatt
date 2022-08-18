@@ -11,49 +11,18 @@ use url::Url;
 pub trait GlobalAttribute: Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey>
-#[derive(Debug)]
-pub struct AccessKey {
-    val: String,
-}
-
-impl AccessKey {
-    pub fn new(val: Vec<char>) -> Self {
-        Self {
-            val: val
-                .iter()
-                .map(char::to_string)
-                .collect::<Vec<String>>()
-                .join(" "),
-        }
-    }
-}
-
-impl Attribute for AccessKey {
-    fn get_val(&self) -> Option<&str> {
-        Some(&self.val)
-    }
-
-    fn get_key(&self) -> &str {
-        "accesskey"
-    }
-}
-
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", Vec<char>)]
+pub struct AccessKey(String);
 impl GlobalAttribute for AccessKey {}
 crate::add_impls!(AccessKey);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", AutoCapitalizeOptions)]
 pub struct AutoCapitalize(AutoCapitalizeOptions);
-
-impl Attribute for AutoCapitalize {
-    fn get_val(&self) -> Option<&str> {
-        Some(&self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "autocapitalize"
-    }
-}
+impl GlobalAttribute for AutoCapitalize {}
+crate::add_impls!(AutoCapitalize);
 
 #[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
@@ -66,40 +35,17 @@ pub enum AutoCapitalizeOptions {
     Characters,
 }
 
-impl GlobalAttribute for AutoCapitalize {}
-crate::add_impls!(AutoCapitalize);
-
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autofocus>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase")]
 pub struct Autofocus;
-
-impl Attribute for Autofocus {
-    fn get_val(&self) -> Option<&str> {
-        None
-    }
-
-    fn get_key(&self) -> &str {
-        "autofocus"
-    }
-}
-
 impl GlobalAttribute for Autofocus {}
 crate::add_impls!(Autofocus);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", ContentEditableOptions)]
 pub struct ContentEditable(ContentEditableOptions);
-
-impl Attribute for ContentEditable {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "contenteditable"
-    }
-}
-
 impl GlobalAttribute for ContentEditable {}
 crate::add_impls!(ContentEditable);
 
@@ -137,8 +83,11 @@ impl GlobalAttribute for Data {}
 crate::add_impls!(Data);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", DirOptions)]
 pub struct Dir(DirOptions);
+impl GlobalAttribute for Dir {}
+crate::add_impls!(Dir);
 
 #[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
@@ -148,48 +97,19 @@ pub enum DirOptions {
     Auto,
 }
 
-impl Attribute for Dir {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "dir"
-    }
-}
-impl GlobalAttribute for Dir {}
-crate::add_impls!(Dir);
-
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable>
-#[derive(Debug)]
-pub struct Draggable {
-    val: String,
-}
-
-impl Draggable {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for Draggable {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "draggable"
-    }
-}
-
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", bool)]
+pub struct Draggable(String);
 impl GlobalAttribute for Draggable {}
 crate::add_impls!(Draggable);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", EnterKeyHintOption)]
 pub struct EnterKeyHint(EnterKeyHintOption);
+impl GlobalAttribute for EnterKeyHint {}
+crate::add_impls!(EnterKeyHint);
 
 #[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
@@ -203,56 +123,26 @@ pub enum EnterKeyHintOption {
     Send,
 }
 
-impl Attribute for EnterKeyHint {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "enterkeyhint"
-    }
-}
-
-impl GlobalAttribute for EnterKeyHint {}
-crate::add_impls!(EnterKeyHint);
-
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase")]
 pub struct Hidden;
-
-impl Attribute for Hidden {
-    fn get_val(&self) -> Option<&str> {
-        None
-    }
-
-    fn get_key(&self) -> &str {
-        "hidden"
-    }
-}
-
 impl GlobalAttribute for Hidden {}
 crate::add_impls!(Hidden);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
 pub struct Id(String);
-
-impl Attribute for Id {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "id"
-    }
-}
-
 impl GlobalAttribute for Id {}
 crate::add_impls!(Id);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode>
-#[derive(Debug)]
-pub struct InputMode(EnterKeyHintOption);
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", InputModeOption)]
+pub struct InputMode(InputModeOption);
+impl GlobalAttribute for InputMode {}
+crate::add_impls!(InputMode);
 
 #[derive(Debug, AsRefStr, Default)]
 #[strum(serialize_all = "lowercase")]
@@ -268,320 +158,110 @@ pub enum InputModeOption {
     Url,
 }
 
-impl Attribute for InputMode {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "inputmode"
-    }
-}
-
-impl GlobalAttribute for InputMode {}
-crate::add_impls!(InputMode);
-
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
 pub struct Is(String);
-
-impl Attribute for Is {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "is"
-    }
-}
-
 impl GlobalAttribute for Is {}
 crate::add_impls!(Is);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemid>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
 pub struct ItemId(String);
-
-impl Attribute for ItemId {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "itemid"
-    }
-}
-
 impl GlobalAttribute for ItemId {}
 crate::add_impls!(ItemId);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
 pub struct ItemProp(String);
-
-impl Attribute for ItemProp {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "itemprop"
-    }
-}
-
 impl GlobalAttribute for ItemProp {}
 crate::add_impls!(ItemProp);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemref>
-#[derive(Debug)]
-pub struct ItemRef {
-    val: String,
-}
-
-impl ItemRef {
-    pub fn new(val: Vec<char>) -> Self {
-        Self {
-            val: val
-                .iter()
-                .map(char::to_string)
-                .collect::<Vec<String>>()
-                .join(" "),
-        }
-    }
-}
-
-impl Attribute for ItemRef {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "itemref"
-    }
-}
-
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", Vec<String>)]
+pub struct ItemRef(String);
 impl GlobalAttribute for ItemRef {}
 crate::add_impls!(ItemRef);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase")]
 pub struct ItemScope;
-
-impl Attribute for ItemScope {
-    fn get_val(&self) -> Option<&str> {
-        None
-    }
-
-    fn get_key(&self) -> &str {
-        "itemscope"
-    }
-}
-
 impl GlobalAttribute for ItemScope {}
 crate::add_impls!(ItemScope);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemtype>
-#[derive(Debug)]
-pub struct ItemType(Url);
-
-impl Attribute for ItemType {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "itemtype"
-    }
-}
-
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", Url)]
+pub struct ItemType(String);
 impl GlobalAttribute for ItemType {}
 crate::add_impls!(ItemType);
 
 // TODO: make a struct to help with making language tags
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
 pub struct Lang(String);
-
-impl Attribute for Lang {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "lang"
-    }
-}
-
 impl GlobalAttribute for Lang {}
 crate::add_impls!(Lang);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
 pub struct Nonce(String);
-
-impl Attribute for Nonce {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "nonce"
-    }
-}
-
 impl GlobalAttribute for Nonce {}
 crate::add_impls!(Nonce);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part>
-#[derive(Debug)]
-pub struct Part {
-    val: String,
-}
-
-impl Part {
-    pub fn new(val: Vec<char>) -> Self {
-        Self {
-            val: val
-                .iter()
-                .map(char::to_string)
-                .collect::<Vec<String>>()
-                .join(" "),
-        }
-    }
-}
-
-impl Attribute for Part {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "part"
-    }
-}
-
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", Vec<String>)]
+pub struct Part(String);
 impl GlobalAttribute for Part {}
 crate::add_impls!(Part);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
 pub struct Slot(String);
-
-impl Attribute for Slot {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "slot"
-    }
-}
-
 impl GlobalAttribute for Slot {}
 crate::add_impls!(Slot);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/spellcheck>
-#[derive(Debug)]
-pub struct Spellcheck {
-    val: String,
-}
-
-impl Spellcheck {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for Spellcheck {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "spellcheck"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", bool)]
+pub struct Spellcheck(String);
 
 impl GlobalAttribute for Spellcheck {}
 crate::add_impls!(Spellcheck);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex>
-#[derive(Debug)]
-pub struct TabIndex {
-    val: String,
-}
-
-impl TabIndex {
-    pub fn new(val: i16) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for TabIndex {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "tabindex"
-    }
-}
-
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", i16)]
+pub struct TabIndex(String);
 impl GlobalAttribute for TabIndex {}
 crate::add_impls!(TabIndex);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
 pub struct Title(String);
-
-impl Attribute for Title {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "title"
-    }
-}
-
 impl GlobalAttribute for Title {}
 crate::add_impls!(Title);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/translate>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", TranslateOption)]
 pub struct Translate(TranslateOption);
-
-impl Attribute for Translate {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "translate"
-    }
-}
-
 impl GlobalAttribute for Translate {}
 crate::add_impls!(Translate);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/role>
-#[derive(Debug)]
-pub struct Role(pub AriaRole);
-
-impl Attribute for Role {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "role"
-    }
-}
-
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", AriaRole)]
+pub struct Role(AriaRole);
 impl GlobalAttribute for Role {}
 crate::add_impls!(Role);
 

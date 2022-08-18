@@ -9,1016 +9,292 @@ use strum::AsRefStr;
 pub trait AriaAttribute: Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-activedescendant>
-#[derive(Debug)]
-pub struct AriaActiveDescendant(String);
-
-impl Attribute for AriaActiveDescendant {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-activedescendant"
-    }
-}
-crate::add_impls!(AriaActiveDescendant);
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct AriaActivedescendant(String);
+crate::add_impls!(AriaActivedescendant);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-atomic>
-#[derive(Debug)]
-pub struct AriaAtomic {
-    val: String,
-}
-
-impl AriaAtomic {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaAtomic {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-atomic"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", bool)]
+pub struct AriaAtomic(String);
 crate::add_impls!(AriaAtomic);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", AriaAutocompleteOption)]
 pub struct AriaAutocomplete(AriaAutocompleteOption);
-
-impl Attribute for AriaAutocomplete {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-autocomplete"
-    }
-}
 crate::add_impls!(AriaAutocomplete);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy>
-#[derive(Debug)]
-pub struct AriaBusy {
-    val: String,
-}
-
-impl AriaBusy {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaBusy {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-busy"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", bool)]
+pub struct AriaBusy(String);
 crate::add_impls!(AriaBusy);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-checked>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", AriaCheckedOption)]
 pub struct AriaChecked(AriaCheckedOption);
-
-impl Attribute for AriaChecked {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-checked"
-    }
-}
 crate::add_impls!(AriaChecked);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colcount>
-#[derive(Debug)]
-pub struct AriaColCount {
-    val: String,
-}
-
-impl AriaColCount {
-    pub fn new(val: u8) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-// Note: unsigned because we can't have a negative colcount and 8-bit because you
-// could never render more than 255 columns on a screen, so we do this for optimization
-impl Attribute for AriaColCount {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-colcount"
-    }
-}
-
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", u8)]
+pub struct AriaColcount(String);
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindex>
-#[derive(Debug)]
-pub struct AriaColIndex {
-    val: String,
-}
-
-impl AriaColIndex {
-    pub fn new(val: u8) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaColIndex {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-colindex"
-    }
-}
-
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", u8)]
+pub struct AriaColindex(String);
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colspan>
-#[derive(Debug)]
-pub struct AriaColSpan {
-    val: String,
-}
-
-impl AriaColSpan {
-    pub fn new(val: u8) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaColSpan {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-colspan"
-    }
-}
-
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", u8)]
+pub struct AriaColspan(String);
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls>
-#[derive(Debug)]
-pub struct AriaControls {
-    val: String,
-}
-
-impl AriaControls {
-    pub fn new(val: Vec<String>) -> Self {
-        Self { val: val.join(" ") }
-    }
-}
-
-impl Attribute for AriaControls {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-controls"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", Vec<String>)]
+pub struct AriaControls(String);
 crate::add_impls!(AriaControls);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", AriaCurrentOption)]
 pub struct AriaCurrent(AriaCurrentOption);
-
-impl Attribute for AriaCurrent {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-current"
-    }
-}
 crate::add_impls!(AriaCurrent);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby>
-#[derive(Debug)]
-pub struct AriaDescribedby {
-    val: String,
-}
-
-impl AriaDescribedby {
-    pub fn new(val: Vec<String>) -> Self {
-        Self { val: val.join(" ") }
-    }
-}
-
-impl Attribute for AriaDescribedby {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-describedby"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", Vec<String>)]
+pub struct AriaDescribedby(String);
 crate::add_impls!(AriaDescribedby);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-details>
-#[derive(Debug)]
-pub struct AriaDetails {
-    val: String,
-}
-
-impl AriaDetails {
-    pub fn new(val: Vec<String>) -> Self {
-        Self { val: val.join(" ") }
-    }
-}
-
-impl Attribute for AriaDetails {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-details"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", Vec<String>)]
+pub struct AriaDetails(String);
 crate::add_impls!(AriaDetails);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled>
-#[derive(Debug)]
-pub struct AriaDisabled {
-    val: String,
-}
-
-impl AriaDisabled {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaDisabled {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-disabled"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", bool)]
+pub struct AriaDisabled(String);
 crate::add_impls!(AriaDisabled);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-dropeffect>
-#[derive(Debug)]
-pub struct AriaDropEffect(AriaDropEffectOption);
-
-impl Attribute for AriaDropEffect {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-dropeffect"
-    }
-}
-crate::add_impls!(AriaDropEffect);
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", AriaDropEffectOption)]
+pub struct AriaDropeffect(AriaDropEffectOption);
+crate::add_impls!(AriaDropeffect);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
 pub struct AriaErrormessage(String);
-
-impl Attribute for AriaErrormessage {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-errormessage"
-    }
-}
 // TODO: impl this for input elements only
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded>
-#[derive(Debug)]
-pub struct AriaExpanded {
-    val: String,
-}
-
-impl AriaExpanded {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaExpanded {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-expanded"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", bool)]
+pub struct AriaExpanded(String);
 crate::add_impls!(AriaExpanded);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-flowto>
-#[derive(Debug)]
-pub struct AriaFlowTo {
-    val: String,
-}
-
-impl AriaFlowTo {
-    pub fn new(val: Vec<String>) -> Self {
-        Self { val: val.join(" ") }
-    }
-}
-
-impl Attribute for AriaFlowTo {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-flowto"
-    }
-}
-crate::add_impls!(AriaFlowTo);
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", Vec<String>)]
+pub struct AriaFlowto(String);
+crate::add_impls!(AriaFlowto);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-grabbed>
-#[derive(Debug)]
-pub struct AriaGrabbed {
-    val: String,
-}
-
-impl AriaGrabbed {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaGrabbed {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-grabbed"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", bool)]
+pub struct AriaGrabbed(String);
 crate::add_impls!(AriaGrabbed);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup>
-#[derive(Debug)]
-pub struct AriaHasPopup(AriaHasPopupOption);
-
-impl Attribute for AriaHasPopup {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-haspopup"
-    }
-}
-crate::add_impls!(AriaHasPopup);
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", AriaHasPopupOption)]
+pub struct AriaHaspopup(AriaHasPopupOption);
+crate::add_impls!(AriaHaspopup);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden>
-#[derive(Debug)]
-pub struct AriaHidden {
-    val: String,
-}
-
-impl AriaHidden {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaHidden {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-hidden"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", bool)]
+pub struct AriaHidden(String);
 crate::add_impls!(AriaHidden);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", AriaHasPopupOption)]
 pub struct AriaInvalid(AriaHasPopupOption);
-
-impl Attribute for AriaInvalid {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-invalid"
-    }
-}
 // TODO: impl this for input elements
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
 pub struct AriaKeyshortcuts(String);
-
-impl Attribute for AriaKeyshortcuts {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-keyshortcuts"
-    }
-}
 crate::add_impls!(AriaKeyshortcuts);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
 pub struct AriaLabel(String);
-
-impl Attribute for AriaLabel {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-label"
-    }
-}
 crate::add_impls!(AriaLabel);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby>
-#[derive(Debug)]
-pub struct AriaLabelledBy {
-    val: String,
-}
-
-impl AriaLabelledBy {
-    pub fn new(val: Vec<String>) -> Self {
-        Self { val: val.join(" ") }
-    }
-}
-
-impl Attribute for AriaLabelledBy {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-labelledby"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", Vec<String>)]
+pub struct AriaLabelledBy(String);
 crate::add_impls!(AriaLabelledBy);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-level>
-#[derive(Debug)]
-pub struct AriaLevel {
-    val: String,
-}
-
-impl AriaLevel {
-    pub fn new(val: u8) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaLevel {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-level"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", u8)]
+pub struct AriaLevel(String);
 crate::add_impls!(AriaLevel);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", AriaLiveOption)]
 pub struct AriaLive(AriaLiveOption);
-
-impl Attribute for AriaLive {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-live"
-    }
-}
 crate::add_impls!(AriaLive);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-modal>
-#[derive(Debug)]
-pub struct AriaModal {
-    val: String,
-}
-
-impl AriaModal {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaModal {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-modal"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", bool)]
+pub struct AriaModal(String);
 crate::add_impls!(AriaModal);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiline>
-#[derive(Debug)]
-pub struct AriaMultiline {
-    val: String,
-}
-
-impl AriaMultiline {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaMultiline {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-multiline"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", bool)]
+pub struct AriaMultiline(String);
 crate::add_impls!(AriaMultiline);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiselectable>
-#[derive(Debug)]
-pub struct AriaMultiselectable {
-    val: String,
-}
-
-impl AriaMultiselectable {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaMultiselectable {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-multiselectable"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", bool)]
+pub struct AriaMultiselectable(String);
 crate::add_impls!(AriaMultiselectable);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", AriaOrientationOption)]
 pub struct AriaOrientation(AriaOrientationOption);
-
-impl Attribute for AriaOrientation {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-orientation"
-    }
-}
 crate::add_impls!(AriaOrientation);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-owns>
-#[derive(Debug)]
-pub struct AriaOwns {
-    val: String,
-}
-
-impl AriaOwns {
-    pub fn new(val: Vec<String>) -> Self {
-        Self { val: val.join(" ") }
-    }
-}
-
-impl Attribute for AriaOwns {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-owns"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", Vec<String>)]
+pub struct AriaOwns(String);
 crate::add_impls!(AriaOwns);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-placeholder>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
 pub struct AriaPlaceholder(String);
-
-impl Attribute for AriaPlaceholder {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-placeholder"
-    }
-}
 crate::add_impls!(AriaPlaceholder);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-posinset>
-#[derive(Debug)]
-pub struct AriaPosInset {
-    val: String,
-}
-
-impl AriaPosInset {
-    pub fn new(val: u16) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaPosInset {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-posinset"
-    }
-}
-crate::add_impls!(AriaPosInset);
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", u16)]
+pub struct AriaPosinset(String);
+crate::add_impls!(AriaPosinset);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed>
-#[derive(Debug)]
-pub struct AriaPressed(AriaOrientationOption);
-
-impl Attribute for AriaPressed {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-pressed"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", AriaPressedOption)]
+pub struct AriaPressed(AriaPressedOption);
 impl ButtonAttribute for AriaPressed {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly>
-#[derive(Debug)]
-pub struct AriaReadonly {
-    val: String,
-}
-
-impl AriaReadonly {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaReadonly {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-readonly"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", bool)]
+pub struct AriaReadonly(String);
 crate::add_impls!(AriaReadonly);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-relevant>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", AriaRelevantOption)]
 pub struct AriaRelevant(AriaRelevantOption);
-
-impl Attribute for AriaRelevant {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-relevant"
-    }
-}
 crate::add_impls!(AriaRelevant);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-required>
-#[derive(Debug)]
-pub struct AriaRequired {
-    val: String,
-}
-
-impl AriaRequired {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaRequired {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-required"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", bool)]
+pub struct AriaRequired(String);
 // TODO: just implement for input element
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription>
-#[derive(Debug)]
-pub struct AriaRoleDescription(String);
-
-impl Attribute for AriaRoleDescription {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-roledescription"
-    }
-}
-crate::add_impls!(AriaRoleDescription);
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct AriaRoledescription(String);
+crate::add_impls!(AriaRoledescription);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
-#[derive(Debug)]
-pub struct AriaRowCount {
-    val: String,
-}
-
-impl AriaRowCount {
-    pub fn new(val: u8) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaRowCount {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-rowcount"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", u8)]
+pub struct AriaRowcount(String);
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex>
-#[derive(Debug)]
-pub struct AriaRowIndex {
-    val: String,
-}
-
-impl AriaRowIndex {
-    pub fn new(val: u8) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaRowIndex {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-rowindex"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", u8)]
+pub struct AriaRowindex(String);
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan>
-#[derive(Debug)]
-pub struct AriaRowSpan {
-    val: String,
-}
-
-impl AriaRowSpan {
-    pub fn new(val: u8) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaRowSpan {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-rowspan"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", u8)]
+pub struct AriaRowspan(String);
 // TODO: impl TableAttribute, GridAttribute, TreeGridAttribute
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected>
-#[derive(Debug)]
-pub struct AriaSelected {
-    val: String,
-}
-
-impl AriaSelected {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaSelected {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-selected"
-    }
-}
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", bool)]
+pub struct AriaSelected(String);
 crate::add_impls!(AriaSelected);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-setsize>
-#[derive(Debug)]
-pub struct AriaSetSize {
-    val: String,
-}
-
-impl AriaSetSize {
-    pub fn new(val: i16) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaSetSize {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-setsize"
-    }
-}
-crate::add_impls!(AriaSetSize);
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", i16)]
+pub struct AriaSetsize(String);
+crate::add_impls!(AriaSetsize);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-sort>
-#[derive(Debug)]
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", AriaSortOption)]
 pub struct AriaSort(AriaSortOption);
-
-impl Attribute for AriaSort {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-sort"
-    }
-}
+crate::add_impls!(AriaSort);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax>
-#[derive(Debug)]
-pub struct AriaValueMax {
-    val: String,
-}
-
-impl AriaValueMax {
-    pub fn new(val: i16) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaValueMax {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-valuemax"
-    }
-}
-crate::add_impls!(AriaValueMax);
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", i16)]
+pub struct AriaValuemax(String);
+crate::add_impls!(AriaValuemax);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin>
-#[derive(Debug)]
-pub struct AriaValueMin {
-    val: String,
-}
-
-impl AriaValueMin {
-    pub fn new(val: i16) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaValueMin {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-valuemin"
-    }
-}
-crate::add_impls!(AriaValueMin);
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", i16)]
+pub struct AriaValuemin(String);
+crate::add_impls!(AriaValuemin);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow>
-#[derive(Debug)]
-pub struct AriaValueNow {
-    val: String,
-}
-
-impl AriaValueNow {
-    pub fn new(val: i16) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AriaValueNow {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_ref())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-valuenow"
-    }
-}
-crate::add_impls!(AriaValueNow);
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", i16)]
+pub struct AriaValuenow(String);
+crate::add_impls!(AriaValuenow);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext>
-#[derive(Debug)]
-pub struct AriaValueText(String);
-
-impl Attribute for AriaValueText {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.0.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "aria-valuetext"
-    }
-}
-crate::add_impls!(AriaValueText);
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct AriaValuetext(String);
+crate::add_impls!(AriaValuetext);
 
 /// Models the possible values of the `aria-autocomplete` attribute.
 ///
@@ -1131,7 +407,7 @@ pub enum AriaOrientationOption {
 /// Models the possible values of the `aria-pressed` attribute.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed>
-// type AriaPressedOption = AriaCheckedOption;
+type AriaPressedOption = AriaCheckedOption;
 
 /// Models the possible values of the `aria-relevant` attribute.
 ///
