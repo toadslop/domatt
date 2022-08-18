@@ -1,548 +1,427 @@
+use std::ops::Deref;
+
 use crate::Attribute;
 use crate::NumberOrString;
+use crate::{
+    anchor::AnchorAttribute, area::AreaAttribute, audio::AudioAttribute, base::BaseAttribute,
+    blockquote::BlockQuoteAttribute, button::ButtonAttribute, canvas::CanvasAttribute,
+    col::ColAttribute, colgroup::ColGroupAttribute, data::DataAttribute, details::DetailsAttribute,
+};
 use strum::AsRefStr;
 use strum::Display;
 
-macro_rules! number_or_string {
-    ($name:ident,$serial:expr,$doc:expr) => {
-        #[doc = $doc]
-        #[derive(Debug)]
-        pub struct $name {
-            val: String,
-        }
-
-        impl $name {
-            pub fn new(val: NumberOrString) -> Self {
-                Self {
-                    val: val.to_string(),
-                }
-            }
-        }
-
-        impl Attribute for $name {
-            fn get_val(&self) -> Option<&str> {
-                Some(self.val.as_str())
-            }
-
-            fn get_key(&self) -> &str {
-                $serial
-            }
-        }
-        impl SvgAttribute for $name {}
-    };
-}
-
-macro_rules! string_type {
-    ($name:ident,$serial:expr,$doc:expr) => {
-        #[doc = $doc]
-        #[derive(Debug)]
-        pub struct $name(String);
-
-        impl Attribute for $name {
-            fn get_val(&self) -> Option<&str> {
-                Some(self.0.as_str())
-            }
-
-            fn get_key(&self) -> &str {
-                $serial
-            }
-        }
-        impl SvgAttribute for $name {}
-    };
-}
-
-macro_rules! custom_type {
-    ($name:ident,$serial:expr,$input_type:ident,$doc:expr) => {
-        #[doc = $doc]
-        #[derive(Debug)]
-        pub struct $name {
-            val: String,
-        }
-
-        impl $name {
-            pub fn new(val: $input_type) -> Self {
-                Self { val: val.value }
-            }
-        }
-
-        impl Attribute for $name {
-            fn get_val(&self) -> Option<&str> {
-                Some(self.val.as_str())
-            }
-
-            fn get_key(&self) -> &str {
-                $serial
-            }
-        }
-        impl SvgAttribute for $name {}
-    };
-}
-
-macro_rules! enum_type {
-    ($name:ident,$enum_name:ident,$serial:expr,$doc:expr) => {
-        #[doc = $doc]
-        #[derive(Debug)]
-        pub struct $name($enum_name);
-
-        impl Attribute for $name {
-            fn get_val(&self) -> Option<&str> {
-                Some(self.0.as_ref())
-            }
-
-            fn get_key(&self) -> &str {
-                $serial
-            }
-        }
-        impl SvgAttribute for $name {}
-    };
-}
-
 pub trait SvgAttribute: Attribute {}
 
-string_type!(
-    Color,
-    "color",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color>"
-);
-
-custom_type!(
-    Height,
-    "height",
-    SvgLength,
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/height>"
-);
-
-string_type!(
-    Id,
-    "id",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/id>"
-);
-
-string_type!(
-    Lang,
-    "lang",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/lang>"
-);
-
-number_or_string!(
-    Max,
-    "max",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/max>"
-);
-
-string_type!(
-    Media,
-    "media",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/media>"
-);
-
-string_type!(
-    Method,
-    "method",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/method>"
-);
-
-string_type!(
-    Min,
-    "min",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/min>"
-);
-
-string_type!(
-    Name,
-    "name",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/name>"
-);
-
-string_type!(
-    Target,
-    "target",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/target>"
-);
-
-string_type!(
-    Type,
-    "type",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/type>"
-);
-
-custom_type!(
-    Width,
-    "width",
-    SvgLength,
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/width>"
-);
-
-enum_type!(
-    Accumulate,
-    AccumulateOption,
-    "accumulate",
-    "https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/accumulate"
-);
-
-enum_type!(
-    Additive,
-    AdditiveOption,
-    "additive",
-    "https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/additive"
-);
-
-enum_type!(
-    AlignmentBaseline,
-    AlignmentBaselineOption,
-    "alignment-baseline",
-    "https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/alignment-baseline"
-);
-
-number_or_string!(
-    Amplitude,
-    "amplitude",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/amplitude>"
-);
-
-string_type!(
-    AttributeName,
-    "attributeName",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/attributeName>"
-);
-
-/// No mdn documentation
-#[derive(Debug)]
-pub struct AutoReverse {
-    val: String,
-}
-
-impl AutoReverse {
-    pub fn new(val: bool) -> Self {
-        Self {
-            val: val.to_string(),
-        }
-    }
-}
-
-impl Attribute for AutoReverse {
-    fn get_val(&self) -> Option<&str> {
-        Some(self.val.as_str())
-    }
-
-    fn get_key(&self) -> &str {
-        "auto-reverse"
-    }
-}
-impl SvgAttribute for AutoReverse {}
-
-number_or_string!(
-    Azimuth,
-    "azimuth",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/azimuth>"
-);
-
-number_or_string!(
-    BaseFrequency,
-    "baseFrequency",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/baseFrequency>"
-);
-
-number_or_string!(
-    BaselineShift,
-    "baseline-shift",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/baseline-shift>"
-);
-
-number_or_string!(
-    Begin,
-    "begin",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/begin>"
-);
-
-number_or_string!(
-    Bias,
-    "bias",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/bias>"
-);
-
-number_or_string!(
-    By,
-    "by",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/by>"
-);
-
-number_or_string!(
-    CalcMode,
-    "calcMode",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/calcMode>"
-);
-
-string_type!(
-    ClipPath,
-    "clip-path",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/clip-path>"
-);
-
-enum_type!(
-    ClipPathUnits,
-    ClipPathUnitsOption,
-    "clipPathUnits",
-    "https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/clipPathUnits"
-);
-
-enum_type!(
-    ClipRule,
-    ClipRuleOption,
-    "clip-rule",
-    "https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/clip-rule"
-);
-
-number_or_string!(
-    ColorInterpolation,
-    "color-interpolation",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-interpolation>"
-);
-
-enum_type!(
-    ColorInterpolationFilters,
-    ColorInterpolationFiltersOption,
-    "color-interpolation-filters",
-    "https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-interpolation-filters"
-);
-
-number_or_string!(
-    ColorRendering,
-    "color-rendering",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-rendering>"
-);
-
-number_or_string!(
-    Cursor,
-    "cursor",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/cursor>"
-);
-
-number_or_string!(
-    Cx,
-    "cx",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/cx>"
-);
-
-number_or_string!(
-    Cy,
-    "cy",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/cy>"
-);
-
-string_type!(
-    D,
-    "d",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d>"
-);
-
-number_or_string!(
-    Decelerate,
-    "decelerate",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/decelerate>"
-);
-
-number_or_string!(
-    DiffuseConstant,
-    "diffuseConstant",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/diffuseConstant>"
-);
-
-number_or_string!(
-    Direction,
-    "direction",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/direction>"
-);
-
-number_or_string!(
-    Display,
-    "display",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/display>"
-);
-
-number_or_string!(
-    Divisor,
-    "divisor",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/divisor>"
-);
-
-number_or_string!(
-    DominantBaseline,
-    "dominant-baseline",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/dominant-baseline>"
-);
-
-number_or_string!(
-    Dur,
-    "dur",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/dur>"
-);
-
-number_or_string!(
-    Dx,
-    "dx",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/dx>"
-);
-
-number_or_string!(
-    Dy,
-    "dy",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/dy>"
-);
-
-number_or_string!(
-    EdgeMode,
-    "edgeMode",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/edgeMode>"
-);
-
-number_or_string!(
-    Elevation,
-    "elevation",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/elevation>"
-);
-
-number_or_string!(
-    End,
-    "end",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/end>"
-);
-
-number_or_string!(
-    Exponent,
-    "exponent",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/exponent>"
-);
-
-string_type!(
-    Fill,
-    "fill",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill>"
-);
-
-number_or_string!(
-    FillOpacity,
-    "fill-opacity",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-opacity>"
-);
-
-enum_type!(
-    FillRule,
-    FillRuleOption,
-    "fill-rule",
-    "https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule"
-);
-
-string_type!(
-    Filter,
-    "filter",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/filter>"
-);
-
-number_or_string!(
-    FilterUnits,
-    "filterUnits",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/filterUnits>"
-);
-
-number_or_string!(
-    FloodColor,
-    "flood-color",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/flood-color>"
-);
-
-number_or_string!(
-    FloodOpacity,
-    "flood-opacity",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/flood-opacity>"
-);
-
-string_type!(
-    FontFamily,
-    "font-family",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-family>"
-);
-
-number_or_string!(
-    FontSize,
-    "font-size",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-size>"
-);
-
-number_or_string!(
-    FontSizeAdjust,
-    "font-size-adjust",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-size-adjust>"
-);
-
-number_or_string!(
-    FontStretch,
-    "font-stretch",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-stretch>"
-);
-
-number_or_string!(
-    FontStyle,
-    "font-style",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-style>"
-);
-
-number_or_string!(
-    FontVariant,
-    "font-variant",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-variant>"
-);
-
-number_or_string!(
-    FontWeight,
-    "font-weight",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-weight>"
-);
-
-number_or_string!(
-    Fr,
-    "fr",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fr>"
-);
-
-number_or_string!(
-    From,
-    "from",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/from>"
-);
-
-number_or_string!(
-    Fx,
-    "fx",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fx>"
-);
-
-number_or_string!(
-    Fy,
-    "fy",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fy>"
-);
-
-string_type!(
-    GradientTransform,
-    "gradientTransform",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/gradientTransform>"
-);
-
-string_type!(
-    GradientUnits,
-    "gradientUnits",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/gradientUnits>"
-);
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct Color(String);
+crate::add_impls!(Color);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/height>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", SvgLength)]
+pub struct Height(String);
+crate::add_impls!(Height);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/id>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct Id(String);
+crate::add_impls!(Id);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/lang>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct Lang(String);
+crate::add_impls!(Lang);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/max>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Max(String);
+crate::add_impls!(Max);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/media>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct Media(String);
+crate::add_impls!(Media);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/method>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct Method(String);
+crate::add_impls!(Method);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/min>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct Min(String);
+crate::add_impls!(Min);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/name>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct Name(String);
+crate::add_impls!(Name);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/target>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct Target(String);
+crate::add_impls!(Target);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/type>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct Type(String);
+crate::add_impls!(Type);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/width>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", SvgLength)]
+pub struct Width(String);
+crate::add_impls!(Width);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/accumulate>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", AccumulateOption)]
+pub struct Accumulate(AccumulateOption);
+crate::add_impls!(Accumulate);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/additive>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", AdditiveOption)]
+pub struct Additive(AdditiveOption);
+crate::add_impls!(Additive);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/alignment-baseline>"
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", AlignmentBaselineOption)]
+pub struct AlignmentBaseline(AlignmentBaselineOption);
+crate::add_impls!(AlignmentBaseline);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/amplitude>"
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct Amplitude(String);
+crate::add_impls!(Amplitude);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/attributeName>"
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", String)]
+pub struct AttributeName(String);
+crate::add_impls!(AttributeName);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/attributeName>"
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", bool)]
+pub struct AutoReverse(String);
+crate::add_impls!(AutoReverse);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/azimuth>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Azimuth(String);
+crate::add_impls!(Azimuth);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/baseFrequency>"
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct BaseFrequency(String);
+crate::add_impls!(BaseFrequency);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/baseline-shift>"
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct BaselineShift(String);
+crate::add_impls!(BaselineShift);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/begin>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Begin(String);
+crate::add_impls!(Begin);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/bias>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Bias(String);
+crate::add_impls!(Bias);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/calcMode>"
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct CalcMode(String);
+crate::add_impls!(CalcMode);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/clipPath>"
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", String)]
+pub struct ClipPath(String);
+crate::add_impls!(ClipPath);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/clipPathUnits>"
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", ClipPathUnitsOption)]
+pub struct ClipPathUnits(ClipPathUnitsOption);
+crate::add_impls!(ClipPathUnits);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/clip-rule>"
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", ClipRuleOption)]
+pub struct ClipRule(ClipRuleOption);
+crate::add_impls!(ClipRule);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-interpolation>"
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct ColorInterpolation(String);
+crate::add_impls!(ColorInterpolation);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-interpolation-filters>"
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", ColorInterpolationFiltersOption)]
+pub struct ColorInterpolationFilters(ColorInterpolationFiltersOption);
+crate::add_impls!(ColorInterpolationFilters);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-rendering>"
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct ColorRendering(String);
+crate::add_impls!(ColorRendering);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/cursor>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Cursor(String);
+crate::add_impls!(Cursor);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/cx>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Cx(String);
+crate::add_impls!(Cx);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/cy>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Cy(String);
+crate::add_impls!(Cy);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct D(String);
+crate::add_impls!(D);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/decelerate>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Decelerate(String);
+crate::add_impls!(Decelerate);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/diffuseConstant>"
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct DiffuseConstant(String);
+crate::add_impls!(DiffuseConstant);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/direction>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Direction(String);
+crate::add_impls!(Direction);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/display>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Display(String);
+crate::add_impls!(Display);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/divisor>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Divisor(String);
+crate::add_impls!(Divisor);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/dominant-baseline>"
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct DominantBaseline(String);
+crate::add_impls!(DominantBaseline);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/dur>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Dur(String);
+crate::add_impls!(Dur);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/dx>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Dx(String);
+crate::add_impls!(Dx);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/dy>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Dy(String);
+crate::add_impls!(Dy);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/edgeMode>"
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct EdgeMode(String);
+crate::add_impls!(EdgeMode);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/elevation>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Elevation(String);
+crate::add_impls!(Elevation);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/end>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct End(String);
+crate::add_impls!(End);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/exponent>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Exponent(String);
+crate::add_impls!(Exponent);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct Fill(String);
+crate::add_impls!(Fill);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-opacity>"
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct FillOpacity(String);
+crate::add_impls!(FillOpacity);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule>"
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", FillRuleOption)]
+pub struct FillRule(FillRuleOption);
+crate::add_impls!(FillRule);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/filter>"
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct Filter(String);
+crate::add_impls!(Filter);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/filterUnits>"
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct FilterUnits(String);
+crate::add_impls!(FilterUnits);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/flood-color>"
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct FloodColor(String);
+crate::add_impls!(FloodColor);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/flood-opacity>"
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct FloodOpacity(String);
+crate::add_impls!(FloodOpacity);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-family>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct FontFamily(String);
+crate::add_impls!(FontFamily);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-size>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct FontSize(String);
+crate::add_impls!(FontSize);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-size-adjust>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct FontSizeAdjust(String);
+crate::add_impls!(FontSizeAdjust);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-stretch>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct FontStretch(String);
+crate::add_impls!(FontStretch);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-style>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct FontStyle(String);
+crate::add_impls!(FontStyle);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-variant>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct FontVariant(String);
+crate::add_impls!(FontVariant);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-weight>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct FontWeight(String);
+crate::add_impls!(FontWeight);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fr>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Fr(String);
+crate::add_impls!(Fr);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/from>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct From(String);
+crate::add_impls!(From);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fx>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Fx(String);
+crate::add_impls!(Fx);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fy>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Fy(String);
+crate::add_impls!(Fy);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/gradientTransform>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", String)]
+pub struct GradientTransform(String);
+crate::add_impls!(GradientTransform);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/gradientUnits>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", String)]
+pub struct GradientUnits(String);
+crate::add_impls!(GradientUnits);
 
 pub use crate::anchor::Href;
 impl SvgAttribute for Href {}
 
-number_or_string!(
-    ImageRendering,
-    "image-rendering",
-    "<https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/image-rendering>"
-);
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/image-rendering>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct ImageRendering(String);
+crate::add_impls!(ImageRendering);
 
 /// An enum defining the different attribute keys for SVG elements. Each variant takes a tuple
 /// that represents the valid values for the attributes.
@@ -923,9 +802,7 @@ pub enum StrokeLinejoin {
 // }
 
 #[derive(Debug)]
-pub struct SvgLength {
-    value: String,
-}
+pub struct SvgLength(String);
 
 impl SvgLength {
     pub fn new(value: f64, unit: SvgLengthUnit) -> Self {
@@ -934,7 +811,15 @@ impl SvgLength {
         let mut as_string = String::with_capacity(value.len() + unit.len());
         as_string.push_str(value.as_str());
         as_string.push_str(unit);
-        Self { value: as_string }
+        Self(as_string)
+    }
+}
+
+impl Deref for SvgLength {
+    type Target = String;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
     }
 }
 

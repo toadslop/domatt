@@ -77,7 +77,7 @@ pub fn attribute(input: TokenStream) -> TokenStream {
                 }
                 None => panic!("Need a generic type"),
             },
-            "Url" | "String" | "u16" | "u8" | "i16" | "bool" => {
+            "Url" | "String" | "u16" | "u8" | "i16" | "bool" | "SvgLength" | "NumberOrString" => {
                 quote! {
                     pub fn new(val: #input_type) -> Self {
                         Self(val.to_string())
