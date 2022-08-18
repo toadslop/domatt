@@ -1005,27 +1005,74 @@ crate::add_impls!(SurfaceScale);
 pub struct SystemLanguage(String);
 crate::add_impls!(SystemLanguage);
 
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/tableValues>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct TableValues(String);
+crate::add_impls!(TableValues);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/targetX>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct TargetX(String);
+crate::add_impls!(TargetX);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/targetY>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct TargetY(String);
+crate::add_impls!(TargetY);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct TextAnchor(String);
+crate::add_impls!(TextAnchor);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-decoration>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct TextDecoration(String);
+crate::add_impls!(TextDecoration);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/textLength>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct TextLength(String);
+crate::add_impls!(TextLength);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-rendering>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct TextRendering(String);
+crate::add_impls!(TextRendering);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/to>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct To(String);
+crate::add_impls!(To);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct Transform(String);
+crate::add_impls!(Transform);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform-origin>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct TransformOrigin(String);
+crate::add_impls!(TransformOrigin);
+
 /// An enum defining the different attribute keys for SVG elements. Each variant takes a tuple
 /// that represents the valid values for the attributes.
 #[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum SVGAttributes<'a> {
-    #[strum(serialize = "tableValues")]
-    TableValues(NumberOrString),
-    #[strum(serialize = "targetX")]
-    TargetX(NumberOrString),
-    #[strum(serialize = "targetY")]
-    TargetY(NumberOrString),
-    TextAnchor(String),
-    TextDecoration(NumberOrString),
-    #[strum(serialize = "textLength")]
-    TextLength(NumberOrString),
-    TextRendering(NumberOrString),
-    To(NumberOrString),
-    Transform(&'a str),
     U1(NumberOrString),
     U2(NumberOrString),
-    EnderlinePosition(NumberOrString),
+    UnderlinePosition(NumberOrString),
     UnderlineThickness(NumberOrString),
     Unicode(NumberOrString),
     UnicodeBidi(NumberOrString),
