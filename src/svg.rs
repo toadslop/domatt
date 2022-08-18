@@ -8,7 +8,6 @@ use crate::{
     col::ColAttribute, colgroup::ColGroupAttribute, data::DataAttribute, details::DetailsAttribute,
 };
 use strum::AsRefStr;
-use strum::Display;
 
 pub trait SvgAttribute: Attribute {}
 

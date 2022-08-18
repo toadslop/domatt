@@ -1,4 +1,4 @@
-use std::fmt::Debug;
+use std::{fmt::Debug, rc::Rc};
 
 pub trait Event {
     /// Returns a string representing the key of a DOM attribute.
@@ -7,32 +7,45 @@ pub trait Event {
     /// Returns an `Option<String>` representing the value of a DOM
     /// attribute. `None` indicates a boolean attribute, such as `disabled`,
     /// which has no value.
-    fn get_callback(&self) -> Box<dyn Fn() -> ()>;
+    fn get_callback(&self) -> Rc<Box<dyn Fn() -> ()>>;
 }
 
-struct Abort {}
+struct Abort {
+    id: String,
+    func: Rc<Box<dyn Fn() -> ()>>,
+}
+
+impl Abort {
+    const KEY: &'static str = "abort";
+}
 
 impl Event for Abort {
     fn get_key(&self) -> &str {
-        "abort"
+        Self::KEY
     }
 
-    fn get_callback(&self) -> Box<dyn Fn() -> ()> {
-        Box::new(|| ())
+    fn get_callback(&self) -> Rc<Box<dyn Fn() -> ()>> {
+        self.func.clone()
     }
 }
 
-pub struct EventHandlerTest {
+pub struct ButtonProps {
     attributes: Vec<(ProcessAction, String, Option<String>)>,
-    listeners: Vec<(ProcessAction, String, Box<dyn Fn() -> ()>)>,
+    listeners: Vec<(ProcessAction, String, Rc<Box<dyn Fn() -> ()>>)>,
 }
 
-impl EventHandlerTest {
+impl ButtonProps {
+    pub fn new() -> Self {
+        Self {
+            attributes: Vec::new(),
+            listeners: Vec::new(),
+        }
+    }
     pub fn add_event(&mut self, event: Box<dyn Event>) {
         let action = ProcessAction::Add;
         let key = String::from(event.get_key());
         let cb = event.get_callback();
-        self.listeners.push((action, key, cb))
+        self.listeners.push((action, key, cb.clone()))
     }
 }
 
