@@ -759,31 +759,95 @@ crate::add_impls!(PreserveAspectRatio);
 pub struct PrimitiveUnits(String);
 crate::add_impls!(PrimitiveUnits);
 
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/r>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct R(String);
+crate::add_impls!(R);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/radius>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Radius(String);
+crate::add_impls!(Radius);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/refX>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct RefX(String);
+crate::add_impls!(RefX);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/refY>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct RefY(String);
+crate::add_impls!(RefY);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/rendering-intent>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct RenderingIntent(String);
+crate::add_impls!(RenderingIntent);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/repeatCount>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct RepeatCount(String);
+crate::add_impls!(RepeatCount);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/repeatDur>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct RepeatDur(String);
+crate::add_impls!(RepeatDur);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/requiredExtensions>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct RequiredExtensions(String);
+crate::add_impls!(RequiredExtensions);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/requiredFeatures>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct RequiredFeatures(String);
+crate::add_impls!(RequiredFeatures);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/restart>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Restart(String);
+crate::add_impls!(Restart);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/result>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct Result(String);
+crate::add_impls!(Result);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/rotate>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Rotate(String);
+crate::add_impls!(Rotate);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/rx>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Rx(String);
+crate::add_impls!(Rx);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/ry>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Ry(String);
+crate::add_impls!(Ry);
+
 /// An enum defining the different attribute keys for SVG elements. Each variant takes a tuple
 /// that represents the valid values for the attributes.
 #[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum SVGAttributes<'a> {
-    R(NumberOrString),
-    Radius(NumberOrString),
-    #[strum(serialize = "refX")]
-    RefX(NumberOrString),
-    #[strum(serialize = "refY")]
-    RefY(NumberOrString),
-    RenderingIntent(NumberOrString),
-    #[strum(serialize = "repeatCount")]
-    RepeatCount(NumberOrString),
-    #[strum(serialize = "repeatDur")]
-    RepeatDur(NumberOrString),
-    #[strum(serialize = "requiredExtensions")]
-    RequiredExtensions(NumberOrString),
-    #[strum(serialize = "requiredFeatures")]
-    RequiredFeatures(NumberOrString),
-    Restart(NumberOrString),
-    Result(&'a str),
-    Rotate(NumberOrString),
-    Rx(NumberOrString),
-    Ry(NumberOrString),
     Scale(NumberOrString),
     Seed(NumberOrString),
     ShapeRendering(NumberOrString),
