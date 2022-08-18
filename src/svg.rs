@@ -609,47 +609,161 @@ crate::add_impls!(Mode);
 pub struct NumOctaves(String);
 crate::add_impls!(NumOctaves);
 
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/offset>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Offset(String);
+crate::add_impls!(Offset);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/opacity>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Opacity(String);
+crate::add_impls!(Opacity);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/operator>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Operator(String);
+crate::add_impls!(Operator);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/order>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Order(String);
+crate::add_impls!(Order);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/orient>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Orient(String);
+crate::add_impls!(Orient);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/orientation>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Orientation(String);
+crate::add_impls!(Orientation);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/origin>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Origin(String);
+crate::add_impls!(Origin);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/overflow>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Overflow(String);
+crate::add_impls!(Overflow);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/overline-position>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct OverlinePosition(String);
+crate::add_impls!(OverlinePosition);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/overline-thickness>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", f32)]
+pub struct OverlineThickness(String);
+crate::add_impls!(OverlineThickness);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/paint-order>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct PaintOrder(String);
+crate::add_impls!(PaintOrder);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/panose-1>
+#[derive(Debug, Attribute)]
+#[attribute("panose-1", NumberOrString)]
+pub struct Panose1(String);
+crate::add_impls!(Panose1);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/path>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct Path(String);
+crate::add_impls!(Path);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/pathLength>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct PathLength(String);
+crate::add_impls!(PathLength);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/patternContentUnits>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", String)]
+pub struct PatternContentUnits(String);
+crate::add_impls!(PatternContentUnits);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/patternTransform>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct PatternTransform(String);
+crate::add_impls!(PatternTransform);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/patternUnits>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", String)]
+pub struct PatternUnits(String);
+crate::add_impls!(PatternUnits);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/pointer-events>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct PointerEvents(String);
+crate::add_impls!(PointerEvents);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/points>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct Points(String);
+crate::add_impls!(Points);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/pointsAtX>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct PointsAtX(String);
+crate::add_impls!(PointsAtX);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/pointsAtX>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct PointsAtY(String);
+crate::add_impls!(PointsAtY);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/pointsAtZ>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct PointsAtZ(String);
+crate::add_impls!(PointsAtZ);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAlpha>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", bool)]
+pub struct PreserveAlpha(String);
+crate::add_impls!(PreserveAlpha);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAspectRatio>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", String)]
+pub struct PreserveAspectRatio(String);
+crate::add_impls!(PreserveAspectRatio);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/primitiveUnits>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct PrimitiveUnits(String);
+crate::add_impls!(PrimitiveUnits);
+
 /// An enum defining the different attribute keys for SVG elements. Each variant takes a tuple
 /// that represents the valid values for the attributes.
 #[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum SVGAttributes<'a> {
-    Offset(NumberOrString),
-    Opacity(NumberOrString),
-    Operator(NumberOrString),
-    Order(NumberOrString),
-    Orient(NumberOrString),
-    Orientation(NumberOrString),
-    Origin(NumberOrString),
-    Overflow(NumberOrString),
-    OverlinePosition(NumberOrString),
-    PverlineThickness(NumberOrString),
-    PaintOrder(NumberOrString),
-    #[strum(serialize = "panose-1")]
-    Panose1(NumberOrString),
-    Path(&'a str),
-    #[strum(serialize = "pathLength")]
-    PathLength(NumberOrString),
-    #[strum(serialize = "patternContentUnits")]
-    PatternContentUnits(&'a str),
-    #[strum(serialize = "patternTransform")]
-    PatternTransform(NumberOrString),
-    #[strum(serialize = "patternUnits")]
-    PatternUnits(&'a str),
-    PointerEvents(NumberOrString),
-    Points(&'a str),
-    #[strum(serialize = "pointsAtX")]
-    PointsAtX(NumberOrString),
-    #[strum(serialize = "pointsAtY")]
-    PointsAtY(NumberOrString),
-    #[strum(serialize = "pointsAtZ")]
-    PointsAtZ(NumberOrString),
-    #[strum(serialize = "preserveAlpha")]
-    PreserveAlpha(bool),
-    #[strum(serialize = "preserveAspectRatio")]
-    OreserveAspectRatio(&'a str),
-    #[strum(serialize = "primitiveUnits")]
-    PrimitiveUnits(NumberOrString),
     R(NumberOrString),
     Radius(NumberOrString),
     #[strum(serialize = "refX")]

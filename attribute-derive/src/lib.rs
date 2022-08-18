@@ -77,7 +77,8 @@ pub fn attribute(input: TokenStream) -> TokenStream {
                 }
                 None => panic!("Need a generic type"),
             },
-            "Url" | "String" | "u16" | "u8" | "i16" | "bool" | "SvgLength" | "NumberOrString" => {
+            "Url" | "String" | "u16" | "u8" | "i16" | "bool" | "SvgLength" | "NumberOrString"
+            | "f32" => {
                 quote! {
                     pub fn new(val: #input_type) -> Self {
                         Self(val.to_string())
@@ -101,13 +102,17 @@ pub fn attribute(input: TokenStream) -> TokenStream {
     };
 
     let case = match case.value().as_str() {
-        "camelCase" => Case::Camel,
-        "kebab-case" => Case::Kebab,
-        "lowercase" => Case::Lower,
-        _ => panic!("Invalid case"),
+        "camelCase" => Some(Case::Camel),
+        "kebab-case" => Some(Case::Kebab),
+        "lowercase" => Some(Case::Lower),
+        _ => None,
     };
 
-    let serial = stringify!(ident).to_case(case);
+    let serial = if let Some(case) = case {
+        stringify!(ident).to_case(case)
+    } else {
+        stringify!(ident).to_string()
+    };
 
     let get_val = if is_unit {
         quote! {
