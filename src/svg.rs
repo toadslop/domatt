@@ -543,28 +543,77 @@ crate::add_impls!(Local);
 pub struct MarkerEnd(String);
 crate::add_impls!(MarkerEnd);
 
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/markerHeight>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct MarkerHeight(String);
+crate::add_impls!(MarkerHeight);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/marker-mid>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct MarkerMid(String);
+crate::add_impls!(MarkerMid);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/marker-start>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct MarkerStart(String);
+crate::add_impls!(MarkerStart);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/markerUnits>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct MarkerUnits(String);
+crate::add_impls!(MarkerUnits);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/markerWidth>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct MarkerWidth(String);
+crate::add_impls!(MarkerWidth);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/mask>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct Mask(String);
+crate::add_impls!(Mask);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/maskContentUnits>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct MaskContentUnits(String);
+crate::add_impls!(MaskContentUnits);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/maskUnits>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct MaskUnits(String);
+crate::add_impls!(MaskUnits);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/mathematical>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Mathematical(String);
+crate::add_impls!(Mathematical);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/mode>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Mode(String);
+crate::add_impls!(Mode);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/numOctaves>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct NumOctaves(String);
+crate::add_impls!(NumOctaves);
+
 /// An enum defining the different attribute keys for SVG elements. Each variant takes a tuple
 /// that represents the valid values for the attributes.
 #[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum SVGAttributes<'a> {
-    #[strum(serialize = "markerHeight")]
-    MarkerHeight(NumberOrString),
-    MarkerMid(&'a str),
-    MarkerStart(&'a str),
-    #[strum(serialize = "markerUnits")]
-    MarkerUnits(NumberOrString),
-    #[strum(serialize = "markerWidth")]
-    MarkerWidth(NumberOrString),
-    Mask(&'a str),
-    #[strum(serialize = "maskContentUnits")]
-    MaskContentUnits(NumberOrString),
-    #[strum(serialize = "maskUnits")]
-    MaskUnits(NumberOrString),
-    Mathematical(NumberOrString),
-    Mode(NumberOrString),
-    #[strum(serialize = "numOctaves")]
-    NumOctaves(NumberOrString),
     Offset(NumberOrString),
     Opacity(NumberOrString),
     Operator(NumberOrString),
