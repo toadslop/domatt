@@ -843,48 +843,173 @@ crate::add_impls!(Rx);
 pub struct Ry(String);
 crate::add_impls!(Ry);
 
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/scale>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Scale(String);
+crate::add_impls!(Scale);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/seed>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Seed(String);
+crate::add_impls!(Seed);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct ShapeRendering(String);
+crate::add_impls!(ShapeRendering);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/slope>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct Slope(String);
+crate::add_impls!(Slope);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/spacing>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct Spacing(String);
+crate::add_impls!(Spacing);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/specularConstant>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct SpecularConstant(String);
+crate::add_impls!(SpecularConstant);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/specularExponent>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct SpecularExponent(String);
+crate::add_impls!(SpecularExponent);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/speed>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct Speed(String);
+crate::add_impls!(Speed);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/spreadMethod>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", String)]
+pub struct SpreadMethod(String);
+crate::add_impls!(SpreadMethod);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/startOffset>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct StartOffset(String);
+crate::add_impls!(StartOffset);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stdDeviation>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct StdDeviation(String);
+crate::add_impls!(StdDeviation);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stemh>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct Stemh(String);
+crate::add_impls!(Stemh);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stemv>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct Stemv(String);
+crate::add_impls!(Stemv);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stitchTiles>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct StitchTiles(String);
+crate::add_impls!(StitchTiles);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stop-color>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct StopColor(String);
+crate::add_impls!(StopColor);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stop-opacity>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct StopOpacity(String);
+crate::add_impls!(StopOpacity);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/strikethrough-position>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct StrikethroughPosition(String);
+crate::add_impls!(StrikethroughPosition);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct Stroke(String);
+crate::add_impls!(Stroke);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct StrokeDasharray(String);
+crate::add_impls!(StrokeDasharray);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dashoffset>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct StrokeDashoffset(String);
+crate::add_impls!(StrokeDashoffset);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", StrokeLinecapOption)]
+pub struct StrokeLinecap(StrokeLinecapOption);
+crate::add_impls!(StrokeLinecap);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linejoin>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", StrokeLinejoinOption)]
+pub struct StrokeLinejoin(StrokeLinejoinOption);
+crate::add_impls!(StrokeLinejoin);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-miterlimit>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct StrokeMiterlimit(String);
+crate::add_impls!(StrokeMiterlimit);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-opacity>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct StrokeOpacity(String);
+crate::add_impls!(StrokeOpacity);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-width>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct StrokeWidth(String);
+crate::add_impls!(StrokeWidth);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/surfaceScale>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct SurfaceScale(String);
+crate::add_impls!(SurfaceScale);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/systemLanguage>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct SystemLanguage(String);
+crate::add_impls!(SystemLanguage);
+
 /// An enum defining the different attribute keys for SVG elements. Each variant takes a tuple
 /// that represents the valid values for the attributes.
 #[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum SVGAttributes<'a> {
-    Scale(NumberOrString),
-    Seed(NumberOrString),
-    ShapeRendering(NumberOrString),
-    Slope(NumberOrString),
-    Spacing(NumberOrString),
-    #[strum(serialize = "requiredFeatures")]
-    SpecularConstant(NumberOrString),
-    #[strum(serialize = "specularExponent")]
-    SpecularExponent(NumberOrString),
-    Speed(NumberOrString),
-    #[strum(serialize = "spreadMethod")]
-    SpreadMethod(&'a str),
-    #[strum(serialize = "startOffset")]
-    StartOffset(NumberOrString),
-    #[strum(serialize = "stdDeviation")]
-    StdDeviation(NumberOrString),
-    Stemh(NumberOrString),
-    Stemv(NumberOrString),
-    #[strum(serialize = "stitchTiles")]
-    StitchTiles(NumberOrString),
-    StopColor(&'a str),
-    StopOpacity(NumberOrString),
-    StrikethroughPosition(NumberOrString),
-    StrikethroughThickness(NumberOrString),
-    String(NumberOrString),
-    Stroke(&'a str),
-    StrokeDasharray(NumberOrString),
-    StrokeDashoffset(NumberOrString),
-    StrokeLinecap(StrokeLinecap),
-    StrokeLinejoin(StrokeLinejoin),
-    StrokeMiterlimit(NumberOrString),
-    StrokeOpacity(NumberOrString),
-    StrokeWidth(NumberOrString),
-    #[strum(serialize = "surfaceScale")]
-    SurfaceScale(NumberOrString),
-    #[strum(serialize = "systemLanguage")]
-    SystemLanguage(NumberOrString),
     #[strum(serialize = "tableValues")]
     TableValues(NumberOrString),
     #[strum(serialize = "targetX")]
@@ -1092,7 +1217,7 @@ pub enum FocusableOption {
 /// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap>
 #[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
-pub enum StrokeLinecap {
+pub enum StrokeLinecapOption {
     Butt,
     Round,
     Square,
@@ -1104,7 +1229,7 @@ pub enum StrokeLinecap {
 /// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linejoin>
 #[derive(Debug, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
-pub enum StrokeLinejoin {
+pub enum StrokeLinejoinOption {
     Miter,
     Round,
     Bevel,
