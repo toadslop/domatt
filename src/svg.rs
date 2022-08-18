@@ -507,19 +507,47 @@ crate::add_impls!(KeySplines);
 pub struct KeyTimes(String);
 crate::add_impls!(KeyTimes);
 
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/lengthAdjust>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct LengthAdjust(String);
+crate::add_impls!(LengthAdjust);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/letter-spacing>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct LetterSpacing(String);
+crate::add_impls!(LetterSpacing);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/lighting-color>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct LightingColor(String);
+crate::add_impls!(LightingColor);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/limitingConeAngle>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct LimitingConeAngle(String);
+crate::add_impls!(LimitingConeAngle);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/local>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Local(String);
+crate::add_impls!(Local);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/marker-end>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct MarkerEnd(String);
+crate::add_impls!(MarkerEnd);
+
 /// An enum defining the different attribute keys for SVG elements. Each variant takes a tuple
 /// that represents the valid values for the attributes.
 #[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum SVGAttributes<'a> {
-    #[strum(serialize = "lengthAdjust")]
-    LengthAdjust(NumberOrString),
-    LetterSpacing(NumberOrString),
-    LightingColor(NumberOrString),
-    #[strum(serialize = "limitingConeAngle")]
-    LimitingConeAngle(NumberOrString),
-    Local(NumberOrString),
-    MarkerEnd(&'a str),
     #[strum(serialize = "markerHeight")]
     MarkerHeight(NumberOrString),
     MarkerMid(&'a str),
