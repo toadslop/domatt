@@ -1113,26 +1113,35 @@ crate::add_impls!(UnicodeRange);
 pub struct UnitsPerEm(String);
 crate::add_impls!(UnitsPerEm);
 
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/values>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct Values(String);
+crate::add_impls!(Values);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/vector-effect>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", String)]
+pub struct VectorEffect(String);
+crate::add_impls!(VectorEffect);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", String)]
+pub struct ViewBox(String);
+crate::add_impls!(ViewBox);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/visibility>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct Visibility(String);
+crate::add_impls!(Visibility);
+
 /// An enum defining the different attribute keys for SVG elements. Each variant takes a tuple
 /// that represents the valid values for the attributes.
 #[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum SVGAttributes<'a> {
-    VAlphabetic(NumberOrString),
-    Values(&'a str),
-    VectorEffect(NumberOrString),
-    Version(&'a str),
-    VertAdvY(NumberOrString),
-    VertOriginX(NumberOrString),
-    VertOriginY(NumberOrString),
-    VHanging(NumberOrString),
-    VIdeographic(NumberOrString),
-    #[strum(serialize = "viewBox")]
-    ViewBox(&'a str),
-    #[strum(serialize = "viewTarget")]
-    ViewTarget(NumberOrString),
-    Visibility(NumberOrString),
-    VMathematical(NumberOrString),
     Widths(NumberOrString),
     WordSpacing(NumberOrString),
     WritingMode(NumberOrString),
