@@ -423,30 +423,95 @@ impl SvgAttribute for Href {}
 pub struct ImageRendering(String);
 crate::add_impls!(ImageRendering);
 
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/in2>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct In2(String);
+crate::add_impls!(In2);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/in>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", String)]
+pub struct In(String);
+crate::add_impls!(In);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/intercept>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct Intercept(String);
+crate::add_impls!(Intercept);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/k1>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct K1(String);
+crate::add_impls!(K1);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/k2>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct K2(String);
+crate::add_impls!(K2);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/k3>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct K3(String);
+crate::add_impls!(K3);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/k4>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct K4(String);
+crate::add_impls!(K4);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/k>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct K(String);
+crate::add_impls!(K);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/kernelMatrix>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct KernelMatrix(String);
+crate::add_impls!(KernelMatrix);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/kernelUnitLength>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct KernelUnitLength(String);
+crate::add_impls!(KernelUnitLength);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/kerning>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct Kerning(String);
+crate::add_impls!(Kerning);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/keyPoints>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct KeyPoints(String);
+crate::add_impls!(KeyPoints);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/keySplines>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct KeySplines(String);
+crate::add_impls!(KeySplines);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/keyTimes>
+#[derive(Debug, Attribute)]
+#[attribute("camelCase", NumberOrString)]
+pub struct KeyTimes(String);
+crate::add_impls!(KeyTimes);
+
 /// An enum defining the different attribute keys for SVG elements. Each variant takes a tuple
 /// that represents the valid values for the attributes.
 #[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum SVGAttributes<'a> {
-    In2(NumberOrString),
-    In(&'a str),
-    Intercept(NumberOrString),
-    K1(NumberOrString),
-    K2(NumberOrString),
-    K3(NumberOrString),
-    K4(NumberOrString),
-    K(NumberOrString),
-    #[strum(serialize = "kernelMatrix")]
-    KernelMatrix(NumberOrString),
-    #[strum(serialize = "kernelUnitLength")]
-    KernelUnitLength(NumberOrString),
-    Kerning(NumberOrString),
-    #[strum(serialize = "keyPoints")]
-    KeyPoints(NumberOrString),
-    #[strum(serialize = "keySplines")]
-    KeySplines(NumberOrString),
-    #[strum(serialize = "keyTimes")]
-    KeyTimes(NumberOrString),
     #[strum(serialize = "lengthAdjust")]
     LengthAdjust(NumberOrString),
     LetterSpacing(NumberOrString),
