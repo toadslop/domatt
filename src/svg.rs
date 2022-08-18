@@ -1065,19 +1065,59 @@ crate::add_impls!(Transform);
 pub struct TransformOrigin(String);
 crate::add_impls!(TransformOrigin);
 
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/u1>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct U1(String);
+crate::add_impls!(U1);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/u2>
+#[derive(Debug, Attribute)]
+#[attribute("lowercase", NumberOrString)]
+pub struct U2(String);
+crate::add_impls!(U2);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/underline-position>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct UnderlinePosition(String);
+crate::add_impls!(UnderlinePosition);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/underline-thickness>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct UnderlineThickness(String);
+crate::add_impls!(UnderlineThickness);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/unicode>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct Unicode(String);
+crate::add_impls!(Unicode);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/unicode-bidi>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct UnicodeBidi(String);
+crate::add_impls!(UnicodeBidi);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/unicode-range>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct UnicodeRange(String);
+crate::add_impls!(UnicodeRange);
+
+/// <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/units-per-em>
+#[derive(Debug, Attribute)]
+#[attribute("kebab-case", NumberOrString)]
+pub struct UnitsPerEm(String);
+crate::add_impls!(UnitsPerEm);
+
 /// An enum defining the different attribute keys for SVG elements. Each variant takes a tuple
 /// that represents the valid values for the attributes.
 #[derive(Debug, Display)]
 #[strum(serialize_all = "kebab-case")]
 pub enum SVGAttributes<'a> {
-    U1(NumberOrString),
-    U2(NumberOrString),
-    UnderlinePosition(NumberOrString),
-    UnderlineThickness(NumberOrString),
-    Unicode(NumberOrString),
-    UnicodeBidi(NumberOrString),
-    UnicodeRange(NumberOrString),
-    UnitsPerEm(NumberOrString),
     VAlphabetic(NumberOrString),
     Values(&'a str),
     VectorEffect(NumberOrString),
@@ -1088,7 +1128,7 @@ pub enum SVGAttributes<'a> {
     VHanging(NumberOrString),
     VIdeographic(NumberOrString),
     #[strum(serialize = "viewBox")]
-    SiewBox(&'a str),
+    ViewBox(&'a str),
     #[strum(serialize = "viewTarget")]
     ViewTarget(NumberOrString),
     Visibility(NumberOrString),
