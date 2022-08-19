@@ -1,6 +1,3 @@
-use crate::anchor::Target;
-use crate::Attribute;
-
 use strum::AsRefStr;
 
 pub trait AreaAttribute: Attribute {}
@@ -17,17 +14,19 @@ impl AreaAttribute for Alt {}
 pub struct Coords(AreaTagShape);
 impl AreaAttribute for Coords {}
 
-pub use crate::anchor::Download;
+pub use super::anchor::Download;
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-download>
 impl AreaAttribute for Download {}
 
-pub use crate::anchor::Href;
+pub use super::anchor::Href;
 impl AreaAttribute for Href {}
 
-pub use crate::anchor::HrefLang;
+pub use super::anchor::HrefLang;
 impl AreaAttribute for HrefLang {}
 
-pub use crate::anchor::ReferrerPolicy;
+pub use super::anchor::ReferrerPolicy;
+
+use super::Attribute;
 impl AreaAttribute for ReferrerPolicy {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#attr-rel>
@@ -42,6 +41,7 @@ impl AreaAttribute for Rel {}
 pub struct Shape(AreaTagShape);
 impl AreaAttribute for Shape {}
 
+pub use super::anchor::Target;
 impl AreaAttribute for Target {}
 
 /// An enum representing the different options for the both the shape attribute of

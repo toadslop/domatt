@@ -1,10 +1,10 @@
-use crate::{Attribute, HtmlAttributeReferrerPolicy, TargetOption};
-
 use std::fmt::Debug;
 use strum::AsRefStr;
 use url::Url;
 
-pub trait AnchorAttribute: crate::Attribute {}
+use super::{Attribute, ReferrerPolicyOption, TargetOption};
+
+pub trait AnchorAttribute: Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-download>
 #[derive(Debug, Attribute)]
@@ -35,8 +35,8 @@ impl AnchorAttribute for Ping {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-referrerpolicy>
 #[derive(Debug, Attribute)]
-#[attribute("lowercase", HtmlAttributeReferrerPolicy)]
-pub struct ReferrerPolicy(HtmlAttributeReferrerPolicy);
+#[attribute("lowercase", ReferrerPolicyOption)]
+pub struct ReferrerPolicy(ReferrerPolicyOption);
 impl AnchorAttribute for ReferrerPolicy {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-rel>

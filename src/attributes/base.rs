@@ -1,8 +1,8 @@
 pub trait BaseAttribute: Attribute {}
 
-pub use crate::anchor::Href;
-use crate::Attribute;
+pub use super::anchor::Href;
+use super::Attribute;
 impl BaseAttribute for Href {}
 
-pub use crate::anchor::Target;
+pub use super::anchor::Target;
 impl BaseAttribute for Target {}

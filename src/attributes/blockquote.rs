@@ -1,4 +1,4 @@
-use crate::Attribute;
+use super::Attribute;
 use url::Url;
 
 pub trait BlockQuoteAttribute: Attribute {}

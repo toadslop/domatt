@@ -1,4 +1,5 @@
-use crate::{
+use super::add_impls;
+use super::{
     anchor::AnchorAttribute, area::AreaAttribute, audio::AudioAttribute, base::BaseAttribute,
     blockquote::BlockQuoteAttribute, button::ButtonAttribute, canvas::CanvasAttribute,
     col::ColAttribute, colgroup::ColGroupAttribute, data::DataAttribute, details::DetailsAttribute,
@@ -12,31 +13,31 @@ pub trait AriaAttribute: Attribute {}
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", String)]
 pub struct AriaActivedescendant(String);
-crate::add_impls!(AriaActivedescendant);
+add_impls!(AriaActivedescendant);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-atomic>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", bool)]
 pub struct AriaAtomic(String);
-crate::add_impls!(AriaAtomic);
+add_impls!(AriaAtomic);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", AriaAutocompleteOption)]
 pub struct AriaAutocomplete(AriaAutocompleteOption);
-crate::add_impls!(AriaAutocomplete);
+add_impls!(AriaAutocomplete);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", bool)]
 pub struct AriaBusy(String);
-crate::add_impls!(AriaBusy);
+add_impls!(AriaBusy);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-checked>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", AriaCheckedOption)]
 pub struct AriaChecked(AriaCheckedOption);
-crate::add_impls!(AriaChecked);
+add_impls!(AriaChecked);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colcount>
 #[derive(Debug, Attribute)]
@@ -60,37 +61,37 @@ pub struct AriaColspan(String);
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", Vec<String>)]
 pub struct AriaControls(String);
-crate::add_impls!(AriaControls);
+add_impls!(AriaControls);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", AriaCurrentOption)]
 pub struct AriaCurrent(AriaCurrentOption);
-crate::add_impls!(AriaCurrent);
+add_impls!(AriaCurrent);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", Vec<String>)]
 pub struct AriaDescribedby(String);
-crate::add_impls!(AriaDescribedby);
+add_impls!(AriaDescribedby);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-details>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", Vec<String>)]
 pub struct AriaDetails(String);
-crate::add_impls!(AriaDetails);
+add_impls!(AriaDetails);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", bool)]
 pub struct AriaDisabled(String);
-crate::add_impls!(AriaDisabled);
+add_impls!(AriaDisabled);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-dropeffect>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", AriaDropEffectOption)]
 pub struct AriaDropeffect(AriaDropEffectOption);
-crate::add_impls!(AriaDropeffect);
+add_impls!(AriaDropeffect);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage>
 #[derive(Debug, Attribute)]
@@ -102,31 +103,31 @@ pub struct AriaErrormessage(String);
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", bool)]
 pub struct AriaExpanded(String);
-crate::add_impls!(AriaExpanded);
+add_impls!(AriaExpanded);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-flowto>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", Vec<String>)]
 pub struct AriaFlowto(String);
-crate::add_impls!(AriaFlowto);
+add_impls!(AriaFlowto);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-grabbed>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", bool)]
 pub struct AriaGrabbed(String);
-crate::add_impls!(AriaGrabbed);
+add_impls!(AriaGrabbed);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", AriaHasPopupOption)]
 pub struct AriaHaspopup(AriaHasPopupOption);
-crate::add_impls!(AriaHaspopup);
+add_impls!(AriaHaspopup);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", bool)]
 pub struct AriaHidden(String);
-crate::add_impls!(AriaHidden);
+add_impls!(AriaHidden);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid>
 #[derive(Debug, Attribute)]
@@ -138,73 +139,73 @@ pub struct AriaInvalid(AriaHasPopupOption);
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", String)]
 pub struct AriaKeyshortcuts(String);
-crate::add_impls!(AriaKeyshortcuts);
+add_impls!(AriaKeyshortcuts);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", String)]
 pub struct AriaLabel(String);
-crate::add_impls!(AriaLabel);
+add_impls!(AriaLabel);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", Vec<String>)]
 pub struct AriaLabelledBy(String);
-crate::add_impls!(AriaLabelledBy);
+add_impls!(AriaLabelledBy);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-level>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", u8)]
 pub struct AriaLevel(String);
-crate::add_impls!(AriaLevel);
+add_impls!(AriaLevel);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", AriaLiveOption)]
 pub struct AriaLive(AriaLiveOption);
-crate::add_impls!(AriaLive);
+add_impls!(AriaLive);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-modal>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", bool)]
 pub struct AriaModal(String);
-crate::add_impls!(AriaModal);
+add_impls!(AriaModal);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiline>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", bool)]
 pub struct AriaMultiline(String);
-crate::add_impls!(AriaMultiline);
+add_impls!(AriaMultiline);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiselectable>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", bool)]
 pub struct AriaMultiselectable(String);
-crate::add_impls!(AriaMultiselectable);
+add_impls!(AriaMultiselectable);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", AriaOrientationOption)]
 pub struct AriaOrientation(AriaOrientationOption);
-crate::add_impls!(AriaOrientation);
+add_impls!(AriaOrientation);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-owns>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", Vec<String>)]
 pub struct AriaOwns(String);
-crate::add_impls!(AriaOwns);
+add_impls!(AriaOwns);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-placeholder>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", String)]
 pub struct AriaPlaceholder(String);
-crate::add_impls!(AriaPlaceholder);
+add_impls!(AriaPlaceholder);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-posinset>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", u16)]
 pub struct AriaPosinset(String);
-crate::add_impls!(AriaPosinset);
+add_impls!(AriaPosinset);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed>
 #[derive(Debug, Attribute)]
@@ -216,13 +217,13 @@ impl ButtonAttribute for AriaPressed {}
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", bool)]
 pub struct AriaReadonly(String);
-crate::add_impls!(AriaReadonly);
+add_impls!(AriaReadonly);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-relevant>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", AriaRelevantOption)]
 pub struct AriaRelevant(AriaRelevantOption);
-crate::add_impls!(AriaRelevant);
+add_impls!(AriaRelevant);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-required>
 #[derive(Debug, Attribute)]
@@ -234,7 +235,7 @@ pub struct AriaRequired(String);
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", String)]
 pub struct AriaRoledescription(String);
-crate::add_impls!(AriaRoledescription);
+add_impls!(AriaRoledescription);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
 #[derive(Debug, Attribute)]
@@ -258,43 +259,43 @@ pub struct AriaRowspan(String);
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", bool)]
 pub struct AriaSelected(String);
-crate::add_impls!(AriaSelected);
+add_impls!(AriaSelected);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-setsize>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", i16)]
 pub struct AriaSetsize(String);
-crate::add_impls!(AriaSetsize);
+add_impls!(AriaSetsize);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-sort>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", AriaSortOption)]
 pub struct AriaSort(AriaSortOption);
-crate::add_impls!(AriaSort);
+add_impls!(AriaSort);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", i16)]
 pub struct AriaValuemax(String);
-crate::add_impls!(AriaValuemax);
+add_impls!(AriaValuemax);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", i16)]
 pub struct AriaValuemin(String);
-crate::add_impls!(AriaValuemin);
+add_impls!(AriaValuemin);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", i16)]
 pub struct AriaValuenow(String);
-crate::add_impls!(AriaValuenow);
+add_impls!(AriaValuenow);
 
 /// <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext>
 #[derive(Debug, Attribute)]
 #[attribute("kebab-case", String)]
 pub struct AriaValuetext(String);
-crate::add_impls!(AriaValuetext);
+add_impls!(AriaValuetext);
 
 /// Models the possible values of the `aria-autocomplete` attribute.
 ///

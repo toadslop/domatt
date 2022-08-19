@@ -11,7 +11,6 @@ license = "Apache-2.0"
 description = "Rust type definitions for HTML attributes and their values for use in WASM applications."
 
 [dependencies]
-gloo-console = "0.2.1"
 strum = {version = "0.24.1", features = ["derive"]}
 url = "2.2.2"
 web-sys = { version = "0.3.59", features = ["Element"] }

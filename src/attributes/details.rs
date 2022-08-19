@@ -1,4 +1,4 @@
-use crate::Attribute;
+use super::Attribute;
 
 pub trait DetailsAttribute {}
 

@@ -1,4 +1,4 @@
-use crate::Attribute;
+use super::Attribute;
 pub trait CanvasAttribute: Attribute {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas#attr-height>

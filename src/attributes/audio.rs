@@ -1,4 +1,4 @@
-use crate::Attribute;
+use super::Attribute;
 use strum::AsRefStr;
 use url::Url;
 

@@ -1,6 +1,5 @@
+use super::{Attribute, TargetOption};
 use std::fmt::Debug;
-
-use crate::{Attribute, TargetOption};
 use strum::AsRefStr;
 use url::Url;
 
