@@ -14,7 +14,7 @@ pub fn attribute(input: TokenStream) -> TokenStream {
     let DeriveInput {
         ident, data, attrs, ..
     } = parse_macro_input!(input);
-    println!("{:?}", ident);
+
     let attribute = get_attribute(&attrs);
 
     let AttributeParams(case, input_type, generic) =

@@ -17,7 +17,7 @@ web-sys = { version = "0.3.59", features = ["Element"] }
 attribute-derive = { path = "attribute-derive" }
 event-derive = { path = "event-derive" }
 gloo-events = "0.1.2"
-yew = "0.19.3"
+yew = {version = "0.19.3", optional = true }
 wasm-bindgen = "0.2.82"
 
 [profile.release]
@@ -44,6 +44,7 @@ col = []
 colgroup = []
 data = []
 details = []
+yew = ["dep:yew"]
 
 full = [
     "aria",
@@ -75,5 +76,6 @@ default = [
   "col",
   "colgroup",
   "data",
-  "details"
+  "details",
+  "yew"
 ]

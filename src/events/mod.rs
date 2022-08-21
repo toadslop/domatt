@@ -22,6 +22,9 @@ impl PartialEq for dyn Event {
     }
 }
 
+#[cfg(feature = "yew")]
+pub mod yew;
+
 // macro_rules! gen_event_traits {
 //     ($trait_name:ident) => {
 //         pub trait $trait_name: Event {}
@@ -41,6 +44,14 @@ macro_rules! gen_event_structs {
         #[event_type(web_sys::$const_type)]
         pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
 
+        impl Debug for $struct_name {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                f.debug_struct(stringify!(#ident))
+                    .field("0", &String::from("a callback function"))
+                    .finish()
+            }
+        }
+
         gen_event_structs!($const_type: $($rest)*);
     };
 
@@ -48,6 +59,14 @@ macro_rules! gen_event_structs {
         #[derive(Event)]
         #[event_type(web_sys::$const_type)]
         pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
+
+        impl Debug for $struct_name {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                f.debug_struct(stringify!(#ident))
+                    .field("0", &String::from("a callback function"))
+                    .finish()
+            }
+        }
     };
 }
 

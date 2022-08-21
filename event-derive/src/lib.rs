@@ -41,14 +41,6 @@ pub fn event(input: TokenStream) -> TokenStream {
                 self.0.clone()
             }
         }
-
-        impl Debug for #ident {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                f.debug_struct(stringify!(#ident))
-                    .field("0", &String::from("a callback function"))
-                    .finish()
-            }
-        }
     };
 
     output.into()
