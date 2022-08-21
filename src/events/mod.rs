@@ -26,25 +26,25 @@ pub trait Event {
 //     }
 // }
 
+/// A helper macro to build the structs that represent events as unique types
 macro_rules! gen_event_structs {
-    ($struct_name:ident) => {
+    ($const_type:ty: $struct_name:ident, $($rest:tt)*) => {
         #[derive(Event)]
-        #[event_type(web_sys::Event)]
+        #[event_type(web_sys::$const_type)]
         pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
+
+        gen_event_structs!($const_type: $($rest)*);
     };
 
-    ($struct_name:ident, $($next:tt)*) => {
+    ($const_type:ty: $struct_name:ident) => {
         #[derive(Event)]
-        #[event_type(web_sys::Event)]
+        #[event_type(web_sys::$const_type)]
         pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-
-        gen_event_structs!($($next)*);
-    }
+    };
 }
 
 gen_event_structs!(
-    Abort,
-    Cancel,
+    Event: Abort,
     CanPlay,
     CanPlayThrough,
     Change,
@@ -87,24 +87,8 @@ gen_event_structs!(
     PointerLockError
 );
 
-macro_rules! gen_mouse_event_structs {
-    ($struct_name:ident) => {
-        #[derive(Event)]
-        #[event_type(web_sys::MouseEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-    };
-
-    ($struct_name:ident, $($next:tt)*) => {
-        #[derive(Event)]
-        #[event_type(web_sys::MouseEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-
-        gen_mouse_event_structs!($($next)*);
-    }
-}
-
-gen_mouse_event_structs!(
-    AuxClick,
+gen_event_structs!(
+    MouseEvent: AuxClick,
     Click,
     ContextMenu,
     DblClick,
@@ -117,127 +101,36 @@ gen_mouse_event_structs!(
     MouseUp
 );
 
-macro_rules! gen_focus_event_structs {
-    ($struct_name:ident) => {
-        #[derive(Event)]
-        #[event_type(web_sys::FocusEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-    };
+gen_event_structs!(FocusEvent: Blur, Focus, FocusIn, FocusOut, Submit);
 
-    ($struct_name:ident, $($next:tt)*) => {
-        #[derive(Event)]
-        #[event_type(web_sys::FocusEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
+gen_event_structs!(
+    DragEvent: Drag,
+    DragEnd,
+    DragEnter,
+    DragExit,
+    DragLeave,
+    DragOver,
+    DragStart,
+    Drop
+);
 
-        gen_focus_event_structs!($($next)*);
-    }
-}
+gen_event_structs!(InputEvent: Input);
 
-gen_focus_event_structs!(Blur, Focus, FocusIn, FocusOut, Submit);
+gen_event_structs!(KeyboardEvent: Keydown, KeyPress, KeyUp);
 
-macro_rules! gen_drag_event_structs {
-    ($struct_name:ident) => {
-        #[derive(Event)]
-        #[event_type(web_sys::DragEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-    };
+gen_event_structs!(ProgressEvent: LoadStart, Progress, LoadEnd);
 
-    ($struct_name:ident, $($next:tt)*) => {
-        #[derive(Event)]
-        #[event_type(web_sys::DragEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
+gen_event_structs!(WheelEvent: Wheel);
 
-        gen_drag_event_structs!($($next)*);
-    }
-}
-
-gen_drag_event_structs!(Drag, DragEnd, DragEnter, DragExit, DragLeave, DragOver, DragStart, Drop);
-
-#[derive(Event)]
-#[event_type(web_sys::InputEvent)]
-pub struct Input(Rc<dyn Fn(&web_sys::Event)>);
-
-macro_rules! gen_keyboard_event_structs {
-    ($struct_name:ident) => {
-        #[derive(Event)]
-        #[event_type(web_sys::KeyboardEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-    };
-
-    ($struct_name:ident, $($next:tt)*) => {
-        #[derive(Event)]
-        #[event_type(web_sys::KeyboardEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-
-        gen_keyboard_event_structs!($($next)*);
-    }
-}
-
-gen_keyboard_event_structs!(Keydown, KeyPress, KeyUp);
-
-macro_rules! gen_progress_event_structs {
-    ($struct_name:ident) => {
-        #[derive(Event)]
-        #[event_type(web_sys::ProgressEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-    };
-
-    ($struct_name:ident, $($next:tt)*) => {
-        #[derive(Event)]
-        #[event_type(web_sys::ProgressEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-
-        gen_progress_event_structs!($($next)*);
-    }
-}
-
-gen_progress_event_structs!(LoadStart, Progress, LoadEnd);
-
-#[derive(Event)]
-#[event_type(web_sys::WheelEvent)]
-pub struct Wheel(Rc<dyn Fn(&web_sys::Event)>);
-
-macro_rules! gen_animation_event_structs {
-    ($struct_name:ident) => {
-        #[derive(Event)]
-        #[event_type(web_sys::AnimationEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-    };
-
-    ($struct_name:ident, $($next:tt)*) => {
-        #[derive(Event)]
-        #[event_type(web_sys::AnimationEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-
-        gen_animation_event_structs!($($next)*);
-    }
-}
-
-gen_animation_event_structs!(
-    AnimationCancel,
+gen_event_structs!(
+    AnimationEvent: AnimationCancel,
     AnimationEnd,
     AnimationIteration,
     AnimationStart
 );
 
-macro_rules! gen_pointer_event_structs {
-    ($struct_name:ident) => {
-        #[derive(Event)]
-        #[event_type(web_sys::PointerEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-    };
-
-    ($struct_name:ident, $($next:tt)*) => {
-        #[derive(Event)]
-        #[event_type(web_sys::PointerEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-
-        gen_pointer_event_structs!($($next)*);
-    }
-}
-
-gen_pointer_event_structs!(
-    GotPointerCapture,
+gen_event_structs!(
+    PointerEvent: GotPointerCapture,
     LostPointerCapture,
     PointerCancel,
     PointerDown,
@@ -249,42 +142,10 @@ gen_pointer_event_structs!(
     PointerUp
 );
 
-macro_rules! gen_touch_event_structs {
-    ($struct_name:ident) => {
-        #[derive(Event)]
-        #[event_type(web_sys::TouchEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-    };
+gen_event_structs!(TouchEvent: TouchCancel, TouchEnd, TouchMove, TouchStart);
 
-    ($struct_name:ident, $($next:tt)*) => {
-        #[derive(Event)]
-        #[event_type(web_sys::TouchEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-
-        gen_touch_event_structs!($($next)*);
-    }
-}
-
-gen_touch_event_structs!(TouchCancel, TouchEnd, TouchMove, TouchStart);
-
-macro_rules! gen_transition_event_structs {
-    ($struct_name:ident) => {
-        #[derive(Event)]
-        #[event_type(web_sys::TransitionEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-    };
-
-    ($struct_name:ident, $($next:tt)*) => {
-        #[derive(Event)]
-        #[event_type(web_sys::TransitionEvent)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-
-        gen_transition_event_structs!($($next)*);
-    }
-}
-
-gen_transition_event_structs!(
-    TransitionCancel,
+gen_event_structs!(
+    TransitionEvent: TransitionCancel,
     TransitionEnd,
     TransitionRun,
     TransitionStart
