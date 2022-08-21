@@ -1,9 +1,10 @@
 use event_derive::Event;
+use std::fmt::Debug;
 use std::rc::Rc;
 use wasm_bindgen::JsCast;
 
 /// A trait that makes a struct usable as an event;
-pub trait Event {
+pub trait Event: Debug {
     /// Returns a string representing the event type of the event.
     /// This should be passed to addEventListener as the first argument.
     fn get_event_type(&self) -> &str;
@@ -11,7 +12,14 @@ pub trait Event {
     /// Returns an `Option<String>` representing the value of a DOM
     /// attribute. `None` indicates a boolean attribute, such as `disabled`,
     /// which has no value.
-    fn get_callback(&mut self) -> Rc<dyn Fn(&web_sys::Event)>;
+    fn get_callback(&self) -> Rc<dyn Fn(&web_sys::Event)>;
+}
+
+impl PartialEq for dyn Event {
+    fn eq(&self, other: &Self) -> bool {
+        self.get_event_type() == other.get_event_type()
+            && Rc::ptr_eq(&self.get_callback(), &other.get_callback())
+    }
 }
 
 // macro_rules! gen_event_traits {
@@ -180,7 +188,22 @@ impl Event for CustomEvent {
         self.event_type
     }
 
-    fn get_callback(&mut self) -> Rc<dyn Fn(&web_sys::Event)> {
+    fn get_callback(&self) -> Rc<dyn Fn(&web_sys::Event)> {
         self.callback.clone()
+    }
+}
+
+impl PartialEq for CustomEvent {
+    fn eq(&self, other: &Self) -> bool {
+        self.event_type == other.event_type && Rc::ptr_eq(&self.callback, &other.callback)
+    }
+}
+
+impl Debug for CustomEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("CustomEvent")
+            .field("event_type", &self.event_type)
+            .field("callback", &String::from("a callback function"))
+            .finish()
     }
 }
