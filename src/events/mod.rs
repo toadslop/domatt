@@ -2,6 +2,7 @@ use event_derive::Event;
 use std::fmt::Debug;
 use std::rc::Rc;
 use wasm_bindgen::JsCast;
+use yew::Callback;
 
 /// A trait that makes a struct usable as an event;
 pub trait Event: Debug {
@@ -22,9 +23,6 @@ impl PartialEq for dyn Event {
     }
 }
 
-#[cfg(feature = "yew")]
-pub mod yew;
-
 // macro_rules! gen_event_traits {
 //     ($trait_name:ident) => {
 //         pub trait $trait_name: Event {}
@@ -39,7 +37,12 @@ pub mod yew;
 
 /// A helper macro to build the structs that represent events as unique types
 macro_rules! gen_event_structs {
-    ($const_type:ty: $struct_name:ident, $($rest:tt)*) => {
+    ($const_type:ident: $struct_name:ident, $($rest:tt)*) => {
+        gen_event_structs!($const_type: $struct_name);
+        gen_event_structs!($const_type: $($rest)*);
+    };
+
+    ($const_type:ident: $struct_name:ident) => {
         #[derive(Event)]
         #[event_type(web_sys::$const_type)]
         pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
@@ -52,19 +55,14 @@ macro_rules! gen_event_structs {
             }
         }
 
-        gen_event_structs!($const_type: $($rest)*);
-    };
-
-    ($const_type:ty: $struct_name:ident) => {
-        #[derive(Event)]
-        #[event_type(web_sys::$const_type)]
-        pub struct $struct_name(Rc<dyn Fn(&web_sys::Event)>);
-
-        impl Debug for $struct_name {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                f.debug_struct(stringify!(#ident))
-                    .field("0", &String::from("a callback function"))
-                    .finish()
+        #[cfg(feature = "yew")]
+        impl From<Callback<web_sys::$const_type>> for $struct_name {
+            fn from(cb: Callback<web_sys::$const_type>) -> Self {
+                let func = move |e: &web_sys::Event| {
+                    let event = e.clone();
+                    cb.emit(event.dyn_into::<web_sys::$const_type>().unwrap());
+                };
+                Self(Rc::new(func))
             }
         }
     };
