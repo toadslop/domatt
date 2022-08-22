@@ -14,7 +14,7 @@ impl AnchorAttribute for Download {}
 
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href>
 #[derive(Debug, Attribute)]
-#[attribute("lowercase", Url)]
+#[attribute("lowercase", String)] // TODO: Make a type definiton that better handles the options of the href attribute
 pub struct Href(String);
 
 impl AnchorAttribute for Href {}
