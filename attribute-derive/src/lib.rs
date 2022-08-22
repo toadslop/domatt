@@ -109,9 +109,9 @@ pub fn attribute(input: TokenStream) -> TokenStream {
     };
 
     let serial = if let Some(case) = case {
-        stringify!(ident).to_case(case)
+        ident.to_string().to_case(case)
     } else {
-        stringify!(ident).to_string()
+        ident.to_string()
     };
 
     let get_val = if is_unit {
