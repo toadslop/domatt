@@ -364,3 +364,36 @@ pub enum TranslateOption {
     Yes,
     No,
 }
+
+#[derive(Debug)]
+pub struct CustomAttribute {
+    key: String,
+    value: Option<String>,
+}
+
+impl CustomAttribute {
+    pub fn new<T: Display>(key: &str, value: Option<T>) -> Self {
+        let value = if let Some(value) = value {
+            Some(value.to_string())
+        } else {
+            None
+        };
+        Self {
+            key: key.to_owned(),
+            value,
+        }
+    }
+}
+/// <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/translate>
+
+impl Attribute for CustomAttribute {
+    fn get_key(&self) -> &str {
+        self.key.as_str()
+    }
+
+    fn get_val(&self) -> Option<&str> {
+        self.value.as_ref().map(|x| &**x)
+    }
+}
+impl GlobalAttribute for CustomAttribute {}
+add_impls!(CustomAttribute);
