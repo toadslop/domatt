@@ -21,7 +21,7 @@ pub fn event(input: TokenStream) -> TokenStream {
 
     let output = quote! {
         impl #ident {
-            const KEY: &'static str = #serial;
+            pub const KEY: &'static str = #serial;
 
             pub fn new(cb: Box<dyn Fn(&#event_type)>) -> Self {
                 let func = move |e: &web_sys::Event| {
