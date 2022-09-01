@@ -22,6 +22,19 @@ pub fn attribute(input: TokenStream) -> TokenStream {
 
     let is_unit = is_unit(data);
 
+    let case = match case.value().as_str() {
+        "camelCase" => Some(Case::Camel),
+        "kebab-case" => Some(Case::Kebab),
+        "lowercase" => Some(Case::Lower),
+        _ => None,
+    };
+
+    let serial = if let Some(case) = case {
+        ident.to_string().to_case(case)
+    } else {
+        ident.to_string()
+    };
+
     let constructor = if !is_unit && input_type.is_some() {
         let input_type = input_type.unwrap();
 
@@ -94,24 +107,17 @@ pub fn attribute(input: TokenStream) -> TokenStream {
 
         quote! {
             impl #ident {
-               #converter
+                pub const KEY: &'static str = #serial;
+
+                #converter
             }
         }
     } else {
-        quote! {}
-    };
-
-    let case = match case.value().as_str() {
-        "camelCase" => Some(Case::Camel),
-        "kebab-case" => Some(Case::Kebab),
-        "lowercase" => Some(Case::Lower),
-        _ => None,
-    };
-
-    let serial = if let Some(case) = case {
-        ident.to_string().to_case(case)
-    } else {
-        ident.to_string()
+        quote! {
+            impl #ident {
+                pub const KEY: &'static str = #serial;
+            }
+        }
     };
 
     let get_val = if is_unit {
@@ -135,7 +141,7 @@ pub fn attribute(input: TokenStream) -> TokenStream {
             #get_val
 
             fn get_key(&self) -> &str {
-                #serial
+                Self::KEY
             }
         }
 
