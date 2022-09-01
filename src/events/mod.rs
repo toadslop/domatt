@@ -23,18 +23,6 @@ impl PartialEq for dyn Event {
     }
 }
 
-// macro_rules! gen_event_traits {
-//     ($trait_name:ident) => {
-//         pub trait $trait_name: Event {}
-//     };
-
-//     ($trait_name:ident, $($next:tt)*) => {
-//         pub trait $trait_name: Event {}
-
-//         gen_event_traits!($($next)*);
-//     }
-// }
-
 /// A helper macro to build the structs that represent events as unique types
 macro_rules! gen_event_structs {
     ($const_type:ident: $struct_name:ident, $($rest:tt)*) => {
