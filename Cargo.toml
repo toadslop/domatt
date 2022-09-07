@@ -45,6 +45,7 @@ colgroup = []
 data = []
 details = []
 yew = ["dep:yew"]
+li = []
 
 full = [
     "aria",
@@ -60,22 +61,24 @@ full = [
     "col",
     "colgroup",
     "data",
-    "details"
+    "details",
+    "li"
 ]
-default = [
-  "aria",
-  "button",
-  "global",
-  "svg",
-  "anchor",
-  "audio",
-  "area",
-  "base",
-  "blockquote",
-  "canvas",
-  "col",
-  "colgroup",
-  "data",
-  "details",
-  "yew"
-]
+# default = [
+#   "aria",
+#   "button",
+#   "global",
+#   "svg",
+#   "anchor",
+#   "audio",
+#   "area",
+#   "base",
+#   "blockquote",
+#   "canvas",
+#   "col",
+#   "colgroup",
+#   "data",
+#   "details",
+#   "yew",
+#   "li"
+# ]

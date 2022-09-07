@@ -63,6 +63,9 @@ pub mod details;
 #[cfg(feature = "global")]
 pub mod global;
 
+#[cfg(feature = "li")]
+pub mod li;
+
 #[cfg(feature = "svg")]
 pub mod svg;
 
