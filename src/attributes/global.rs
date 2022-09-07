@@ -3,7 +3,7 @@ use super::{
     anchor::AnchorAttribute, area::AreaAttribute, audio::AudioAttribute, base::BaseAttribute,
     blockquote::BlockQuoteAttribute, button::ButtonAttribute, canvas::CanvasAttribute,
     col::ColAttribute, colgroup::ColGroupAttribute, data::DataAttribute, details::DetailsAttribute,
-    svg::SvgAttribute, Attribute,
+    li::LiAttribute, svg::SvgAttribute, Attribute,
 };
 use std::fmt::Display;
 use strum::AsRefStr;

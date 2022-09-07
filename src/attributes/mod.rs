@@ -174,6 +174,7 @@ macro_rules! add_impls {
         impl ColGroupAttribute for $attr_struct {}
         impl DataAttribute for $attr_struct {}
         impl DetailsAttribute for $attr_struct {}
+        impl LiAttribute for $attr_struct {}
         impl SvgAttribute for $attr_struct {}
     };
 }

@@ -2,7 +2,7 @@ use super::{
     add_impls, anchor::AnchorAttribute, area::AreaAttribute, audio::AudioAttribute,
     base::BaseAttribute, blockquote::BlockQuoteAttribute, button::ButtonAttribute,
     canvas::CanvasAttribute, col::ColAttribute, colgroup::ColGroupAttribute, data::DataAttribute,
-    details::DetailsAttribute, Attribute, NumberOrString,
+    details::DetailsAttribute, li::LiAttribute, Attribute, NumberOrString,
 };
 use std::ops::Deref;
 use strum::AsRefStr;
