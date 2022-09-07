@@ -1,8 +1,8 @@
-use std::fmt::Debug;
-use strum::AsRefStr;
-use url::Url;
-
 use super::{Attribute, ReferrerPolicyOption, TargetOption};
+use std::fmt::Debug;
+use strum::{AsRefStr, IntoStaticStr};
+use url::Url;
+use yew::html::IntoPropValue;
 
 pub trait AnchorAttribute: Attribute {}
 
@@ -62,7 +62,7 @@ impl AnchorAttribute for Type {}
 /// An enum defining the options for the rel attribute of a link tag.
 ///
 /// <https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types>
-#[derive(Debug, AsRefStr)]
+#[derive(Debug, AsRefStr, IntoStaticStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum ATagRel {
     Alternate,
@@ -86,4 +86,10 @@ pub enum ATagRel {
     Sidebar,
     Tag,
     Up,
+}
+
+impl IntoPropValue<&str> for ATagRel {
+    fn into_prop_value(self) -> &'static str {
+        self.into()
+    }
 }

@@ -13,12 +13,27 @@ description = "Rust type definitions for HTML attributes and their values for us
 [dependencies]
 strum = {version = "0.24.1", features = ["derive"]}
 url = "2.2.2"
-web-sys = { version = "0.3.59", features = ["Element"] }
 attribute-derive = { path = "attribute-derive" }
 event-derive = { path = "event-derive" }
 gloo-events = "0.1.2"
 yew = {version = "0.19.3", optional = true }
 wasm-bindgen = "0.2.82"
+
+[dependencies.web-sys]
+version = "0.3.59"
+features = [
+    "Element",
+    "AnimationEvent",
+    "TransitionEvent",
+    "TouchEvent",
+    "PointerEvent",
+    "WheelEvent",
+    "ProgressEvent",
+    "KeyboardEvent",
+    "InputEvent",
+    "DragEvent",
+    "FocusEvent"
+]
 
 [profile.release]
 panic = 'abort'
@@ -64,21 +79,4 @@ full = [
     "details",
     "li"
 ]
-# default = [
-#   "aria",
-#   "button",
-#   "global",
-#   "svg",
-#   "anchor",
-#   "audio",
-#   "area",
-#   "base",
-#   "blockquote",
-#   "canvas",
-#   "col",
-#   "colgroup",
-#   "data",
-#   "details",
-#   "yew",
-#   "li"
-# ]
+

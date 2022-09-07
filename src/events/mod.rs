@@ -2,6 +2,7 @@ use event_derive::Event;
 use std::fmt::Debug;
 use std::rc::Rc;
 use wasm_bindgen::JsCast;
+#[cfg(feature = "yew")]
 use yew::Callback;
 
 /// A trait that makes a struct usable as an event;
