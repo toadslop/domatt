@@ -373,11 +373,7 @@ pub struct CustomAttribute {
 
 impl CustomAttribute {
     pub fn new<T: Display>(key: &str, value: Option<T>) -> Self {
-        let value = if let Some(value) = value {
-            Some(value.to_string())
-        } else {
-            None
-        };
+        let value = value.map(|value| value.to_string());
         Self {
             key: key.to_owned(),
             value,
@@ -392,7 +388,7 @@ impl Attribute for CustomAttribute {
     }
 
     fn get_val(&self) -> Option<&str> {
-        self.value.as_ref().map(|x| &**x)
+        self.value.as_deref()
     }
 }
 impl GlobalAttribute for CustomAttribute {}

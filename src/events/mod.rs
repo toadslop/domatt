@@ -20,7 +20,10 @@ pub trait Event: Debug {
 impl PartialEq for dyn Event {
     fn eq(&self, other: &Self) -> bool {
         self.get_event_type() == other.get_event_type()
-            && Rc::ptr_eq(&self.get_callback(), &other.get_callback())
+            && std::ptr::eq(
+                &*self.get_callback() as *const _ as *const (),
+                &*other.get_callback() as *const _ as *const (),
+            )
     }
 }
 
@@ -172,7 +175,7 @@ pub struct CustomEvent {
 
 impl CustomEvent {
     pub fn get_event_type(&self) -> &'static str {
-        self.event_type.clone()
+        self.event_type
     }
 
     pub fn get_callback(&self) -> Rc<dyn Fn(&web_sys::Event)> {
@@ -201,7 +204,11 @@ impl Event for CustomEvent {
 
 impl PartialEq for CustomEvent {
     fn eq(&self, other: &Self) -> bool {
-        self.event_type == other.event_type && Rc::ptr_eq(&self.callback, &other.callback)
+        self.event_type == other.event_type
+            && std::ptr::eq(
+                &*self.callback as *const _ as *const (),
+                &*other.callback as *const _ as *const (),
+            )
     }
 }
 

@@ -70,7 +70,7 @@ impl Rect {
         let bottom_left = bottom_left.as_str();
         let mut rect = String::with_capacity(top_right.len() + bottom_left.len() + 1);
         rect.push_str(top_right);
-        rect.push_str(",");
+        rect.push(',');
         rect.push_str(bottom_left);
         Self { rect }
     }
@@ -92,7 +92,7 @@ impl Circle {
         let radius = radius.to_string();
         let mut circle = String::with_capacity(center.len() + radius.len() + 1);
         circle.push_str(center);
-        circle.push_str(",");
+        circle.push(',');
         circle.push_str(&radius);
         Self { circle }
     }
@@ -103,7 +103,7 @@ impl Circle {
 }
 
 /// Represents a polygon for an html area tag.
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct Poly {
     poly: String,
 }
@@ -154,7 +154,7 @@ impl Coord {
         let y = y.to_string();
         let mut coord = String::with_capacity(x.len() + y.len() + 1);
         coord.push_str(&x);
-        coord.push_str(",");
+        coord.push(',');
         coord.push_str(&y);
         Self { coord }
     }

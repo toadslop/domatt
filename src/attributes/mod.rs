@@ -20,7 +20,7 @@
 //! to solve it yourself feel free to put in a PR.
 
 use attribute_derive::Attribute;
-use std::fmt::{self, Debug};
+use std::fmt::{self, Debug, Display};
 use strum::AsRefStr;
 use web_sys::Element;
 
@@ -124,16 +124,16 @@ pub enum NumberOrString {
     String(String),
 }
 
-impl NumberOrString {
-    pub fn to_string(&self) -> String {
+impl Display for NumberOrString {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            NumberOrString::Number(num) => num.to_string(),
-            NumberOrString::String(string) => string.to_owned(),
+            NumberOrString::Number(num) => write!(f, "{}", num),
+            NumberOrString::String(string) => write!(f, "{}", string),
         }
     }
 }
 
-#[derive(Debug, AsRefStr, Clone, PartialEq)]
+#[derive(Debug, AsRefStr, Clone, PartialEq, Eq)]
 #[strum(serialize_all = "kebab-case")]
 pub enum ReferrerPolicyOption {
     NoReferrer,
@@ -148,7 +148,7 @@ pub enum ReferrerPolicyOption {
     Blank,
 }
 
-#[derive(Debug, AsRefStr, Clone, PartialEq)]
+#[derive(Debug, AsRefStr, Clone, PartialEq, Eq)]
 pub enum TargetOption {
     #[strum(serialize = "_self")]
     Self_,
